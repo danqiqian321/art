@@ -1,0 +1,3432 @@
+{
+  "1990": {
+    "year": 1990,
+    "context": "Gulf War begins",
+    "recession": "Gulf War recession",
+    "artists": [
+      {
+        "artist": "Leon Golub",
+        "nationality": "American",
+        "born": 1922,
+        "reasoning": "His brutal paintings of mercenaries and interrogations speak directly to Gulf War militarism and state violence.",
+        "works": [
+          {
+            "title": "Mercenaries IV",
+            "year": 1980,
+            "medium": "Acrylic on linen"
+          },
+          {
+            "title": "Interrogation II",
+            "year": 1981,
+            "medium": "Acrylic on linen"
+          }
+        ]
+      },
+      {
+        "artist": "Martha Rosler",
+        "nationality": "American",
+        "born": 1943,
+        "reasoning": "Her photomontages critiquing war, media, and domestic ideology resonate powerfully with Gulf War television coverage.",
+        "works": [
+          {
+            "title": "Bringing the War Home: House Beautiful",
+            "year": 1967,
+            "medium": "Photomontage"
+          },
+          {
+            "title": "If You Lived Here...",
+            "year": 1989,
+            "medium": "Installation/Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Alfredo Jaar",
+        "nationality": "Chilean",
+        "born": 1956,
+        "reasoning": "His light-box installations examining media representation of global crises capture 1990's geopolitical anxieties.",
+        "works": [
+          {
+            "title": "Geography = War",
+            "year": 1991,
+            "medium": "Light boxes and photographs"
+          },
+          {
+            "title": "A Logo for America",
+            "year": 1987,
+            "medium": "Electronic billboard"
+          }
+        ]
+      },
+      {
+        "artist": "Felix Gonzalez-Torres",
+        "nationality": "American-Cuban",
+        "born": 1957,
+        "reasoning": "His minimalist works address loss, politics, and mortality during the AIDS crisis and recession era.",
+        "works": [
+          {
+            "title": "Untitled (Perfect Lovers)",
+            "year": 1991,
+            "medium": "Clocks"
+          },
+          {
+            "title": "Untitled (Portrait of Ross in L.A.)",
+            "year": 1991,
+            "medium": "Candies in cellophane"
+          }
+        ]
+      },
+      {
+        "artist": "Willie Doherty",
+        "nationality": "Irish",
+        "born": 1959,
+        "reasoning": "His photographs of Northern Ireland's contested landscapes parallel anxieties about territorial conflict and surveillance.",
+        "works": [
+          {
+            "title": "The Walls",
+            "year": 1987,
+            "medium": "Cibachrome photograph"
+          },
+          {
+            "title": "At the Border II",
+            "year": 1990,
+            "medium": "Cibachrome with text"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists made work about state violence, media manipulation, loss, and territorial conflict as urgent political and personal subjects."
+  },
+  "1991": {
+    "year": 1991,
+    "context": "USSR dissolves",
+    "recession": "Gulf War recession",
+    "artists": [
+      {
+        "artist": "Ilya Kabakov",
+        "nationality": "Soviet/Russian",
+        "born": 1933,
+        "reasoning": "His installations chronicling Soviet communal life resonate powerfully as the USSR collapses this year.",
+        "works": [
+          {
+            "title": "The Man Who Flew into Space from His Apartment",
+            "year": 1985,
+            "medium": "Installation"
+          },
+          {
+            "title": "The Toilet",
+            "year": 1992,
+            "medium": "Installation"
+          }
+        ]
+      },
+      {
+        "artist": "Leon Golub",
+        "nationality": "American",
+        "born": 1922,
+        "reasoning": "His brutal paintings of mercenaries and interrogation scenes mirror Gulf War anxieties and state violence.",
+        "works": [
+          {
+            "title": "Mercenaries IV",
+            "year": 1980,
+            "medium": "Acrylic on linen"
+          },
+          {
+            "title": "Riot II",
+            "year": 1990,
+            "medium": "Acrylic on linen"
+          }
+        ]
+      },
+      {
+        "artist": "Sophie Calle",
+        "nationality": "French",
+        "born": 1953,
+        "reasoning": "Her conceptual surveillance work captures post-Cold War anxieties about watching and being watched.",
+        "works": [
+          {
+            "title": "The Hotel",
+            "year": 1981,
+            "medium": "Photography and text"
+          },
+          {
+            "title": "Suite Vénitienne",
+            "year": 1980,
+            "medium": "Photography and text"
+          }
+        ]
+      },
+      {
+        "artist": "Felix Gonzalez-Torres",
+        "nationality": "Cuban-American",
+        "born": 1957,
+        "reasoning": "His minimalist works address loss during the AIDS crisis while Reagan-Bush economic policies deepen recession.",
+        "works": [
+          {
+            "title": "Untitled (Portrait of Ross in L.A.)",
+            "year": 1991,
+            "medium": "Candies individually wrapped"
+          },
+          {
+            "title": "Untitled (Billboard)",
+            "year": 1991,
+            "medium": "Billboard"
+          }
+        ]
+      },
+      {
+        "artist": "Boris Mikhailov",
+        "nationality": "Ukrainian/Soviet",
+        "born": 1938,
+        "reasoning": "His raw photographs document Soviet collapse and economic desperation in real time from Kharkiv.",
+        "works": [
+          {
+            "title": "At Dusk",
+            "year": 1993,
+            "medium": "Photography"
+          },
+          {
+            "title": "By the Ground",
+            "year": 1991,
+            "medium": "Photography"
+          }
+        ]
+      }
+    ],
+    "art_context": "Artists were making work about intimacy, surveillance, and rupture—the personal and political dimensions of living through systems collapsing around you."
+  },
+  "1992": {
+    "year": 1992,
+    "context": "ERM crisis",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Damien Hirst",
+        "nationality": "British",
+        "born": 1965,
+        "reasoning": "YBA provocateur whose shark piece embodies the era's market speculation and institutional anxiety.",
+        "works": [
+          {
+            "title": "The Physical Impossibility of Death in the Mind of Someone Living",
+            "year": 1991,
+            "medium": "Glass, steel, formaldehyde, shark"
+          },
+          {
+            "title": "Pharmacy",
+            "year": 1992,
+            "medium": "Installation"
+          }
+        ]
+      },
+      {
+        "artist": "Andreas Gursky",
+        "nationality": "German",
+        "born": 1955,
+        "reasoning": "His monumental photographs of stock exchanges and global capitalism directly mirror ERM-era financial turbulence.",
+        "works": [
+          {
+            "title": "Paris, Montparnasse",
+            "year": 1993,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Hong Kong Stock Exchange",
+            "year": 1994,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Rachel Whiteread",
+        "nationality": "British",
+        "born": 1963,
+        "reasoning": "Her casts of domestic spaces evoke economic precarity, housing anxiety, and institutional absence.",
+        "works": [
+          {
+            "title": "Untitled (Room)",
+            "year": 1993,
+            "medium": "Plaster"
+          },
+          {
+            "title": "Ether",
+            "year": 1990,
+            "medium": "Plaster and glass"
+          }
+        ]
+      },
+      {
+        "artist": "Fiona Rae",
+        "nationality": "British",
+        "born": 1963,
+        "reasoning": "Her chaotic abstract canvases from 1992 mirror the financial turbulence and systemic instability of the ERM crisis.",
+        "works": [
+          {
+            "title": "Untitled (Emergency Room)",
+            "year": 1992,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Night Vision",
+            "year": 1991,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Struth",
+        "nationality": "German",
+        "born": 1954,
+        "reasoning": "His detached urban photographs reflect European uncertainty and the cold mechanics of institutional systems.",
+        "works": [
+          {
+            "title": "Art Institute of Chicago II",
+            "year": 1990,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Shinju-Ku, Tokyo",
+            "year": 1991,
+            "medium": "Chromogenic print"
+          }
+        ]
+      }
+    ],
+    "art_context": "This was the year British artists made work out of spectacle, absence, and the stuff of everyday life to ask what institutions and markets actually wanted from art."
+  },
+  "1993": {
+    "year": 1993,
+    "context": "NAFTA signed",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Francis Alÿs",
+        "nationality": "Belgian-Mexican",
+        "born": 1959,
+        "reasoning": "His nomadic border-crossing practice and Mexico City works embody NAFTA-era tensions of movement, labor, and transnational identity.",
+        "works": [
+          {
+            "title": "Turista",
+            "year": 1994,
+            "medium": "Photographic documentation of performance"
+          },
+          {
+            "title": "The Collector",
+            "year": 1991,
+            "medium": "Magnetized toy on wheels, performance documentation"
+          }
+        ]
+      },
+      {
+        "artist": "Cindy Sherman",
+        "nationality": "American",
+        "born": 1954,
+        "reasoning": "Her 1992 Sex Pictures deconstruct identity and commerce, mirroring anxieties about commodification in free trade era.",
+        "works": [
+          {
+            "title": "Untitled #261",
+            "year": 1992,
+            "medium": "Chromogenic color print"
+          },
+          {
+            "title": "Untitled #264",
+            "year": 1992,
+            "medium": "Chromogenic color print"
+          }
+        ]
+      },
+      {
+        "artist": "Gabriel Orozco",
+        "nationality": "Mexican",
+        "born": 1962,
+        "reasoning": "Mexican artist examining transnational flows and everyday objects—perfectly embodies the cross-border NAFTA moment.",
+        "works": [
+          {
+            "title": "La DS",
+            "year": 1993,
+            "medium": "Modified Citroën DS automobile"
+          },
+          {
+            "title": "Yielding Stone",
+            "year": 1992,
+            "medium": "Plasticine"
+          }
+        ]
+      },
+      {
+        "artist": "Kara Walker",
+        "nationality": "American",
+        "born": 1969,
+        "reasoning": "Emerging voice confronting racial history through silhouettes, challenging triumphalist narratives of American progress.",
+        "works": [
+          {
+            "title": "Gone: An Historical Romance of a Civil War as It Occurred b'tween the Dusky Thighs of One Young Negress and Her Heart",
+            "year": 1994,
+            "medium": "Cut paper on wall"
+          },
+          {
+            "title": "The End of Uncle Tom and the Grand Allegorical Tableau of Eva in Heaven",
+            "year": 1995,
+            "medium": "Cut paper silhouettes on wall"
+          }
+        ]
+      },
+      {
+        "artist": "Andreas Gursky",
+        "nationality": "German",
+        "born": 1955,
+        "reasoning": "His large-scale photographs of factories and trading floors capture globalization's scale and dehumanizing grandeur.",
+        "works": [
+          {
+            "title": "Paris, Montparnasse",
+            "year": 1993,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Hong Kong Stock Exchange",
+            "year": 1994,
+            "medium": "Chromogenic print"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists turned their attention to how global capitalism was reshaping borders, labor, identity, and visual representation itself, from the movement of bodies and goods to the commodification of the self."
+  },
+  "1994": {
+    "year": 1994,
+    "context": "Bond market crash",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Hans Haacke",
+        "nationality": "German-American",
+        "born": 1936,
+        "reasoning": "His institutional critiques exposing financial systems and corporate power resonate with bond market instability and economic anxiety.",
+        "works": [
+          {
+            "title": "Mixed Messages",
+            "year": 1994,
+            "medium": "Installation with financial documents and photographs"
+          },
+          {
+            "title": "Sanitation",
+            "year": 1993,
+            "medium": "Mixed media installation"
+          }
+        ]
+      },
+      {
+        "artist": "Allan McCollum",
+        "nationality": "American",
+        "born": 1944,
+        "reasoning": "His mass-produced surrogate objects critique commodification and systemic interchangeability, mirroring bond market abstraction and collapse.",
+        "works": [
+          {
+            "title": "The Shapes Project",
+            "year": 1994,
+            "medium": "Cast hydrostone"
+          },
+          {
+            "title": "Lost Objects",
+            "year": 1991,
+            "medium": "Enamel on cast Hydrostone"
+          }
+        ]
+      },
+      {
+        "artist": "Rachel Whiteread",
+        "nationality": "British",
+        "born": 1963,
+        "reasoning": "Her casts of domestic spaces evoke displacement, absence, and the hollowing out of stability.",
+        "works": [
+          {
+            "title": "House",
+            "year": 1993,
+            "medium": "Concrete cast sculpture"
+          },
+          {
+            "title": "Untitled (Floor)",
+            "year": 1994,
+            "medium": "Resin cast"
+          }
+        ]
+      },
+      {
+        "artist": "Luc Tuymans",
+        "nationality": "Belgian",
+        "born": 1958,
+        "reasoning": "His muted, unsettling paintings convey historical trauma and contemporary unease with quiet dread.",
+        "works": [
+          {
+            "title": "Gaskamer (Gas Chamber)",
+            "year": 1986,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Diagnostic View I",
+            "year": 1992,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Nan Goldin",
+        "nationality": "American",
+        "born": 1953,
+        "reasoning": "Her raw documentary photography captures vulnerability, mortality, and the fragility of community bonds.",
+        "works": [
+          {
+            "title": "Gilles and Gotscho at Home, Paris",
+            "year": 1992,
+            "medium": "Cibachrome print"
+          },
+          {
+            "title": "Cookie at Vittorio's Casket, NYC",
+            "year": 1989,
+            "medium": "Cibachrome print"
+          }
+        ]
+      }
+    ],
+    "art_context": "The work staged confrontations between systems and their human costs—exposing how institutions, markets, and historical trauma leave behind empty spaces, fragmented communities, and abstracted suffering."
+  },
+  "1995": {
+    "year": 1995,
+    "context": "Internet goes mainstream",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Nam June Paik",
+        "nationality": "Korean-American",
+        "born": 1932,
+        "reasoning": "Pioneer of video art whose electronic superhighway vision perfectly anticipated the internet's cultural explosion.",
+        "works": [
+          {
+            "title": "Electronic Superhighway: Continental U.S., Alaska, Hawaii",
+            "year": 1995,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Megatron/Matrix",
+            "year": 1995,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Keith Cottingham",
+        "nationality": "American",
+        "born": 1965,
+        "reasoning": "His digitally constructed fictitious portraits embody early internet anxieties about virtual identity and synthetic selves.",
+        "works": [
+          {
+            "title": "Fictitious Portraits",
+            "year": 1992,
+            "medium": "Digitally constructed photograph"
+          },
+          {
+            "title": "Triple",
+            "year": 1993,
+            "medium": "Digitally constructed C-print"
+          }
+        ]
+      },
+      {
+        "artist": "Mariko Mori",
+        "nationality": "Japanese",
+        "born": 1967,
+        "reasoning": "Her cyborg-geisha performances merged technology, pop culture, and spirituality reflecting Japan's techno-futurist influence.",
+        "works": [
+          {
+            "title": "Birth of a Star",
+            "year": 1995,
+            "medium": "Photography and video"
+          },
+          {
+            "title": "Subway",
+            "year": 1994,
+            "medium": "Duratrans photograph"
+          }
+        ]
+      },
+      {
+        "artist": "Olia Lialina",
+        "nationality": "Russian",
+        "born": 1971,
+        "reasoning": "Pioneer of net.art whose browser-based narratives captured the internet's emergence as intimate, poetic new territory.",
+        "works": [
+          {
+            "title": "My Boyfriend Came Back from the War",
+            "year": 1996,
+            "medium": "Net art, HTML"
+          },
+          {
+            "title": "Anna Karenina Goes to Paradise",
+            "year": 1996,
+            "medium": "Net art, HTML"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Ruff",
+        "nationality": "German",
+        "born": 1958,
+        "reasoning": "His clinical portraits and appropriated imagery questioned photographic truth in the dawning digital age.",
+        "works": [
+          {
+            "title": "Sterne (Stars)",
+            "year": 1992,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Zeitungsfotos",
+            "year": 1994,
+            "medium": "Newspaper photograph enlargements"
+          }
+        ]
+      }
+    ],
+    "art_context": "Artists were wrestling with what it means to be a self when technology lets you remake your image, erase your trace, and become someone else entirely."
+  },
+  "1996": {
+    "year": 1996,
+    "context": "Telecom boom",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Sam Taylor-Wood",
+        "nationality": "British",
+        "born": 1967,
+        "reasoning": "Her multimedia photo and video works captured 90s glamour, technology, and the seductive surfaces of boom-era culture.",
+        "works": [
+          {
+            "title": "Five Revolutionary Seconds VI",
+            "year": 1996,
+            "medium": "C-print mounted on vinyl"
+          },
+          {
+            "title": "Wrecked",
+            "year": 1996,
+            "medium": "C-print"
+          }
+        ]
+      },
+      {
+        "artist": "Jeff Koons",
+        "nationality": "American",
+        "born": 1955,
+        "reasoning": "His glossy, expensive sculptures mirror the exuberant consumer optimism of the mid-nineties boom.",
+        "works": [
+          {
+            "title": "Balloon Dog (Blue)",
+            "year": 1994,
+            "medium": "Mirror-polished stainless steel"
+          },
+          {
+            "title": "Michael Jackson and Bubbles",
+            "year": 1988,
+            "medium": "Porcelain"
+          }
+        ]
+      },
+      {
+        "artist": "Diana Thater",
+        "nationality": "American",
+        "born": 1962,
+        "reasoning": "Her immersive video installations explore technology's mediation of nature, resonating with digital expansion anxieties.",
+        "works": [
+          {
+            "title": "Delphine",
+            "year": 1996,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Electric Mind",
+            "year": 1996,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Ruff",
+        "nationality": "German",
+        "born": 1958,
+        "reasoning": "His pixelated portraits and night-vision imagery anticipate surveillance concerns amid telecommunications expansion.",
+        "works": [
+          {
+            "title": "Nacht 7 III",
+            "year": 1992,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Portrait (A. Kachold)",
+            "year": 1994,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Sarah Morris",
+        "nationality": "British-American",
+        "born": 1967,
+        "reasoning": "Her geometric paintings of corporate architecture capture the sleek aesthetic of nineties global business culture.",
+        "works": [
+          {
+            "title": "Midtown - Citibank",
+            "year": 1996,
+            "medium": "Household gloss paint on canvas"
+          },
+          {
+            "title": "Midtown - Sony",
+            "year": 1995,
+            "medium": "Household gloss paint on canvas"
+          }
+        ]
+      }
+    ],
+    "art_context": "Surfaces, screens, and the visual machinery of late capitalism became the actual subject matter—how technology and consumption didn't just shape culture but became indistinguishable from it."
+  },
+  "1997": {
+    "year": 1997,
+    "context": "Asian financial crisis",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Fiona Tan",
+        "nationality": "Indonesian-Dutch",
+        "born": 1966,
+        "reasoning": "Her video and photographic works explored displacement, identity, and cultural dislocation resonant with Asia's economic upheaval.",
+        "works": [
+          {
+            "title": "Facing Forward",
+            "year": 1999,
+            "medium": "Video installation"
+          },
+          {
+            "title": "May You Live in Interesting Times",
+            "year": 1997,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Chatchai Puipia",
+        "nationality": "Thai",
+        "born": 1964,
+        "reasoning": "Bangkok-based painter whose grotesque figures directly critique Thai society's corruption and economic excess.",
+        "works": [
+          {
+            "title": "Siamese Smile: Fun Money",
+            "year": 1996,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Thai Trauma",
+            "year": 1997,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Do Ho Suh",
+        "nationality": "Korean",
+        "born": 1962,
+        "reasoning": "His works explore displacement, collective identity, and individual vulnerability against overwhelming systemic forces.",
+        "works": [
+          {
+            "title": "Floor",
+            "year": 1997,
+            "medium": "Glass plates, plastic figures"
+          },
+          {
+            "title": "High School Uni-Form",
+            "year": 1997,
+            "medium": "Fabric installation"
+          }
+        ]
+      },
+      {
+        "artist": "Luc Tuymans",
+        "nationality": "Belgian",
+        "born": 1958,
+        "reasoning": "His bleached, uneasy paintings evoke historical trauma and institutional failure with quiet, pervasive dread.",
+        "works": [
+          {
+            "title": "Embitterment",
+            "year": 1997,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Diagnostic View IV",
+            "year": 1992,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Yasumasa Morimura",
+        "nationality": "Japanese",
+        "born": 1951,
+        "reasoning": "His appropriation of Western icons interrogates globalization's cultural hierarchies and Asian identity amid Western dominance.",
+        "works": [
+          {
+            "title": "Self-Portrait (Actress) / After Marilyn Monroe",
+            "year": 1996,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Blinded by the Light",
+            "year": 1991,
+            "medium": "Chromogenic print"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists made work about what happens to identity and belonging when economies collapse and cultures collide across borders."
+  },
+  "1998": {
+    "year": 1998,
+    "context": "LTCM collapse",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Jeff Wall",
+        "nationality": "Canadian",
+        "born": 1946,
+        "reasoning": "His staged photographs of urban alienation and hidden systems mirror the unseen fragility beneath financial architectures.",
+        "works": [
+          {
+            "title": "Morning Cleaning, Mies van der Rohe Foundation, Barcelona",
+            "year": 1999,
+            "medium": "Cibachrome transparency, fluorescent light, display case"
+          },
+          {
+            "title": "A Sudden Gust of Wind (after Hokusai)",
+            "year": 1993,
+            "medium": "Cibachrome transparency, fluorescent light, display case"
+          }
+        ]
+      },
+      {
+        "artist": "Allan McCollum",
+        "nationality": "American",
+        "born": 1944,
+        "reasoning": "His mass-produced surrogate objects expose systems of value and uniqueness collapsing, mirroring LTCM's algorithmic hubris.",
+        "works": [
+          {
+            "title": "The Shapes Project",
+            "year": 1998,
+            "medium": "Digital prints and cast forms"
+          },
+          {
+            "title": "Over Ten Thousand Individual Works",
+            "year": 1997,
+            "medium": "Enamel on cast Hydrocal"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Demand",
+        "nationality": "German",
+        "born": 1964,
+        "reasoning": "His reconstructed paper environments expose the artificiality and fragility of constructed financial realities.",
+        "works": [
+          {
+            "title": "Office",
+            "year": 1995,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Archive",
+            "year": 1995,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Victor Burgin",
+        "nationality": "British",
+        "born": 1941,
+        "reasoning": "His conceptual photo-text works dissect systems of representation, ideology, and capital's invisible architectures—resonant with LTCM's abstract collapse.",
+        "works": [
+          {
+            "title": "Nietzsche's Paris",
+            "year": 1999,
+            "medium": "Digital video installation"
+          },
+          {
+            "title": "Love Stories #2",
+            "year": 1996,
+            "medium": "Photograph and text"
+          }
+        ]
+      },
+      {
+        "artist": "Sarah Morris",
+        "nationality": "American",
+        "born": 1967,
+        "reasoning": "Her geometric abstractions of corporate architecture reflect the seductive menace of financial power centers.",
+        "works": [
+          {
+            "title": "Midtown - Citibank",
+            "year": 1998,
+            "medium": "Household gloss on canvas"
+          },
+          {
+            "title": "Midtown - Sony",
+            "year": 1999,
+            "medium": "Household gloss on canvas"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were dissecting the gap between appearances and systems, showing how abstractions and reproductions could stand in for reality until the whole structure came apart."
+  },
+  "1999": {
+    "year": 1999,
+    "context": "Dot-com peak",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Franz Ackermann",
+        "nationality": "German",
+        "born": 1963,
+        "reasoning": "His hallucinatory paintings of global cities and information overload perfectly captured dot-com era hypermobility and digital euphoria.",
+        "works": [
+          {
+            "title": "Pacific",
+            "year": 1999,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Mental Map: Evasion VI",
+            "year": 1998,
+            "medium": "Watercolor on paper"
+          }
+        ]
+      },
+      {
+        "artist": "Takashi Murakami",
+        "nationality": "Japanese",
+        "born": 1962,
+        "reasoning": "His Superflat aesthetic merges consumer culture, anime, and fine art—perfectly capturing late-90s techno-optimism.",
+        "works": [
+          {
+            "title": "DOB in the Strange Forest",
+            "year": 1999,
+            "medium": "Acrylic on canvas"
+          },
+          {
+            "title": "727",
+            "year": 1996,
+            "medium": "Acrylic on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Mariko Mori",
+        "nationality": "Japanese",
+        "born": 1967,
+        "reasoning": "Her cyber-spiritual photographs of herself as futuristic beings embody 1999's millennium fever and digital utopianism.",
+        "works": [
+          {
+            "title": "Dream Temple",
+            "year": 1999,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "Burning Desire",
+            "year": 1998,
+            "medium": "Glass with photo interlayer"
+          }
+        ]
+      },
+      {
+        "artist": "John Currin",
+        "nationality": "American",
+        "born": 1962,
+        "reasoning": "His satirical paintings of bourgeois excess and ironic nostalgia reflect dot-com wealth and cultural anxiety.",
+        "works": [
+          {
+            "title": "The Cripple",
+            "year": 1997,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Bea Arthur Naked",
+            "year": 1999,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Miltos Manetas",
+        "nationality": "Greek-Italian",
+        "born": 1964,
+        "reasoning": "Painted video game consoles and internet cables, directly capturing dot-com era's techno-optimism and digital lifestyle obsession.",
+        "works": [
+          {
+            "title": "Untitled (Playstation)",
+            "year": 1998,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Cables",
+            "year": 1999,
+            "medium": "Oil on canvas"
+          }
+        ]
+      }
+    ],
+    "art_context": "Digital technology and consumer culture had become so intertwined that artists couldn't separate the two, so they just made them the same thing."
+  },
+  "2000": {
+    "year": 2000,
+    "context": "Y2K / bubble peak",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Sharon Lockhart",
+        "nationality": "American",
+        "born": 1964,
+        "reasoning": "Her staged photographs of labor and globalized production mirrored millennial anxieties about technology, automation, and economic systems.",
+        "works": [
+          {
+            "title": "Goshogaoka Girls Basketball Team",
+            "year": 1997,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Teatro Amazonas",
+            "year": 1999,
+            "medium": "35mm film / Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Takashi Murakami",
+        "nationality": "Japanese",
+        "born": 1962,
+        "reasoning": "His Superflat aesthetic merged consumer culture, anime, and fine art—perfectly capturing Y2K's techno-optimistic excess.",
+        "works": [
+          {
+            "title": "DOB in the Strange Forest",
+            "year": 1999,
+            "medium": "Acrylic on canvas"
+          },
+          {
+            "title": "Super Nova",
+            "year": 1999,
+            "medium": "Acrylic on canvas mounted on board"
+          }
+        ]
+      },
+      {
+        "artist": "Inez van Lamsweerde",
+        "nationality": "Dutch",
+        "born": 1963,
+        "reasoning": "Her digitally manipulated photographs captured millennium-era anxiety about technology, perfection, and the uncanny artificiality of the bubble.",
+        "works": [
+          {
+            "title": "The Widow (from Thank You Thighmaster)",
+            "year": 2000,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Kirsten, The Forest",
+            "year": 1999,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "John Currin",
+        "nationality": "American",
+        "born": 1962,
+        "reasoning": "His satirical paintings of affluent grotesquerie skewered the era's wealth obsession with Old Master technique.",
+        "works": [
+          {
+            "title": "The Bra Shop",
+            "year": 1997,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Heartless",
+            "year": 1998,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Franz Ackermann",
+        "nationality": "German",
+        "born": 1963,
+        "reasoning": "His frenetic, kaleidoscopic paintings of globalized urbanism captured millennial hyper-connectivity and dot-com era excess.",
+        "works": [
+          {
+            "title": "Mental Map: Evasion IV",
+            "year": 1999,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Untitled (New Town)",
+            "year": 2000,
+            "medium": "Mixed media installation"
+          }
+        ]
+      }
+    ],
+    "art_context": "The work was obsessed with surfaces, excess, and the weird collision between high art and consumer technology, as if the digital future had already arrived and made everything beautiful and broken at once."
+  },
+  "2001": {
+    "year": 2001,
+    "context": "9/11 & dot-com crash",
+    "recession": "Dot-com bust",
+    "artists": [
+      {
+        "artist": "Gerhard Richter",
+        "nationality": "German",
+        "born": 1932,
+        "reasoning": "His blurred photo-paintings capture uncertainty and mediated trauma, prescient for post-9/11 visual processing.",
+        "works": [
+          {
+            "title": "Firenze",
+            "year": 2000,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Abstract Painting (849-3)",
+            "year": 1997,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Eric Fischl",
+        "nationality": "American",
+        "born": 1948,
+        "reasoning": "His 2001 sculpture of falling figures directly memorialized 9/11's visceral trauma and collective American grief.",
+        "works": [
+          {
+            "title": "Tumbling Woman",
+            "year": 2001,
+            "medium": "Bronze sculpture"
+          },
+          {
+            "title": "Ten Breaths: Tumbling Woman",
+            "year": 2002,
+            "medium": "Bronze sculpture"
+          }
+        ]
+      },
+      {
+        "artist": "Paul Pfeiffer",
+        "nationality": "American",
+        "born": 1966,
+        "reasoning": "His digitally manipulated video and photo works dissect media spectacle, reflecting post-9/11 anxiety and technological disillusionment.",
+        "works": [
+          {
+            "title": "Fragment of a Crucifixion (After Francis Bacon)",
+            "year": 1999,
+            "medium": "Digital video loop"
+          },
+          {
+            "title": "Four Horsemen of the Apocalypse",
+            "year": 2001,
+            "medium": "Digital chromogenic prints"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Demand",
+        "nationality": "German",
+        "born": 1964,
+        "reasoning": "His photographs of paper reconstructions explore media simulacra and the unreliability of documentary images.",
+        "works": [
+          {
+            "title": "Poll",
+            "year": 2001,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Office",
+            "year": 1995,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Kara Walker",
+        "nationality": "American",
+        "born": 1969,
+        "reasoning": "Her violent silhouettes confront American historical trauma, resonating with 2001's shattered national innocence.",
+        "works": [
+          {
+            "title": "Insurrection! (Our Tools Were Rudimentary, Yet We Pressed On)",
+            "year": 2000,
+            "medium": "Cut paper and projection"
+          },
+          {
+            "title": "Slavery! Slavery!",
+            "year": 1997,
+            "medium": "Cut paper on wall"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were wrestling with how images and media had become untethered from reality, making it impossible to trust what you were seeing or what was being shown to you."
+  },
+  "2002": {
+    "year": 2002,
+    "context": "Enron scandal",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Hans Haacke",
+        "nationality": "German-American",
+        "born": 1936,
+        "reasoning": "Decades exposing corporate power structures and institutional corruption directly prefigured Enron-era critiques of capitalism's hidden machinations.",
+        "works": [
+          {
+            "title": "Shapolsky et al. Manhattan Real Estate Holdings",
+            "year": 1971,
+            "medium": "Photography, text, maps"
+          },
+          {
+            "title": "State of the Union",
+            "year": 2005,
+            "medium": "Mixed media installation"
+          }
+        ]
+      },
+      {
+        "artist": "Barbara Kruger",
+        "nationality": "American",
+        "born": 1945,
+        "reasoning": "Her confrontational text-based works dissect money, power, and corporate manipulation with urgent relevance post-Enron.",
+        "works": [
+          {
+            "title": "Money Makes Money and a Rich Man's Jokes Are Always Funny",
+            "year": 2000,
+            "medium": "Photographic silkscreen on vinyl"
+          },
+          {
+            "title": "Thinking of You",
+            "year": 1999,
+            "medium": "Photographic silkscreen on vinyl"
+          }
+        ]
+      },
+      {
+        "artist": "Andrea Fraser",
+        "nationality": "American",
+        "born": 1965,
+        "reasoning": "Her institutional critique exposed art world complicity with corporate power, mirroring Enron's systemic corruption.",
+        "works": [
+          {
+            "title": "Untitled",
+            "year": 2003,
+            "medium": "Video"
+          },
+          {
+            "title": "Official Welcome",
+            "year": 2001,
+            "medium": "Performance"
+          }
+        ]
+      },
+      {
+        "artist": "Mark Lombardi",
+        "nationality": "American",
+        "born": 1951,
+        "reasoning": "His intricate drawings mapping corporate fraud and financial networks became prophetic visual documents of systemic corruption.",
+        "works": [
+          {
+            "title": "George W. Bush, Harken Energy and Jackson Stephens",
+            "year": 1999,
+            "medium": "Graphite on paper"
+          },
+          {
+            "title": "BCCI-ICIC & FAB",
+            "year": 2000,
+            "medium": "Graphite on paper"
+          }
+        ]
+      },
+      {
+        "artist": "Fred Wilson",
+        "nationality": "American",
+        "born": 1954,
+        "reasoning": "His institutional critiques expose hidden power structures and deceptions within systems, mirroring Enron's corporate fraud revelations.",
+        "works": [
+          {
+            "title": "Speak of Me as I Am",
+            "year": 2003,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "Chandelier Mori",
+            "year": 2002,
+            "medium": "Murano glass chandelier sculpture"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were mapping the invisible systems of power and money that run institutions behind the scenes, making visible what corporations and museums wanted to keep hidden."
+  },
+  "2003": {
+    "year": 2003,
+    "context": "Iraq War begins",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Jenny Holzer",
+        "nationality": "American",
+        "born": 1950,
+        "reasoning": "Her LED text installations confronting war, torture, and government power feel urgently prescient as Iraq invasion begins.",
+        "works": [
+          {
+            "title": "Lustmord",
+            "year": 1993,
+            "medium": "Installation with human skin and ink"
+          },
+          {
+            "title": "Truisms (Times Square)",
+            "year": 2003,
+            "medium": "LED electronic sign"
+          }
+        ]
+      },
+      {
+        "artist": "Luc Delahaye",
+        "nationality": "French",
+        "born": 1962,
+        "reasoning": "His large-format conflict photographs blur photojournalism and fine art, documenting Afghanistan and soon Iraq.",
+        "works": [
+          {
+            "title": "Taliban",
+            "year": 2001,
+            "medium": "C-print photograph"
+          },
+          {
+            "title": "US Bombing on Taliban Positions",
+            "year": 2002,
+            "medium": "C-print photograph"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Hirschhorn",
+        "nationality": "Swiss",
+        "born": 1957,
+        "reasoning": "His chaotic installations critique capitalism, media saturation, and war with raw urgency matching 2003's anxieties.",
+        "works": [
+          {
+            "title": "Bataille Monument",
+            "year": 2002,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "Cavemanman",
+            "year": 2002,
+            "medium": "Mixed media installation"
+          }
+        ]
+      },
+      {
+        "artist": "An-My Lê",
+        "nationality": "Vietnamese-American",
+        "born": 1960,
+        "reasoning": "Her photographs of military reenactments and training exercises question war imagery as America mobilizes for Iraq.",
+        "works": [
+          {
+            "title": "Small Wars (Ambush I)",
+            "year": 1999,
+            "medium": "Gelatin silver print"
+          },
+          {
+            "title": "Small Wars (Rescue)",
+            "year": 2001,
+            "medium": "Gelatin silver print"
+          }
+        ]
+      },
+      {
+        "artist": "Fernando Botero",
+        "nationality": "Colombian",
+        "born": 1932,
+        "reasoning": "Already critiquing violence, he will soon respond directly to Abu Ghraib, representing global moral outrage.",
+        "works": [
+          {
+            "title": "The Dead",
+            "year": 2002,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Massacre in Colombia",
+            "year": 2000,
+            "medium": "Oil on canvas"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were making work about state violence and war through text, photographs, installations, and imagery that refused to let viewers look away from what governments and militaries were actually doing."
+  },
+  "2004": {
+    "year": 2004,
+    "context": "Housing boom",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Catherine Opie",
+        "nationality": "American",
+        "born": 1961,
+        "reasoning": "Her 2004 suburban landscape photographs captured the eerie uniformity and sprawl of housing boom America.",
+        "works": [
+          {
+            "title": "Untitled #1 (Surfers)",
+            "year": 2003,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Houses",
+            "year": 2004,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Julie Mehretu",
+        "nationality": "Ethiopian-American",
+        "born": 1970,
+        "reasoning": "Her layered abstractions of urban grids and architectural blueprints evoke explosive development and speculation.",
+        "works": [
+          {
+            "title": "Stadia II",
+            "year": 2004,
+            "medium": "Ink and acrylic on canvas"
+          },
+          {
+            "title": "Empirical Construction, Istanbul",
+            "year": 2003,
+            "medium": "Ink and acrylic on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Gregory Crewdson",
+        "nationality": "American",
+        "born": 1962,
+        "reasoning": "His uncanny suburban tableaux expose the anxiety beneath American homeownership dreams.",
+        "works": [
+          {
+            "title": "Untitled (House in the Road)",
+            "year": 2002,
+            "medium": "Digital chromogenic print"
+          },
+          {
+            "title": "Untitled (Ophelia)",
+            "year": 2001,
+            "medium": "Digital chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Dan Graham",
+        "nationality": "American",
+        "born": 1942,
+        "reasoning": "His glass pavilions critique suburban tract housing and corporate architecture with sharp conceptual clarity.",
+        "works": [
+          {
+            "title": "Two-Way Mirror Cylinder Inside Cube",
+            "year": 1991,
+            "medium": "Glass and steel sculpture"
+          },
+          {
+            "title": "Homes for America",
+            "year": 1966,
+            "medium": "Photography and text"
+          }
+        ]
+      },
+      {
+        "artist": "Richard Prince",
+        "nationality": "American",
+        "born": 1949,
+        "reasoning": "His rephotographed luxury and suburban Americana captured the aspirational excess defining the housing boom era.",
+        "works": [
+          {
+            "title": "Untitled (Cowboy)",
+            "year": 2001,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Nurse of Greenmeadow",
+            "year": 2002,
+            "medium": "Inkjet print and acrylic on canvas"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were fixated on the visual and spatial textures of American aspiration, treating suburban development and domestic fantasy as landscapes worthy of intense aesthetic scrutiny."
+  },
+  "2005": {
+    "year": 2005,
+    "context": "Commodities surge",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Yinka Shonibare",
+        "nationality": "British-Nigerian",
+        "born": 1962,
+        "reasoning": "His lavish Dutch wax fabric sculptures critiqued global trade, colonialism, and commodity flows during the resource boom.",
+        "works": [
+          {
+            "title": "The Swing (after Fragonard)",
+            "year": 2001,
+            "medium": "Mannequin, cotton costume, swing"
+          },
+          {
+            "title": "Gallantry and Criminal Conversation",
+            "year": 2002,
+            "medium": "Fiberglass mannequins, Dutch wax fabric, accessories"
+          }
+        ]
+      },
+      {
+        "artist": "Liu Xiaodong",
+        "nationality": "Chinese",
+        "born": 1963,
+        "reasoning": "Documents China's explosive industrial growth and human cost of the commodities boom with raw realism.",
+        "works": [
+          {
+            "title": "Three Gorges: Displaced Population",
+            "year": 2004,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Hot Bed No. 1",
+            "year": 2005,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Edward Burtynsky",
+        "nationality": "Canadian",
+        "born": 1955,
+        "reasoning": "His photographs of mines, oil fields, and industrial landscapes directly visualize the commodities surge's environmental impact.",
+        "works": [
+          {
+            "title": "Oil Fields #19a & 19b, Belridge, California",
+            "year": 2003,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Shipbreaking #4, Chittagong, Bangladesh",
+            "year": 2000,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Bharti Kher",
+        "nationality": "British-Indian",
+        "born": 1969,
+        "reasoning": "Her bindi-covered sculptures transform commodity materials into luxury objects, mirroring India's booming economy during the commodities surge.",
+        "works": [
+          {
+            "title": "The Skin Speaks a Language Not Its Own",
+            "year": 2006,
+            "medium": "Bindis on fiberglass"
+          },
+          {
+            "title": "Arione",
+            "year": 2004,
+            "medium": "Bindis on mannequin"
+          }
+        ]
+      },
+      {
+        "artist": "Subodh Gupta",
+        "nationality": "Indian",
+        "born": 1964,
+        "reasoning": "Transforms everyday steel utensils into monumental sculptures reflecting India's rising economic power and materialism.",
+        "works": [
+          {
+            "title": "Very Hungry God",
+            "year": 2006,
+            "medium": "Stainless steel utensils"
+          },
+          {
+            "title": "Cheap Rice",
+            "year": 2005,
+            "medium": "Brass, steel, stainless steel"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were tracking how raw materials, labor, and environmental destruction moved through global supply chains to fuel booming economies in Asia and beyond."
+  },
+  "2006": {
+    "year": 2006,
+    "context": "Housing bubble peak",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Dan Graham",
+        "nationality": "American",
+        "born": 1942,
+        "reasoning": "His glass pavilions critique corporate architecture and suburban development, resonating with housing bubble excess.",
+        "works": [
+          {
+            "title": "Hedge Two-Way Mirror Walkabout",
+            "year": 2014,
+            "medium": "Steel, two-way mirror glass, hedge"
+          },
+          {
+            "title": "Bisected Triangle, Interior Curve",
+            "year": 2002,
+            "medium": "Two-way mirror glass, steel"
+          }
+        ]
+      },
+      {
+        "artist": "Gregory Crewdson",
+        "nationality": "American",
+        "born": 1962,
+        "reasoning": "His eerie suburban tableaux reveal the anxiety lurking beneath American Dream surfaces and McMansion facades.",
+        "works": [
+          {
+            "title": "Untitled (Maple Street)",
+            "year": 2003,
+            "medium": "Digital chromogenic print"
+          },
+          {
+            "title": "Untitled (Dylan on the Floor)",
+            "year": 2005,
+            "medium": "Digital chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Duane Hanson",
+        "nationality": "American",
+        "born": 1925,
+        "reasoning": "His hyperrealistic sculptures of ordinary Americans capture consumer culture's hollow aspirations at the housing bubble's peak.",
+        "works": [
+          {
+            "title": "Housepainter I",
+            "year": 1984,
+            "medium": "Polyvinyl, polychromed in oil, mixed media"
+          },
+          {
+            "title": "Man on a Bench",
+            "year": 1997,
+            "medium": "Bronze, polychromed in oil, mixed media"
+          }
+        ]
+      },
+      {
+        "artist": "Richard Prince",
+        "nationality": "American",
+        "born": 1949,
+        "reasoning": "His Nurse paintings and appropriation art peaked commercially in 2006, questioning authenticity amid speculation.",
+        "works": [
+          {
+            "title": "Overseas Nurse",
+            "year": 2002,
+            "medium": "Inkjet and acrylic on canvas"
+          },
+          {
+            "title": "Untitled (Cowboy)",
+            "year": 2003,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Jules de Balincourt",
+        "nationality": "French-American",
+        "born": 1972,
+        "reasoning": "His paintings of American sprawl, gated communities, and cultural division captured mounting national unease.",
+        "works": [
+          {
+            "title": "US World Studies II",
+            "year": 2005,
+            "medium": "Oil on panel"
+          },
+          {
+            "title": "Blind Faith and Fireworks",
+            "year": 2006,
+            "medium": "Oil on canvas"
+          }
+        ]
+      }
+    ],
+    "art_context": "American domesticity and consumer desire were beautiful and deeply unsettling at the same time, caught between the fantasy of what home was supposed to mean and the reality of what it actually was."
+  },
+  "2007": {
+    "year": 2007,
+    "context": "Subprime cracks appear",
+    "recession": "Global Financial Crisis",
+    "artists": [
+      {
+        "artist": "Walead Beshty",
+        "nationality": "American",
+        "born": 1976,
+        "reasoning": "His shattered FedEx sculptures exposed fragility within global shipping systems, mirroring cracks in financial infrastructure.",
+        "works": [
+          {
+            "title": "FedEx Large Kraft Box",
+            "year": 2005,
+            "medium": "Glass, FedEx shipping box"
+          },
+          {
+            "title": "Travel Pictures",
+            "year": 2007,
+            "medium": "Photography, light-damaged chromogenic prints"
+          }
+        ]
+      },
+      {
+        "artist": "Damien Hirst",
+        "nationality": "British",
+        "born": 1965,
+        "reasoning": "His diamond skull epitomized art market excess just as financial hubris reached its peak.",
+        "works": [
+          {
+            "title": "For the Love of God",
+            "year": 2007,
+            "medium": "Platinum, diamonds, human teeth"
+          },
+          {
+            "title": "Lullaby Spring",
+            "year": 2002,
+            "medium": "Pills in steel and glass cabinet"
+          }
+        ]
+      },
+      {
+        "artist": "Josephine Meckseper",
+        "nationality": "German-American",
+        "born": 1964,
+        "reasoning": "Her vitrine installations juxtapose consumerism with political unrest, mirroring 2007's contradictions.",
+        "works": [
+          {
+            "title": "The Complete History of Catastrophes",
+            "year": 2007,
+            "medium": "Mixed media vitrine"
+          },
+          {
+            "title": "Untitled (Shelf)",
+            "year": 2006,
+            "medium": "Mixed media installation"
+          }
+        ]
+      },
+      {
+        "artist": "Jeff Wall",
+        "nationality": "Canadian",
+        "born": 1946,
+        "reasoning": "His staged photographs of urban margins revealed invisible labor and precarity beneath prosperity's surface.",
+        "works": [
+          {
+            "title": "After 'Invisible Man' by Ralph Ellison",
+            "year": 1999,
+            "medium": "Cibachrome transparency, lightbox"
+          },
+          {
+            "title": "Men Waiting",
+            "year": 2006,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Thomas Hirschhorn",
+        "nationality": "Swiss",
+        "born": 1957,
+        "reasoning": "His chaotic cardboard and tape installations embody systemic collapse and desperate improvisation.",
+        "works": [
+          {
+            "title": "Superficial Engagement",
+            "year": 2006,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "Cavemanman",
+            "year": 2002,
+            "medium": "Mixed media installation"
+          }
+        ]
+      }
+    ],
+    "art_context": "The work treated fragility and collapse—broken systems, precarious labor, excess about to snap—as the actual subject matter rather than a metaphor for something else."
+  },
+  "2008": {
+    "year": 2008,
+    "context": "Lehman collapses",
+    "recession": "Global Financial Crisis",
+    "artists": [
+      {
+        "artist": "Melanie Gilligan",
+        "nationality": "Canadian",
+        "born": 1979,
+        "reasoning": "Her video installations dissected financial capitalism's abstractions and systemic crises just as Lehman's collapse exposed them.",
+        "works": [
+          {
+            "title": "Crisis in the Credit System",
+            "year": 2008,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Self-Capital",
+            "year": 2009,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Martha Rosler",
+        "nationality": "American",
+        "born": 1943,
+        "reasoning": "Her photomontages critiquing capitalism and housing crisis resonate powerfully with 2008's foreclosure catastrophe.",
+        "works": [
+          {
+            "title": "House Beautiful: Bringing the War Home, New Series",
+            "year": 2008,
+            "medium": "Photomontage"
+          },
+          {
+            "title": "Great Power",
+            "year": 2008,
+            "medium": "Photomontage"
+          }
+        ]
+      },
+      {
+        "artist": "Zoe Leonard",
+        "nationality": "American",
+        "born": 1961,
+        "reasoning": "Her photographs of shuttered storefronts documented urban decay and economic abandonment before the crash amplified it.",
+        "works": [
+          {
+            "title": "Analogue",
+            "year": 2007,
+            "medium": "Gelatin silver prints"
+          },
+          {
+            "title": "1352 Broadway",
+            "year": 2007,
+            "medium": "Gelatin silver print"
+          }
+        ]
+      },
+      {
+        "artist": "Allan Sekula",
+        "nationality": "American",
+        "born": 1951,
+        "reasoning": "His critical documentary work on global shipping and labor presciently exposed the fragile systems underlying financial capitalism.",
+        "works": [
+          {
+            "title": "The Forgotten Space",
+            "year": 2010,
+            "medium": "Film/Photography"
+          },
+          {
+            "title": "Ship of Fools / The Dockers' Museum",
+            "year": 2010,
+            "medium": "Photography and installation"
+          }
+        ]
+      },
+      {
+        "artist": "Walead Beshty",
+        "nationality": "British-American",
+        "born": 1976,
+        "reasoning": "His shattered FedEx glass sculptures literalized the violence hidden within global shipping and commerce networks.",
+        "works": [
+          {
+            "title": "FedEx Large Kraft Box",
+            "year": 2008,
+            "medium": "Laminated glass and FedEx box"
+          },
+          {
+            "title": "Travel Pictures",
+            "year": 2006,
+            "medium": "Chromogenic print"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were dissecting the abstract machinery of global capitalism itself, tracing how financial systems and physical infrastructure held each other up right before they both came crashing down."
+  },
+  "2009": {
+    "year": 2009,
+    "context": "Market bottom",
+    "recession": "Global Financial Crisis",
+    "artists": [
+      {
+        "artist": "Zoe Leonard",
+        "nationality": "American",
+        "born": 1961,
+        "reasoning": "Her documentary photographs of shuttered storefronts eerily prefigured and captured the economic devastation of 2009.",
+        "works": [
+          {
+            "title": "Analogue",
+            "year": 2007,
+            "medium": "Gelatin silver prints and chromogenic prints"
+          },
+          {
+            "title": "1157 Broadway",
+            "year": 2009,
+            "medium": "Gelatin silver print"
+          }
+        ]
+      },
+      {
+        "artist": "Banksy",
+        "nationality": "British",
+        "born": 1974,
+        "reasoning": "His anti-capitalist street art resonated globally as public anger toward banks and institutions peaked.",
+        "works": [
+          {
+            "title": "Slave Labour",
+            "year": 2008,
+            "medium": "Spray paint on wall"
+          },
+          {
+            "title": "Exit Through the Gift Shop (promotional works)",
+            "year": 2009,
+            "medium": "Stencil and spray paint"
+          }
+        ]
+      },
+      {
+        "artist": "Josephine Meckseper",
+        "nationality": "German-American",
+        "born": 1964,
+        "reasoning": "Her display-case sculptures critiquing consumerism and political apathy felt prophetic during the crisis.",
+        "works": [
+          {
+            "title": "The Complete History of Accumulation",
+            "year": 2008,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "Untitled (Mall of America)",
+            "year": 2009,
+            "medium": "Mixed media in display case"
+          }
+        ]
+      },
+      {
+        "artist": "Cyprien Gaillard",
+        "nationality": "French",
+        "born": 1980,
+        "reasoning": "His work documents architectural ruins and demolition, capturing post-industrial collapse resonant with 2008-2009 economic devastation.",
+        "works": [
+          {
+            "title": "Desniansky Raion",
+            "year": 2007,
+            "medium": "Video"
+          },
+          {
+            "title": "Cities of Gold and Mirrors",
+            "year": 2009,
+            "medium": "Video and photography"
+          }
+        ]
+      },
+      {
+        "artist": "LaToya Ruby Frazier",
+        "nationality": "American",
+        "born": 1982,
+        "reasoning": "Her raw photographs of Braddock, Pennsylvania documented deindustrialization's human cost during the recession.",
+        "works": [
+          {
+            "title": "Grandma Ruby and Me",
+            "year": 2005,
+            "medium": "Gelatin silver print"
+          },
+          {
+            "title": "Mom and Her Cancer",
+            "year": 2009,
+            "medium": "Gelatin silver print"
+          }
+        ]
+      }
+    ],
+    "art_context": "Shuttered buildings, discarded goods, and demolished landscapes told the story of what happens when places and people get left behind by systems that no longer need them."
+  },
+  "2010": {
+    "year": 2010,
+    "context": "Recovery begins",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Ai Weiwei",
+        "nationality": "Chinese",
+        "born": 1957,
+        "reasoning": "His provocative installations challenged global power structures during post-crisis political and economic uncertainty.",
+        "works": [
+          {
+            "title": "Sunflower Seeds",
+            "year": 2010,
+            "medium": "Porcelain installation"
+          },
+          {
+            "title": "Remembering",
+            "year": 2009,
+            "medium": "Backpack installation"
+          }
+        ]
+      },
+      {
+        "artist": "Banksy",
+        "nationality": "British",
+        "born": 1974,
+        "reasoning": "His anti-capitalist street art resonated deeply with post-recession disillusionment and critique of institutions.",
+        "works": [
+          {
+            "title": "Exit Through the Gift Shop",
+            "year": 2010,
+            "medium": "Documentary/Street art"
+          },
+          {
+            "title": "Simple Intelligence Testing",
+            "year": 2009,
+            "medium": "Stencil on wall"
+          }
+        ]
+      },
+      {
+        "artist": "Julie Mehretu",
+        "nationality": "Ethiopian-American",
+        "born": 1970,
+        "reasoning": "Her chaotic layered abstractions visualized the turbulent global systems and fragile recovery of 2010.",
+        "works": [
+          {
+            "title": "Mural",
+            "year": 2010,
+            "medium": "Ink and acrylic on canvas"
+          },
+          {
+            "title": "Grey Area",
+            "year": 2009,
+            "medium": "Ink and acrylic on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Oscar Murillo",
+        "nationality": "Colombian-British",
+        "born": 1986,
+        "reasoning": "His raw, layered canvases captured post-crisis uncertainty and global labor dynamics as recovery tentatively began.",
+        "works": [
+          {
+            "title": "Untitled (drawing off the wall)",
+            "year": 2011,
+            "medium": "Oil, oil stick, and dirt on canvas"
+          },
+          {
+            "title": "Yoga",
+            "year": 2010,
+            "medium": "Oil and spray paint on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Tara Donovan",
+        "nationality": "American",
+        "born": 1969,
+        "reasoning": "Her accumulative sculptures from everyday materials reflected cautious rebuilding and transformation from ordinary fragments.",
+        "works": [
+          {
+            "title": "Untitled (Mylar)",
+            "year": 2010,
+            "medium": "Mylar and glue installation"
+          },
+          {
+            "title": "Untitled (Plastic Cups)",
+            "year": 2008,
+            "medium": "Plastic cups installation"
+          }
+        ]
+      }
+    ],
+    "art_context": "Making something whole or meaningful from scraps and broken systems became the central artistic problem."
+  },
+  "2011": {
+    "year": 2011,
+    "context": "Eurozone crisis",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Thomas Struth",
+        "nationality": "German",
+        "born": 1954,
+        "reasoning": "His clinical photographs of institutions and crowds capture European anxiety about systemic structures and collective vulnerability.",
+        "works": [
+          {
+            "title": "Aquarium, Atlanta",
+            "year": 2013,
+            "medium": "Chromogenic print"
+          },
+          {
+            "title": "Tokamak Asdex Upgrade Interior 2",
+            "year": 2009,
+            "medium": "Chromogenic print"
+          }
+        ]
+      },
+      {
+        "artist": "Harun Farocki",
+        "nationality": "German",
+        "born": 1944,
+        "reasoning": "His analytical dissections of financial systems and labor precarity resonated deeply with Eurozone collapse anxieties.",
+        "works": [
+          {
+            "title": "A New Product",
+            "year": 2012,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Labour in a Single Shot",
+            "year": 2011,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Christodoulos Panayiotou",
+        "nationality": "Cypriot",
+        "born": 1978,
+        "reasoning": "Emerging artist from crisis-hit Cyprus whose work examines economic value, currency, and Mediterranean identity.",
+        "works": [
+          {
+            "title": "Dying on Stage",
+            "year": 2011,
+            "medium": "Performance and installation"
+          },
+          {
+            "title": "Two Days After Forever",
+            "year": 2009,
+            "medium": "Mixed media installation"
+          }
+        ]
+      },
+      {
+        "artist": "Stefanos Tsivopoulos",
+        "nationality": "Greek",
+        "born": 1973,
+        "reasoning": "Greek artist whose video and photo works directly examined economic collapse, debt, and European crisis narratives.",
+        "works": [
+          {
+            "title": "Untitled (The Remake)",
+            "year": 2007,
+            "medium": "Video installation"
+          },
+          {
+            "title": "History Zero",
+            "year": 2013,
+            "medium": "Video installation and photography"
+          }
+        ]
+      },
+      {
+        "artist": "Yorgos Sapountzis",
+        "nationality": "Greek",
+        "born": 1969,
+        "reasoning": "Greek sculptor whose fragile assemblages and performances reflect Athens' collapsing civic infrastructure during austerity.",
+        "works": [
+          {
+            "title": "Parade for a New Parthenon",
+            "year": 2011,
+            "medium": "Mixed media sculpture and performance"
+          },
+          {
+            "title": "Sports and History",
+            "year": 2010,
+            "medium": "Fabric, metal, mixed media"
+          }
+        ]
+      }
+    ],
+    "art_context": "European institutions and financial structures were visibly collapsing, and these artists documented the anxiety, fragility, and human precarity that collapse produced."
+  },
+  "2012": {
+    "year": 2012,
+    "context": "QE3 announced",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Mark Bradford",
+        "nationality": "American",
+        "born": 1961,
+        "reasoning": "His layered abstractions of urban decay and economic disparity mirror post-recession anxiety and QE's wealth inequality.",
+        "works": [
+          {
+            "title": "Scorched Earth",
+            "year": 2012,
+            "medium": "Mixed media on canvas"
+          },
+          {
+            "title": "Be Strong Braveheart",
+            "year": 2012,
+            "medium": "Mixed media on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Taryn Simon",
+        "nationality": "American",
+        "born": 1975,
+        "reasoning": "Her forensic photography exposing hidden power structures resonates with distrust of financial institutions after 2008.",
+        "works": [
+          {
+            "title": "A Living Man Declared Dead and Other Chapters I–XVIII",
+            "year": 2011,
+            "medium": "Photography"
+          },
+          {
+            "title": "Contraband",
+            "year": 2010,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Ai Weiwei",
+        "nationality": "Chinese",
+        "born": 1957,
+        "reasoning": "His activism and 2011 detention made him 2012's symbol of resistance against opaque institutional power.",
+        "works": [
+          {
+            "title": "Remembering",
+            "year": 2009,
+            "medium": "Installation (backpacks)"
+          },
+          {
+            "title": "Surveillance Camera",
+            "year": 2010,
+            "medium": "Marble sculpture"
+          }
+        ]
+      },
+      {
+        "artist": "Melanie Gilligan",
+        "nationality": "Canadian",
+        "born": 1979,
+        "reasoning": "Her video works directly interrogated financialization and algorithmic capitalism defining the QE3 era.",
+        "works": [
+          {
+            "title": "Popular Unrest",
+            "year": 2010,
+            "medium": "Video installation"
+          },
+          {
+            "title": "The Common Sense",
+            "year": 2014,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Claire Fontaine",
+        "nationality": "French-Italian collective",
+        "born": 2004,
+        "reasoning": "Their neon text works critique capitalism's crisis, resonating with QE3's perpetual bailout economy.",
+        "works": [
+          {
+            "title": "Capitalism Kills (Love)",
+            "year": 2011,
+            "medium": "Neon sculpture"
+          },
+          {
+            "title": "Economies",
+            "year": 2012,
+            "medium": "Neon and transformers"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were studying how money and power actually worked—the systems, structures, and technologies that moved wealth around and kept certain people in control—rather than just reacting to what those systems left behind."
+  },
+  "2013": {
+    "year": 2013,
+    "context": "Taper tantrum",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Oscar Murillo",
+        "nationality": "Colombian-British",
+        "born": 1986,
+        "reasoning": "His raw, unstable canvases and global commodity themes captured 2013's market anxiety and emerging-market vulnerability.",
+        "works": [
+          {
+            "title": "Untitled (stack paintings)",
+            "year": 2012,
+            "medium": "Oil, oil stick, and dirt on canvas"
+          },
+          {
+            "title": "Dark Americano",
+            "year": 2013,
+            "medium": "Oil, oil stick, spray paint on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Mark Bradford",
+        "nationality": "American",
+        "born": 1961,
+        "reasoning": "His layered abstractions of urban decay reflect post-recession economic vulnerability and social fragmentation in America.",
+        "works": [
+          {
+            "title": "Scorched Earth",
+            "year": 2006,
+            "medium": "Mixed media on canvas"
+          },
+          {
+            "title": "Helter Skelter I",
+            "year": 2007,
+            "medium": "Mixed media collage"
+          }
+        ]
+      },
+      {
+        "artist": "Sarah Sze",
+        "nationality": "American",
+        "born": 1969,
+        "reasoning": "Her precarious sculptural installations evoke systemic instability, representing the US Pavilion at Venice Biennale 2013.",
+        "works": [
+          {
+            "title": "Triple Point",
+            "year": 2013,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "360 (Portable Planetarium)",
+            "year": 2010,
+            "medium": "Mixed media installation"
+          }
+        ]
+      },
+      {
+        "artist": "Melanie Smith",
+        "nationality": "British-Mexican",
+        "born": 1965,
+        "reasoning": "Her work examines globalization's chaos in emerging markets, directly relevant to taper tantrum's impact on developing economies.",
+        "works": [
+          {
+            "title": "Fordlandia",
+            "year": 2014,
+            "medium": "Video and mixed media installation"
+          },
+          {
+            "title": "Aztec Stadium, Malleable Deed",
+            "year": 2010,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Wade Guyton",
+        "nationality": "American",
+        "born": 1972,
+        "reasoning": "His glitched digital prints on canvas evoke systemic breakdown and technological anxiety mirroring financial market volatility.",
+        "works": [
+          {
+            "title": "Untitled (Fire, Red/Black U)",
+            "year": 2012,
+            "medium": "Epson UltraChrome inkjet on linen"
+          },
+          {
+            "title": "Untitled",
+            "year": 2013,
+            "medium": "Epson UltraChrome inkjet on linen"
+          }
+        ]
+      }
+    ],
+    "art_context": "Decay, malfunction, and instability weren't metaphors but the actual materials these artists used to describe a world coming apart at the seams."
+  },
+  "2014": {
+    "year": 2014,
+    "context": "Oil price collapse",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Edward Burtynsky",
+        "nationality": "Canadian",
+        "born": 1955,
+        "reasoning": "His photographs of oil fields and industrial landscapes directly address petroleum dependency and environmental consequences.",
+        "works": [
+          {
+            "title": "Oil Bunkering #4, Niger Delta, Nigeria",
+            "year": 2016,
+            "medium": "Photography"
+          },
+          {
+            "title": "SOCAR Oil Fields #3, Baku, Azerbaijan",
+            "year": 2006,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Mitch Epstein",
+        "nationality": "American",
+        "born": 1952,
+        "reasoning": "His American Power series documents energy infrastructure's environmental toll, resonating with 2014's oil market volatility.",
+        "works": [
+          {
+            "title": "BP Carson Refinery, California",
+            "year": 2007,
+            "medium": "Photography"
+          },
+          {
+            "title": "Altamont Pass Wind Farm, California",
+            "year": 2007,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Richard Misrach",
+        "nationality": "American",
+        "born": 1949,
+        "reasoning": "His Petrochemical America series documents oil industry's environmental devastation, prescient during 2014's oil market turmoil.",
+        "works": [
+          {
+            "title": "Swamp and Pipeline, Geismar, Louisiana",
+            "year": 2012,
+            "medium": "Photography"
+          },
+          {
+            "title": "Cancer Alley, Norco, Louisiana",
+            "year": 2013,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Taryn Simon",
+        "nationality": "American",
+        "born": 1975,
+        "reasoning": "Her investigative photography reveals hidden economic and political power structures underlying global markets.",
+        "works": [
+          {
+            "title": "Black Square XVI (Crude Oil Reserve)",
+            "year": 2014,
+            "medium": "Photography"
+          },
+          {
+            "title": "Contraband",
+            "year": 2010,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Mishka Henner",
+        "nationality": "Belgian-British",
+        "born": 1976,
+        "reasoning": "His satellite imagery of American oil fields exposes the scarred landscapes of petroleum extraction.",
+        "works": [
+          {
+            "title": "Coronado Feeders, Dalhart, Texas",
+            "year": 2013,
+            "medium": "Digital photography"
+          },
+          {
+            "title": "Pumpjack, Near Midland, Texas",
+            "year": 2013,
+            "medium": "Digital photography"
+          }
+        ]
+      }
+    ],
+    "art_context": "Petroleum extraction had literally reshaped the American landscape into a scarred, poisoned thing, and these photographers made that visible by documenting the industrial infrastructure and ravaged terrain that oil dependency required."
+  },
+  "2015": {
+    "year": 2015,
+    "context": "China slowdown",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Yang Fudong",
+        "nationality": "Chinese",
+        "born": 1971,
+        "reasoning": "His dreamlike films and photographs capture China's disoriented youth amid economic uncertainty and stalled aspirations.",
+        "works": [
+          {
+            "title": "The Light That I Feel",
+            "year": 2014,
+            "medium": "Photography"
+          },
+          {
+            "title": "Away from the Estuary",
+            "year": 2016,
+            "medium": "Multi-channel video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Liu Xiaodong",
+        "nationality": "Chinese",
+        "born": 1963,
+        "reasoning": "His paintings document migrant workers and economic dislocation during China's industrial shifts.",
+        "works": [
+          {
+            "title": "Out of Beichuan",
+            "year": 2010,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Hotan Project",
+            "year": 2012,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Zhang Xiaogang",
+        "nationality": "Chinese",
+        "born": 1958,
+        "reasoning": "His melancholic portraits of Chinese identity resonate with anxieties about China's economic and social transformation.",
+        "works": [
+          {
+            "title": "Bloodline: Big Family No. 17",
+            "year": 2014,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "My Ideal",
+            "year": 2015,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Cao Fei",
+        "nationality": "Chinese",
+        "born": 1978,
+        "reasoning": "Her multimedia work explores young Chinese navigating globalization, consumerism, and economic uncertainty.",
+        "works": [
+          {
+            "title": "Haze and Fog",
+            "year": 2013,
+            "medium": "Film/Video installation"
+          },
+          {
+            "title": "La Town",
+            "year": 2014,
+            "medium": "Photography series"
+          }
+        ]
+      },
+      {
+        "artist": "Wang Qingsong",
+        "nationality": "Chinese",
+        "born": 1966,
+        "reasoning": "His staged photographs critique China's rapid modernization and consumerism, resonating with 2015's economic anxieties.",
+        "works": [
+          {
+            "title": "Follow Me",
+            "year": 2013,
+            "medium": "Photography"
+          },
+          {
+            "title": "Erta",
+            "year": 2014,
+            "medium": "Photography"
+          }
+        ]
+      }
+    ],
+    "art_context": "Chinese artists were documenting what happens to people and places when rapid economic growth leaves them disoriented and stranded."
+  },
+  "2016": {
+    "year": 2016,
+    "context": "Brexit vote",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Grayson Perry",
+        "nationality": "British",
+        "born": 1960,
+        "reasoning": "His tapestries and ceramics dissect British class divisions and identity anxieties fueling Brexit.",
+        "works": [
+          {
+            "title": "Death of a Working Hero",
+            "year": 2016,
+            "medium": "Tapestry"
+          },
+          {
+            "title": "Matching Pair",
+            "year": 2017,
+            "medium": "Ceramic vases"
+          }
+        ]
+      },
+      {
+        "artist": "Wolfgang Tillmans",
+        "nationality": "German",
+        "born": 1968,
+        "reasoning": "Actively campaigned against Brexit; his fragmented photographs capture European precarity and political urgency.",
+        "works": [
+          {
+            "title": "No Man Is an Island",
+            "year": 2016,
+            "medium": "Photography installation"
+          },
+          {
+            "title": "Greifbar 27",
+            "year": 2014,
+            "medium": "Inkjet print"
+          }
+        ]
+      },
+      {
+        "artist": "Cornelia Parker",
+        "nationality": "British",
+        "born": 1956,
+        "reasoning": "Her suspended, exploded sculptures embody fragmentation and the shattering of perceived stable structures.",
+        "works": [
+          {
+            "title": "Magna Carta (An Embroidery)",
+            "year": 2015,
+            "medium": "Embroidery on fabric"
+          },
+          {
+            "title": "Transitional Object (PsychoBarn)",
+            "year": 2016,
+            "medium": "Sculpture installation"
+          }
+        ]
+      },
+      {
+        "artist": "Mark Wallinger",
+        "nationality": "British",
+        "born": 1959,
+        "reasoning": "Explores nationalism, borders, and identity through conceptual work examining British political consciousness.",
+        "works": [
+          {
+            "title": "ID",
+            "year": 2016,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Passport Control",
+            "year": 2015,
+            "medium": "Mixed media"
+          }
+        ]
+      },
+      {
+        "artist": "Hannah Starkey",
+        "nationality": "British-Irish",
+        "born": 1971,
+        "reasoning": "Her staged photographs of women in urban Britain capture quiet alienation and social disconnection.",
+        "works": [
+          {
+            "title": "Untitled, March 2016",
+            "year": 2016,
+            "medium": "C-type print"
+          },
+          {
+            "title": "Untitled, October 2014",
+            "year": 2014,
+            "medium": "C-type print"
+          }
+        ]
+      }
+    ],
+    "art_context": "British identity and political belonging were fragmenting along lines of class, nationalism, and Europe, and these artists mapped that fracture through objects, images, and concepts that refused to stay whole."
+  },
+  "2017": {
+    "year": 2017,
+    "context": "Tax cuts rally",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Cameron Rowland",
+        "nationality": "American",
+        "born": 1988,
+        "reasoning": "Rowland's conceptual work critiques capitalism, labor exploitation, and systemic inequality amplified by tax policies favoring the wealthy.",
+        "works": [
+          {
+            "title": "91020000",
+            "year": 2016,
+            "medium": "Installation with objects produced by prison labor"
+          },
+          {
+            "title": "Disgorgement",
+            "year": 2016,
+            "medium": "Conceptual installation and legal documents"
+          }
+        ]
+      },
+      {
+        "artist": "Andrea Gursky",
+        "nationality": "German",
+        "born": 1955,
+        "reasoning": "His monumental photographs of global capitalism and markets echo the tax-cut economic optimism.",
+        "works": [
+          {
+            "title": "Amazon",
+            "year": 2016,
+            "medium": "Photography"
+          },
+          {
+            "title": "Les Mées",
+            "year": 2016,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Andrea Fraser",
+        "nationality": "American",
+        "born": 1965,
+        "reasoning": "Her institutional critique exposes how wealth, tax structures, and power shape art world economics.",
+        "works": [
+          {
+            "title": "2016 in Museums, Money, and Politics",
+            "year": 2018,
+            "medium": "Text and data visualization"
+          },
+          {
+            "title": "Down the River",
+            "year": 2016,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Jordan Wolfson",
+        "nationality": "American",
+        "born": 1980,
+        "reasoning": "His disturbing animatronic sculptures captured 2017's anxieties about violence and spectacle.",
+        "works": [
+          {
+            "title": "Real Violence",
+            "year": 2017,
+            "medium": "Virtual reality"
+          },
+          {
+            "title": "Colored Sculpture",
+            "year": 2016,
+            "medium": "Animatronic sculpture"
+          }
+        ]
+      },
+      {
+        "artist": "Njideka Akunyili Crosby",
+        "nationality": "Nigerian-American",
+        "born": 1983,
+        "reasoning": "Her layered works exploring identity and immigration gained prominence amid nationalist political shifts.",
+        "works": [
+          {
+            "title": "Predecessors",
+            "year": 2017,
+            "medium": "Acrylic and transfers on paper"
+          },
+          {
+            "title": "And We Begin To Let Go",
+            "year": 2016,
+            "medium": "Acrylic and transfers on paper"
+          }
+        ]
+      }
+    ],
+    "art_context": "Wealth concentration, institutional power, and the violence of spectacle were the real subjects, while identity and belonging fractured under nationalist pressure."
+  },
+  "2018": {
+    "year": 2018,
+    "context": "Trade war begins",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Cao Fei",
+        "nationality": "Chinese",
+        "born": 1978,
+        "reasoning": "Her work explores globalization's discontents, labor alienation, and technological anxiety amid China-US economic tensions.",
+        "works": [
+          {
+            "title": "Asia One",
+            "year": 2018,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Prison Architect",
+            "year": 2018,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "Hito Steyerl",
+        "nationality": "German",
+        "born": 1966,
+        "reasoning": "Her video installations dissect digital capitalism, surveillance, and global power structures reshaping economies.",
+        "works": [
+          {
+            "title": "Hell Yeah We Fuck Die",
+            "year": 2016,
+            "medium": "Video installation"
+          },
+          {
+            "title": "The City of Broken Windows",
+            "year": 2018,
+            "medium": "Video installation"
+          }
+        ]
+      },
+      {
+        "artist": "LaToya Ruby Frazier",
+        "nationality": "American",
+        "born": 1982,
+        "reasoning": "Documents deindustrialization and working-class struggles central to trade war anxieties in America's heartland.",
+        "works": [
+          {
+            "title": "Flint is Family",
+            "year": 2016,
+            "medium": "Photography"
+          },
+          {
+            "title": "The Last Cruze",
+            "year": 2019,
+            "medium": "Photography"
+          }
+        ]
+      },
+      {
+        "artist": "Liu Wei",
+        "nationality": "Chinese",
+        "born": 1972,
+        "reasoning": "His industrial landscapes and fractured cityscapes reflect China-US tensions and global economic uncertainty in 2018.",
+        "works": [
+          {
+            "title": "Outcast Series",
+            "year": 2017,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Purple Air",
+            "year": 2018,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Trevor Paglen",
+        "nationality": "American",
+        "born": 1974,
+        "reasoning": "Exposes surveillance infrastructure and AI systems driving technological nationalism and data conflicts.",
+        "works": [
+          {
+            "title": "ImageNet Roulette",
+            "year": 2019,
+            "medium": "Installation/Photography"
+          },
+          {
+            "title": "Orbital Reflector",
+            "year": 2018,
+            "medium": "Sculpture"
+          }
+        ]
+      }
+    ],
+    "art_context": "Surveillance systems and digital infrastructure had become the terrain where geopolitical power was actually being fought out."
+  },
+  "2019": {
+    "year": 2019,
+    "context": "Fed pivot",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Njideka Akunyili Crosby",
+        "nationality": "Nigerian-American",
+        "born": 1983,
+        "reasoning": "Her layered collages reflect 2019's cultural hybridity and global identity anxieties amid economic uncertainty.",
+        "works": [
+          {
+            "title": "Remain, Thriving",
+            "year": 2018,
+            "medium": "Acrylic, transfers, and colored pencil on paper"
+          },
+          {
+            "title": "Mimetic Gestures",
+            "year": 2019,
+            "medium": "Acrylic, transfers, and colored pencil on paper"
+          }
+        ]
+      },
+      {
+        "artist": "Arthur Jafa",
+        "nationality": "American",
+        "born": 1960,
+        "reasoning": "His visceral video works captured 2019's reckoning with systemic injustice and Black American experience.",
+        "works": [
+          {
+            "title": "The White Album",
+            "year": 2018,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Love Is The Message, The Message Is Death",
+            "year": 2016,
+            "medium": "Video"
+          }
+        ]
+      },
+      {
+        "artist": "Avery Singer",
+        "nationality": "American",
+        "born": 1987,
+        "reasoning": "Her airbrush-digital hybrid paintings embody 2019's tech-mediated alienation and market volatility aesthetics.",
+        "works": [
+          {
+            "title": "Happening",
+            "year": 2019,
+            "medium": "Acrylic on canvas, airbrushed"
+          },
+          {
+            "title": "The Studio",
+            "year": 2018,
+            "medium": "Acrylic on canvas, airbrushed"
+          }
+        ]
+      },
+      {
+        "artist": "Wolfgang Tillmans",
+        "nationality": "German",
+        "born": 1968,
+        "reasoning": "His fragmented installations mirror 2019's political fragmentation and Brexit-era European precarity.",
+        "works": [
+          {
+            "title": "Rebuilding the Future",
+            "year": 2018,
+            "medium": "Inkjet prints, installation"
+          },
+          {
+            "title": "PCR IV",
+            "year": 2019,
+            "medium": "Inkjet print on paper"
+          }
+        ]
+      },
+      {
+        "artist": "Hito Steyerl",
+        "nationality": "German",
+        "born": 1966,
+        "reasoning": "Her work interrogates finance, AI, and power structures central to 2019's Fed pivot moment.",
+        "works": [
+          {
+            "title": "This is the Future",
+            "year": 2019,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Power Plants",
+            "year": 2019,
+            "medium": "Video installation with AI-generated imagery"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were examining how identity, belonging, and material reality fracture when filtered through screens, algorithms, markets, and the collision of cultures in a connected world."
+  },
+  "2020": {
+    "year": 2020,
+    "context": "COVID-19",
+    "recession": "COVID-19 recession",
+    "artists": [
+      {
+        "artist": "Edward Hopper",
+        "nationality": "American",
+        "born": 1882,
+        "reasoning": "His paintings of isolation and empty urban spaces became viral symbols of lockdown solitude.",
+        "works": [
+          {
+            "title": "Nighthawks",
+            "year": 1942,
+            "medium": "Oil on canvas"
+          },
+          {
+            "title": "Morning Sun",
+            "year": 1952,
+            "medium": "Oil on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Nan Goldin",
+        "nationality": "American",
+        "born": 1953,
+        "reasoning": "Her intimate documentation of vulnerability, illness, and confined domestic spaces resonates deeply with pandemic isolation.",
+        "works": [
+          {
+            "title": "Self-portrait in blue bathroom, London",
+            "year": 2018,
+            "medium": "Photography"
+          },
+          {
+            "title": "Sirens",
+            "year": 2020,
+            "medium": "Video and photography installation"
+          }
+        ]
+      },
+      {
+        "artist": "Doris Salcedo",
+        "nationality": "Colombian",
+        "born": 1958,
+        "reasoning": "Her haunting sculptures of absence, grief, and collective trauma resonate deeply with pandemic loss and isolation.",
+        "works": [
+          {
+            "title": "Tabula Rasa",
+            "year": 2018,
+            "medium": "Wood, concrete, and metal"
+          },
+          {
+            "title": "Palimpsest",
+            "year": 2017,
+            "medium": "Hydraulic system, stone, and water"
+          }
+        ]
+      },
+      {
+        "artist": "Kerry James Marshall",
+        "nationality": "American",
+        "born": 1955,
+        "reasoning": "His intimate domestic interiors and meditations on Black life resonate with 2020's isolation and racial reckoning.",
+        "works": [
+          {
+            "title": "Untitled (Studio)",
+            "year": 2014,
+            "medium": "Acrylic on PVC panel"
+          },
+          {
+            "title": "Black and part Black Birds in America",
+            "year": 2020,
+            "medium": "Acrylic on PVC panel"
+          }
+        ]
+      },
+      {
+        "artist": "Toyin Ojih Odutola",
+        "nationality": "Nigerian-American",
+        "born": 1985,
+        "reasoning": "Her contemplative portraits of Black intimacy offered solace amid 2020's racial reckoning and isolation.",
+        "works": [
+          {
+            "title": "The Firmament",
+            "year": 2020,
+            "medium": "Pastel and charcoal on paper"
+          },
+          {
+            "title": "Unclaimed Estates",
+            "year": 2020,
+            "medium": "Pastel and charcoal on paper"
+          }
+        ]
+      }
+    ],
+    "art_context": "Isolation and grief had become the dominant emotional and physical reality, and these artists rendered it through empty rooms, confined bodies, absent presences, and the quiet intensity of being alone together."
+  },
+  "2021": {
+    "year": 2021,
+    "context": "Meme stocks & stimulus",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Beeple (Mike Winkelmann)",
+        "nationality": "American",
+        "born": 1981,
+        "reasoning": "His $69M NFT sale epitomized 2021's speculative digital gold rush and meme-driven markets.",
+        "works": [
+          {
+            "title": "Everydays: The First 5000 Days",
+            "year": 2021,
+            "medium": "Digital/NFT"
+          },
+          {
+            "title": "HUMAN ONE",
+            "year": 2021,
+            "medium": "Kinetic video sculpture"
+          }
+        ]
+      },
+      {
+        "artist": "Jamian Juliano-Villani",
+        "nationality": "American",
+        "born": 1987,
+        "reasoning": "Her chaotic, meme-like collage paintings mirror the absurdist internet culture driving GameStop mania.",
+        "works": [
+          {
+            "title": "The World's an Illusion",
+            "year": 2020,
+            "medium": "Acrylic on canvas"
+          },
+          {
+            "title": "Surrender Dorothy",
+            "year": 2021,
+            "medium": "Acrylic on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "KAWS (Brian Donnelly)",
+        "nationality": "American",
+        "born": 1974,
+        "reasoning": "His cartoon-inspired collectibles and AR art mirrored 2021's meme culture and speculative consumer mania.",
+        "works": [
+          {
+            "title": "SHARE",
+            "year": 2020,
+            "medium": "Bronze sculpture"
+          },
+          {
+            "title": "NEW FICTION",
+            "year": 2021,
+            "medium": "Augmented reality installation"
+          }
+        ]
+      },
+      {
+        "artist": "Jingna Zhang",
+        "nationality": "Singaporean",
+        "born": 1988,
+        "reasoning": "Her hyper-polished digital photography captures the curated, aspirational fantasy of Instagram-era capitalism.",
+        "works": [
+          {
+            "title": "Motherland Chronicles #51",
+            "year": 2020,
+            "medium": "Digital photography"
+          },
+          {
+            "title": "The Enchantress",
+            "year": 2021,
+            "medium": "Digital photography"
+          }
+        ]
+      },
+      {
+        "artist": "Jordan Wolfson",
+        "nationality": "American",
+        "born": 1980,
+        "reasoning": "His disturbing animatronic sculptures expose technology's violent absurdity, echoing algorithmic market chaos.",
+        "works": [
+          {
+            "title": "Female Figure",
+            "year": 2014,
+            "medium": "Animatronic sculpture"
+          },
+          {
+            "title": "ARTISTS FRIENDS RACISTS",
+            "year": 2020,
+            "medium": "Video installation"
+          }
+        ]
+      }
+    ],
+    "art_context": "Digital images and collectibles had become interchangeable with financial assets, collapsing the distinction between art, speculation, and meme culture into a single frictionless market."
+  },
+  "2022": {
+    "year": 2022,
+    "context": "Rate hike cycle",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Tala Madani",
+        "nationality": "Iranian-American",
+        "born": 1981,
+        "reasoning": "Her darkly comic paintings expose anxieties about power, masculinity, and systemic failures—mirroring 2022's economic and social unease.",
+        "works": [
+          {
+            "title": "Shit Moms (Projector)",
+            "year": 2021,
+            "medium": "Oil on linen"
+          },
+          {
+            "title": "Corner Projection",
+            "year": 2022,
+            "medium": "Oil on linen"
+          }
+        ]
+      },
+      {
+        "artist": "Cameron Rowland",
+        "nationality": "American",
+        "born": 1988,
+        "reasoning": "Rowland's rigorous analysis of property, debt, and institutional finance resonates with 2022's monetary tightening anxieties.",
+        "works": [
+          {
+            "title": "Depreciation",
+            "year": 2018,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "3 & 4 Will. IV c. 73",
+            "year": 2020,
+            "medium": "Conceptual installation with legal documents"
+          }
+        ]
+      },
+      {
+        "artist": "Lubaina Himid",
+        "nationality": "British-Tanzanian",
+        "born": 1954,
+        "reasoning": "Her work addressing hidden labor and economic invisibility resonates with 2022's anxieties around inflation and systemic tightening.",
+        "works": [
+          {
+            "title": "Six Tailors",
+            "year": 2019,
+            "medium": "Acrylic on canvas"
+          },
+          {
+            "title": "Le Rodeur: The Lock",
+            "year": 2016,
+            "medium": "Acrylic on canvas"
+          }
+        ]
+      },
+      {
+        "artist": "Toyin Ojih Odutola",
+        "nationality": "Nigerian-American",
+        "born": 1985,
+        "reasoning": "Her speculative narratives offered alternative worlds amid 2022's economic precarity and social reckonings.",
+        "works": [
+          {
+            "title": "Ilé Oriaku",
+            "year": 2022,
+            "medium": "Pastel and charcoal on paper"
+          },
+          {
+            "title": "A Countervailing Theory",
+            "year": 2020,
+            "medium": "Pastel and pencil on paper"
+          }
+        ]
+      },
+      {
+        "artist": "Theaster Gates",
+        "nationality": "American",
+        "born": 1973,
+        "reasoning": "His sculptures from devalued materials critique wealth extraction and urban disinvestment intensified by tightening credit.",
+        "works": [
+          {
+            "title": "Black Vessel for a Saint",
+            "year": 2022,
+            "medium": "Decommissioned fire hose and wood"
+          },
+          {
+            "title": "Ground Rules",
+            "year": 2021,
+            "medium": "Tar, rubber, and reclaimed wood"
+          }
+        ]
+      }
+    ],
+    "art_context": "These artists were scrutinizing how money, labor, and institutional systems actually work beneath the surface, turning finance and property into subjects as visually urgent as the bodies and hierarchies they upheld."
+  },
+  "2023": {
+    "year": 2023,
+    "context": "AI rally begins",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Refik Anadol",
+        "nationality": "Turkish-American",
+        "born": 1985,
+        "reasoning": "His AI-generated data sculptures became the visual symbol of 2023's machine learning zeitgeist.",
+        "works": [
+          {
+            "title": "Unsupervised",
+            "year": 2022,
+            "medium": "AI data sculpture/Installation"
+          },
+          {
+            "title": "Living Architecture: Casa Batlló",
+            "year": 2023,
+            "medium": "AI-driven projection"
+          }
+        ]
+      },
+      {
+        "artist": "Ian Cheng",
+        "nationality": "American",
+        "born": 1984,
+        "reasoning": "His autonomous AI simulations explore emergent behavior, prescient for 2023's AI autonomy anxieties.",
+        "works": [
+          {
+            "title": "Life After BOB: The Chalice Study",
+            "year": 2021,
+            "medium": "AI simulation/Animation"
+          },
+          {
+            "title": "3FACE",
+            "year": 2023,
+            "medium": "AI entity/Installation"
+          }
+        ]
+      },
+      {
+        "artist": "Holly Herndon",
+        "nationality": "American",
+        "born": 1980,
+        "reasoning": "Her AI collaboration work with Spawn directly engages machine learning aesthetics and human-AI creative tension.",
+        "works": [
+          {
+            "title": "Spawn Training Ceremony I",
+            "year": 2019,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Holly+ (Deep Fake Voice Model)",
+            "year": 2021,
+            "medium": "AI voice sculpture and installation"
+          }
+        ]
+      },
+      {
+        "artist": "Sondra Perry",
+        "nationality": "American",
+        "born": 1986,
+        "reasoning": "Her work on digital identity and Black embodiment in technology resonated amid 2023's AI bias debates.",
+        "works": [
+          {
+            "title": "IT'S IN THE GAME '17",
+            "year": 2017,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Wet and Wavy Looks—ATARASHII KAMI",
+            "year": 2023,
+            "medium": "Video/Performance"
+          }
+        ]
+      },
+      {
+        "artist": "Trevor Paglen",
+        "nationality": "American",
+        "born": 1974,
+        "reasoning": "His investigations of AI surveillance and training datasets exposed algorithmic power structures central to 2023.",
+        "works": [
+          {
+            "title": "CLOUD #557 (Corpus: The Faces of Facebook)",
+            "year": 2023,
+            "medium": "Dye sublimation print"
+          },
+          {
+            "title": "From Apple to Anomaly",
+            "year": 2019,
+            "medium": "Photography/Installation"
+          }
+        ]
+      }
+    ],
+    "art_context": "The real mechanics of AI—how it learns from us, watches us, and breaks down along lines of race and power—became visible through work that refused to treat machine learning as neutral or inevitable."
+  },
+  "2024": {
+    "year": 2024,
+    "context": "AI investment surge",
+    "recession": null,
+    "artists": [
+      {
+        "artist": "Refik Anadol",
+        "nationality": "Turkish-American",
+        "born": 1985,
+        "reasoning": "His AI-generated data sculptures embody the 2024 zeitgeist of technological sublime and machine creativity.",
+        "works": [
+          {
+            "title": "Large Nature Model",
+            "year": 2024,
+            "medium": "AI data sculpture/Installation"
+          },
+          {
+            "title": "Unsupervised",
+            "year": 2023,
+            "medium": "AI-generated digital installation"
+          }
+        ]
+      },
+      {
+        "artist": "Simon Denny",
+        "nationality": "New Zealand",
+        "born": 1982,
+        "reasoning": "Denny's sculptures dissect tech industry aesthetics and venture capital mythology, perfectly capturing AI hype culture.",
+        "works": [
+          {
+            "title": "Blockchain Visionaries",
+            "year": 2016,
+            "medium": "Mixed media installation"
+          },
+          {
+            "title": "Mine",
+            "year": 2019,
+            "medium": "Board game and sculptural installation"
+          }
+        ]
+      },
+      {
+        "artist": "Ian Cheng",
+        "nationality": "American",
+        "born": 1984,
+        "reasoning": "His autonomous AI simulations explore consciousness and agency central to 2024's AI anxieties.",
+        "works": [
+          {
+            "title": "Life After BOB",
+            "year": 2023,
+            "medium": "AI simulation/Animation"
+          },
+          {
+            "title": "3FACE",
+            "year": 2024,
+            "medium": "AI-driven digital entity"
+          }
+        ]
+      },
+      {
+        "artist": "Sondra Perry",
+        "nationality": "American",
+        "born": 1986,
+        "reasoning": "Her work interrogates algorithmic bias and digital identity amid 2024's AI equity debates.",
+        "works": [
+          {
+            "title": "Wet and Wavy Looks Back",
+            "year": 2023,
+            "medium": "Video installation"
+          },
+          {
+            "title": "Lineage for a Multiple-Monitor Workstation",
+            "year": 2024,
+            "medium": "Digital video/Sculpture"
+          }
+        ]
+      },
+      {
+        "artist": "Pierre Huyghe",
+        "nationality": "French",
+        "born": 1962,
+        "reasoning": "His ecosystemic installations exploring non-human intelligence and emergent behavior mirror anxieties around autonomous AI systems.",
+        "works": [
+          {
+            "title": "Of Ideal",
+            "year": 2019,
+            "medium": "Deep image neural network, biological neural network, augmented reality"
+          },
+          {
+            "title": "Camata",
+            "year": 2024,
+            "medium": "Cellular automata, LED screen, generative system"
+          }
+        ]
+      }
+    ],
+    "art_context": "The blur between human creativity and machine intelligence had become impossible to ignore, and these artists were mapping what happens to ideas like consciousness, bias, and aesthetic value when they pass through AI systems."
+  }
+}

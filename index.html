@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Art & Economy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#fff; font-family:'DM Sans',sans-serif; width:100vw; height:100vh; overflow:hidden; }
+
+  /* ── background chart ── */
+  #bgChart {
+    position:fixed; inset:0; z-index:0;
+    pointer-events:none;
+  }
+
+  /* ── 3D scene container ── */
+  #scene {
+    position:absolute; inset:0; z-index:1;
+    perspective:800px;
+    perspective-origin:50% 50%;
+    overflow:hidden;
+  }
+  #world {
+    position:absolute;
+    width:100%; height:100%;
+    transform-style:preserve-3d;
+  }
+
+  /* ── art cards ── */
+  .card {
+    position:absolute;
+    left:50%; top:50%;
+    width:160px;
+    transform-style:preserve-3d;
+    cursor:pointer;
+    transition:opacity 0.5s ease;
+  }
+  .card img {
+    display:block;
+    width:160px;
+    height:auto;
+    object-fit:cover;
+    box-shadow:0 2px 20px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.06);
+    background:#f2f1ef;
+  }
+  .card .ph {
+    width:160px;
+    height:160px;
+    background:#f2f1ef;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; color:#ccc; text-align:center; padding:12px;
+    font-family:'DM Mono',monospace;
+    box-shadow:0 2px 20px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.05);
+  }
+  .card .artist-label {
+    font-size:15px; font-weight:700; color:#111; text-align:center;
+    padding:7px 4px 2px;
+    font-family:'DM Sans',sans-serif;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    width:160px;
+    line-height:1.2;
+    letter-spacing:-0.01em;
+  }
+
+  /* ── HUD ── */
+  #hud {
+    position:fixed; inset:0; pointer-events:none; z-index:100;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:opacity 0.4s ease;
+  }
+  .hud-top {
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding:24px 32px;
+    background:linear-gradient(to bottom,rgba(255,255,255,0.96) 55%,transparent);
+    pointer-events:auto;
+  }
+  .hud-title h1 { font-size:15px; font-weight:500; letter-spacing:-0.01em; }
+  .hud-title p  { font-size:11px; color:#bbb; font-style:italic; margin-top:2px; }
+  .api-row { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+  .api-row label { font-size:10px; color:#bbb; letter-spacing:0.05em; text-transform:uppercase; }
+  .api-row input { font-size:11px; font-family:'DM Mono',monospace; background:#f5f5f4; border:0.5px solid #ddd; color:#111; padding:5px 9px; border-radius:5px; outline:none; width:190px; }
+  .api-row input::placeholder { color:#ccc; }
+  .api-row button { font-size:11px; background:#f5f5f4; border:0.5px solid #ddd; color:#555; padding:5px 10px; border-radius:5px; cursor:pointer; white-space:nowrap; }
+  .tag { font-size:10px; padding:2px 6px; border-radius:3px; }
+  .tag.green { background:rgba(22,163,74,0.1); color:#16a34a; }
+  .tag.dim { color:#ccc; }
+
+  /* ── top row: everything on one line ── */
+  .corner-tl {
+    position:absolute; top:56px; left:28px; right:28px;
+    pointer-events:none; z-index:10;
+    display:grid;
+    grid-template-columns: 18% 62% auto;
+    align-items:baseline;
+  }
+  .corner-stat  { display:flex; flex-direction:column; gap:0; }
+  .stat-name { font-size:15px; color:#111; font-family:'DM Sans',sans-serif; font-weight:500; }
+  .stat-name-row { display:flex; align-items:center; gap:8px; }
+  .big-year { font-size:72px; font-weight:400; letter-spacing:-0.04em; line-height:1; color:#111; font-family:'DM Sans',sans-serif; user-select:none; }
+  .big-spy  { font-size:72px; font-weight:400; letter-spacing:-0.04em; line-height:1; color:#111; font-family:'DM Sans',sans-serif; user-select:none; }
+  .inline-yoy { font-size:15px; font-family:'DM Sans',sans-serif; font-weight:500; }
+  .inline-yoy.up      { color:#16a34a; }
+  .inline-yoy.down    { color:#dc2626; }
+  .inline-yoy.neutral { color:#111; }
+  .year-ctx { font-size:72px; font-weight:400; color:#111; font-family:'DM Sans',sans-serif; line-height:1; letter-spacing:-0.04em; }
+  .big-rec  { font-size:72px; font-weight:400; color:#dc2626; font-family:'DM Sans',sans-serif; line-height:1; letter-spacing:-0.04em; opacity:0; transition:opacity 0.6s ease; }
+  .letter-fade { display:inline-block; opacity:1; transition:opacity 0.35s ease; }
+  .letter-fade.space { width:0.28em; }
+  .word { display:inline-block; white-space:nowrap; }
+
+  /* ── intro overlay ── */
+  .intro-overlay {
+    position:fixed; inset:0; z-index:50;
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:none;
+  }
+  .intro-text {
+    font-size:17px; font-weight:400; font-style:italic;
+    color:#bbb; font-family:'DM Sans',sans-serif;
+    letter-spacing:0.01em; text-align:center;
+  }
+
+  /* bottom-left: art context */
+  .corner-bl {
+    position:absolute; bottom:60px; left:28px; right:28px;
+    pointer-events:none; z-index:10;
+  }
+  .art-ctx {
+    font-size:52px; font-weight:400; color:#111;
+    line-height:1.15; font-family:'DM Sans',sans-serif;
+    letter-spacing:-0.02em; transition:opacity 0.4s;
+  }
+  .art-ctx.loading { opacity:0.15; }
+
+
+  /* scrub bar removed — dragging now happens on the year pill itself */
+  
+
+  .hint { font-size:10px; color:#ccc; font-family:'DM Mono',monospace; letter-spacing:0.03em; }
+
+  /* status */
+  .status-bar { position:fixed; top:62px; left:0; right:0; font-size:11px; padding:5px 32px; display:none; align-items:center; justify-content:space-between; z-index:200; pointer-events:auto; }
+  .status-bar.error { color:#dc2626; background:rgba(220,38,38,0.06); display:flex; }
+  .status-bar.info  { color:#1d4ed8; background:rgba(29,78,216,0.05); display:flex; }
+  .status-bar button { font-size:11px; background:transparent; border:0.5px solid currentColor; color:inherit; padding:2px 8px; border-radius:4px; cursor:pointer; }
+
+  /* ── fullscreen image takeover ── */
+  .takeover {
+    position:fixed; inset:0; background:#000;
+    display:none; z-index:500;
+    opacity:0; transition:opacity 0.4s ease;
+  }
+  .takeover.open { display:block; opacity:1; }
+
+  .takeover-close {
+    position:absolute; top:24px; right:28px; z-index:10;
+    background:none; border:none; color:rgba(255,255,255,0.5);
+    font-size:20px; cursor:pointer; line-height:1;
+    font-family:'DM Sans',sans-serif;
+  }
+  .takeover-close:hover { color:#fff; }
+
+  /* top row — same padding/layout as .corner-tl */
+  .tk-top {
+    position:absolute; top:0; left:28px; right:28px;
+    padding-top:56px;
+  }
+  /* single flex row so work name + artist name share same baseline */
+  .tk-top-row {
+    display:flex; align-items:baseline;
+    justify-content:space-between; gap:40px;
+  }
+  .tk-top-left  { display:flex; flex-direction:column; }
+  .tk-top-right { display:flex; flex-direction:column; align-items:flex-end; }
+  /* same size as .big-year / .big-spy */
+  .tk-big { font-size:72px; font-weight:400; letter-spacing:-0.04em; line-height:1; color:#fff; font-family:'DM Sans',sans-serif; }
+  .tk-sub { font-size:15px; color:rgba(255,255,255,0.4); font-family:'DM Sans',sans-serif; margin-top:4px; }
+
+  /* image */
+  .takeover-img {
+    position:absolute; top:200px; left:28px; right:28px; bottom:220px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .takeover-img img { max-width:100%; max-height:100%; object-fit:contain; display:block; }
+
+  /* bottom — same as .corner-bl at bottom:60px */
+  .tk-bottom {
+    position:absolute; bottom:0; left:28px; right:28px;
+    padding-bottom:60px;
+    display:flex; align-items:flex-end; justify-content:space-between;
+  }
+  /* same size as .art-ctx = 52px */
+  .tk-reason {
+    font-size:52px; font-weight:400; color:#fff;
+    line-height:1.15; font-family:'DM Sans',sans-serif;
+    letter-spacing:-0.02em; max-width:85%;
+  }
+  .tk-link {
+    font-size:11px; color:rgba(255,255,255,0.3);
+    text-decoration:none; white-space:nowrap; padding-bottom:8px;
+  }
+  .tk-link:hover { color:#fff; }
+
+  /* ── top promo banner ── */
+  #topBanner {
+    position:fixed; top:0; left:0; right:0; z-index:400;
+    height:26px;
+    display:flex; align-items:center; justify-content:center;
+    background:#e9e9e7;
+    border-bottom:0.5px solid #d6d6d3;
+    font-family:'DM Sans',sans-serif;
+    font-size:12px; color:#555; letter-spacing:0.01em;
+    pointer-events:auto;
+  }
+  #topBanner a { color:#111; text-decoration:none; font-weight:500; }
+  #topBanner a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div id="topBanner">Follow me on X&nbsp;<a href="https://x.com/ohhdanqi" target="_blank" rel="noopener">@ohhdanqi</a>&nbsp;for more creative demos</div>
+
+<canvas id="bgChart"></canvas>
+<canvas id="yearPill" style="position:fixed;top:0;left:0;pointer-events:none;z-index:15;box-shadow:none;filter:none;"></canvas>
+<div id="scene">
+  <div id="world"></div>
+</div>
+
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-text" id="introText"></div>
+</div>
+
+<div id="hud">
+  <!-- single row: year · price · economy description -->
+  <div class="corner-tl">
+    <div class="corner-stat">
+      <div class="stat-name-row">
+        <span class="stat-name">S&amp;P 500</span>
+        <span class="inline-yoy neutral" id="statChange">—</span>
+      </div>
+      <div class="big-spy" id="statPrice">$330</div>
+    </div>
+    <div class="corner-stat">
+      <div class="stat-name">Economy</div>
+      <div class="year-ctx" id="yearCtx">Gulf War begins</div>
+      <div class="big-rec"  id="recBadge"></div>
+    </div>
+    <div class="corner-stat" style="justify-self:end;text-align:right;">
+      <div class="stat-name">Year</div>
+      <div class="big-year" id="bigYear">1990</div>
+    </div>
+  </div>
+
+  <!-- bottom-left: art context -->
+  <div class="corner-bl">
+    <div class="art-ctx" id="artCtx"></div>
+  </div>
+</div>
+
+<div class="takeover" id="takeover">
+  <button class="takeover-close" onclick="closeModal()">✕</button>
+  <div class="tk-top">
+    <div class="tk-top-row">
+      <div class="tk-top-left" id="tkLeft"></div>
+      <div class="tk-top-right" id="tkRight"></div>
+    </div>
+  </div>
+  <div class="takeover-img"><img id="tkImg" alt="" /></div>
+  <div class="tk-bottom">
+    <div class="tk-reason" id="tkReason"></div>
+    <a class="tk-link" id="tkLink" href="#" target="_blank" rel="noopener">View on Wikipedia ↗</a>
+  </div>
+</div>
+
+<script>
+// ─── constants ────────────────────────────────────────────────────────────────
+
+const RECESSIONS=[{start:1990,end:1991,label:'Gulf War recession'},{start:2001,end:2001,label:'Dot-com bust'},{start:2007,end:2009,label:'Global Financial Crisis'},{start:2020,end:2020,label:'COVID-19 recession'}];
+const YEAR_CTX={1990:'Gulf War begins',1991:'USSR dissolves',1992:'ERM crisis',1993:'NAFTA signed',1994:'Bond market crash',1995:'Internet goes mainstream',1996:'Telecom boom',1997:'Asian financial crisis',1998:'LTCM collapse',1999:'Dot-com peak',2000:'Y2K / bubble peak',2001:'9/11 & dot-com crash',2002:'Enron scandal',2003:'Iraq War begins',2004:'Housing boom',2005:'Commodities surge',2006:'Housing bubble peak',2007:'Subprime cracks appear',2008:'Lehman collapses',2009:'Market bottom',2010:'Recovery',2011:'Eurozone crisis',2012:'QE3',2013:'Taper tantrum',2014:'Oil price collapse',2015:'China slowdown',2016:'Brexit vote',2017:'Tax cuts rally',2018:'Trade war',2019:'Fed pivot',2020:'COVID-19',2021:'Meme stocks & stimulus',2022:'Rate hike cycle',2023:'AI rally begins',2024:'AI investment surge'};
+const DEMO_DATA={1990:330,1991:376,1992:416,1993:466,1994:459,1995:615,1996:740,1997:970,1998:1229,1999:1469,2000:1320,2001:1148,2002:879,2003:1111,2004:1212,2005:1248,2006:1418,2007:1468,2008:903,2009:1115,2010:1257,2011:1257,2012:1426,2013:1848,2014:2059,2015:2044,2016:2239,2017:2674,2018:2507,2019:3231,2020:3756,2021:4766,2022:3840,2023:4770,2024:5460};
+const CURATION_KEY='art-economy-curation';
+const YEARS=Object.keys(DEMO_DATA).map(Number).sort((a,b)=>a-b);
+
+// tunnel layout
+const CARD_W=100;          // small cards
+const Z_SPACING=800;       // z units between years — closer so next year is visible
+const MIN_P=Math.min(...Object.values(DEMO_DATA));
+const MAX_P=Math.max(...Object.values(DEMO_DATA));
+
+// ─── state ────────────────────────────────────────────────────────────────────
+
+let yearlyData={...DEMO_DATA};
+let artData=null;
+let imgCache={};
+let cameraZ=0, targetZ=0;
+let currentYear=1990;
+let wasRecession=false;
+let lastChartDraw=0;
+const CHART_DRAW_INTERVAL=32;
+let pendingYear=null, pendingYearFrames=0;
+const YEAR_STABLE_FRAMES=4;
+let scrubbing=false;
+let settleTimer=null;
+let worldHidden=false;
+const FAST_SCROLL_DIST = 800;   // if camera is further than this from target, treat as "still moving fast"
+const SETTLE_DEBOUNCE_MS = 140; // run the full polished update this long after motion stops
+let bloomProgress = 1;   // 0=tight, 1=fully spread
+let bloomYear = null;
+const BLOOM_SPEED = 0.045;
+let allCards=[];   // {el, z, year, cell}
+let raf=null;
+
+// ─── seeded random ────────────────────────────────────────────────────────────
+
+function seededRand(seed){
+  let s=seed%2147483647; if(s<=0)s+=2147483646;
+  return()=>{s=s*16807%2147483647;return(s-1)/2147483646;};
+}
+
+// ─── price → tunnel spread (px) ──────────────────────────────────────────────
+// Bull market = wide spread, crash = tight/close
+// Spread is large enough that cards at z=0 go well off-screen
+
+function priceToSpread(price){
+  const norm=(price-MIN_P)/(MAX_P-MIN_P);
+  const vw=window.innerWidth, vh=window.innerHeight;
+  const base=Math.min(vw,vh);
+  return base*0.35 + norm*base*0.35; // 35–70% of shorter viewport dimension
+}
+
+
+// ─── cached DOM refs (never query in hot loop) ────────────────────────────────
+let DOM = {};
+function cacheDOM(){
+  DOM.world      = document.getElementById('world');
+  DOM.scene      = document.getElementById('scene');
+  DOM.bigYear    = document.getElementById('bigYear');
+  DOM.yearCtx    = document.getElementById('yearCtx');
+  DOM.statPrice  = document.getElementById('statPrice');
+  DOM.statChange = document.getElementById('statChange');
+  DOM.recBadge   = document.getElementById('recBadge');
+  DOM.bgChart    = document.getElementById('bgChart');
+  DOM.yearPill   = document.getElementById('yearPill');
+  DOM.artCtx     = document.getElementById('artCtx');
+  DOM.hud        = document.getElementById('hud');
+  DOM.takeover   = document.getElementById('takeover');
+}
+
+// ─── simple hover ─────────────────────────────────────────────────────────────
+
+const HOVER_SCALE = 1.4;
+const HOVER_LERP  = 0.08;
+const cardScales  = new Map();
+let hoveredEl     = null;
+let hoveredCell   = null;
+let hoverX = 0, hoverY = 0;
+
+window.addEventListener('mouseover', e => {
+  const card = e.target.closest('.card');
+  hoveredEl = card || null;
+  if(card){
+    // _cell stored on element; fallback to allCards lookup
+    hoveredCell = card._cell || (allCards.find(c=>c.el===card)?.cell) || null;
+  } else {
+    hoveredCell = null;
+  }
+});
+window.addEventListener('mousemove', e => {
+  hoverX = e.clientX;
+  hoverY = e.clientY;
+});
+
+function applyMagneticHover(){
+  (cardsByYear[currentYear]||[]).forEach(({ el, tx, ty, tz }) => {
+    const target = el === hoveredEl ? HOVER_SCALE : 1;
+    const cur    = cardScales.get(el) || 1;
+    const next   = cur + (target - cur) * HOVER_LERP;
+    if(Math.abs(next - cur) < 0.001) return;
+    cardScales.set(el, next);
+    el.style.transform = `translate3d(${tx}px,${ty}px,${tz}px) scale(${next.toFixed(3)})`;
+    el.style.zIndex    = next > 1.05 ? '50' : '';
+  });
+}
+
+const LAYOUT_DEFAULTS = { bs:125, sr:0, ps:0.75, ws:1.10, wg:146, pv:928 };
+let LAYOUT = {...LAYOUT_DEFAULTS};
+
+function onCtrl(key, val){
+  LAYOUT[key] = val;
+  const labels = {
+    bs: v=>`${v}`, sr: v=>`${v}`, ps: v=>`${v.toFixed(2)}`,
+    ws: v=>`${v.toFixed(2)}`, wg: v=>`${v}`, pv: v=>`${v}`
+  };
+  document.getElementById(`v-${key}`).textContent = labels[key]?.(val) ?? val;
+  if(key==='pv'){
+    DOM.scene.style.perspective = val+'px';
+  } else {
+    rebuildPositions();
+  }
+}
+
+function rebuildPositions(){
+  // rebuild + re-index without re-fetching images
+  const world = DOM.world;
+  // just rebuild everything — images are cached so they reload instantly
+  buildCards();
+  indexCards();
+  cullToWindow(currentYear);
+  const ci = YEARS.indexOf(currentYear);
+  (cardsByYear[currentYear]||[]).forEach(({el})=>{el.style.opacity='1';el.style.pointerEvents='auto';});
+  const nyr = YEARS[ci+1];
+  if(nyr)(cardsByYear[nyr]||[]).forEach(({el})=>{el.style.opacity='0.08';el.style.pointerEvents='none';});
+}
+
+function toggleCtrl(){
+  const p=document.getElementById('ctrlPanel');
+  const t=document.getElementById('ctrlToggle');
+  p.classList.toggle('collapsed');
+  t.textContent = p.classList.contains('collapsed') ? '▸' : '▾';
+}
+
+function resetCtrl(){
+  LAYOUT={...LAYOUT_DEFAULTS};
+  Object.keys(LAYOUT_DEFAULTS).forEach(k=>{
+    const el=document.getElementById(`s-${k}`);
+    if(el) el.value=LAYOUT_DEFAULTS[k];
+    onCtrl(k, LAYOUT_DEFAULTS[k]);
+  });
+  DOM.scene.style.perspective = LAYOUT_DEFAULTS.pv+'px';
+}
+// 5 artist clusters placed around a ring.
+// Each cluster: portrait center + work0 left + work1 right, tightly grouped.
+// Clusters at different Z depths so near ones appear big, far ones small.
+
+function buildCards(){
+  const world = DOM.world;
+  world.innerHTML = '';
+  allCards = [];
+  if(!artData) return;
+
+  const NUM_ARTISTS   = 5;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const RING_RADIUS_X = Math.min(579, vw * 0.48);
+  const RING_RADIUS_Y = Math.min(234, vh * 0.45);
+  const Z_SPREAD      = 248;
+  const WORK_OFFSET_X = LAYOUT.wg;
+  const WORK_OFFSET_Y = 15;
+  const X_OFFSET      = vw * (-8 / 100);
+  const Y_OFFSET      = vh * (-2 / 100);
+  const ANGLE_START   = 25 * Math.PI / 180;
+
+  // image sizes from LAYOUT
+  const BASE_W   = LAYOUT.bs;
+  const PORT_W   = Math.round(BASE_W * LAYOUT.ps + (Math.random()-0.5)*LAYOUT.sr);
+  const WORK_W   = Math.round(BASE_W * LAYOUT.ws);
+
+  YEARS.forEach((year, yi) => {
+    const info = artData[year]; if(!info) return;
+    const r = seededRand(year * 1337 + 7);
+    const zBase = -(yi * Z_SPACING);
+
+    info.artists.forEach((artist, ai) => {
+      const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*0.15;
+      const cx = Math.cos(clusterAngle) * RING_RADIUS_X + X_OFFSET;
+      const cy = Math.sin(clusterAngle) * RING_RADIUS_Y + Y_OFFSET;
+
+      // Z: front of ring closer, back farther → perspective makes size difference
+      const cz = zBase + Math.cos(clusterAngle) * Z_SPREAD + (r()-0.5)*80;
+
+      // portrait — cluster center
+      addCard(world, {type:'portrait', artist, ai, year}, cx - PORT_W/2, cy - 60, cz, year, PORT_W);
+
+      // work0 — left of portrait
+      if(artist.works?.[0]){
+        addCard(world, {type:'work', artist, work:artist.works[0], ai, wi:0, year},
+          cx - WORK_OFFSET_X - WORK_W/2, cy - 60 + WORK_OFFSET_Y, cz + 20, year, WORK_W);
+      }
+      // work1 — right of portrait
+      if(artist.works?.[1]){
+        addCard(world, {type:'work', artist, work:artist.works[1], ai, wi:1, year},
+          cx + WORK_OFFSET_X - WORK_W/2, cy - 60 - WORK_OFFSET_Y, cz + 20, year, WORK_W);
+      }
+    });
+  });
+}
+
+function addCard(world, cell, tx, ty, z, year, imgW){
+  imgW = imgW || CARD_W;
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.style.transform = `translate3d(${tx}px,${ty}px,${z}px)`;
+  el.dataset.year = year;
+  el._tx = tx; el._ty = ty; el._tz = z;
+
+  const ph = document.createElement('div');
+  ph.className = 'ph';
+  ph.style.width  = imgW + 'px';
+  ph.style.height = Math.round(imgW * 1.1) + 'px';
+  ph.textContent  = '';
+
+  const img = document.createElement('img');
+  img.alt = '';
+  img.style.cssText = `display:none;width:${imgW}px;height:auto;`;
+
+  el.appendChild(ph);
+  el.appendChild(img);
+
+  // artist name only on portrait, small
+  if(cell.type === 'portrait'){
+    const label = document.createElement('div');
+    label.className = 'artist-label';
+    label.textContent = cell.artist.artist;
+    label.style.fontSize = '9px';
+    el.appendChild(label);
+  }
+
+  el.addEventListener('click', e => { e.stopPropagation(); openModal(cell); });
+  el._cell = cell;
+  world.appendChild(el);
+  allCards.push({ el, z, year, cell, ph, img, loaded:false, tx, ty, tz:z });
+}
+
+async function loadImg(cell, ph, img){
+  const{type,artist,work}=cell;
+  const manual=type==='portrait'?artist.portrait_image:work?.image;
+  const key=type==='portrait'?`P|${artist.artist}`:`W|${work?.title}|${artist.artist}`;
+
+  let url=manual?.trim();
+  if(!url){
+    if(imgCache[key]!==undefined){url=imgCache[key]?.imgUrl||null;}
+    else{
+      const res=type==='portrait'?await findPortrait(artist):await findArtwork(artist,work);
+      imgCache[key]=res; cell.imageResult=res; url=res?.imgUrl||null;
+    }
+  } else { cell.imageResult={imgUrl:url,fetchSource:'manual',title:'',pageUrl:null}; }
+
+  if(!url) return;
+
+  img.onload=()=>{
+    ph.style.display='none';
+    img.style.display='block';
+  };
+  img.onerror=()=>{}; // keep placeholder
+  img.src=url;
+}
+
+// ─── art context per year ─────────────────────────────────────────────────────
+
+function loadArtContext(year) {
+  const el = DOM.artCtx;
+  if(!el) return;
+  const text = artData?.[year]?.art_context || '';
+  animateTextChange(el, text);
+  el.classList.remove('loading');
+}
+// Draws the S&P 500 curve full-screen, panning left as cameraZ increases.
+// The chart is drawn at 3× screen width so panning always has content.
+
+let bgCtx = null;
+let pillCtx = null;                // cached 2d context for the year-pill canvas
+let chartPriceStats = null;        // {minP,maxP,range} — recomputed only when yearlyData changes
+let bgW = 0, bgH = 0;
+let smoothChartIdx = 0; // lerped index for smooth dot animation
+
+// Prices/min/max only change when market data loads, so memoize instead of
+// recomputing (with two spread operators) on every chart frame.
+function computeChartStats(){
+  const prices = YEARS.map(y => yearlyData[y] || DEMO_DATA[y]);
+  const minP = Math.min(...prices), maxP = Math.max(...prices);
+  chartPriceStats = { minP, maxP, range: (maxP - minP) || 1 };
+  return chartPriceStats;
+}
+let smoothPrice = 330;  // lerped SPY price for display
+let smoothYOY = 0;      // lerped YOY % for display
+
+function drawBgChart(){
+  if(!bgCtx) return;
+
+  const canvas = DOM.bgChart;
+  const VW = innerWidth, VH = innerHeight;
+  // Assigning width/height reallocates the backing buffer + wipes context state,
+  // so only do it on an actual size change. clearRect handles the per-frame wipe.
+  if(canvas.width !== VW || canvas.height !== VH){
+    canvas.width  = VW;
+    canvas.height = VH;
+    canvas.style.width  = VW + 'px';
+    canvas.style.height = VH + 'px';
+  }
+
+  const PAD = { top: VH*0.12, bottom: VH*0.18 };
+  const H = VH - PAD.top - PAD.bottom;
+
+  // current year index — determines chart offset
+  const currentIdx = YEARS.indexOf(zToYear(cameraZ || 0));
+  const YEAR_PX = VW * 0.08; // px per year (controls how spread out the chart is)
+
+  // x position centered so smoothChartIdx = VW/2 (fractional, so chart pans smoothly too)
+  function px(i){ return VW/2 + (i - smoothChartIdx) * YEAR_PX; }
+
+  const { minP, maxP, range } = chartPriceStats || computeChartStats();
+  function py(price){ return PAD.top + (1 - (price - minP) / range) * H; }
+
+  const pts = YEARS.map((y,i) => ({ x: px(i), y: py(yearlyData[y]||DEMO_DATA[y]), i, year:y }));
+  // only draw pts in view (small buffer)
+  const visible = pts.filter(p => p.x > -200 && p.x < VW+200);
+  if(!visible.length) return;
+
+  bgCtx.clearRect(0, 0, VW, VH);
+
+
+  // fill under line
+  const allPts = pts.filter(p => p.x > -400 && p.x < VW+400);
+  if(allPts.length > 1){
+    const grad = bgCtx.createLinearGradient(0, PAD.top, 0, PAD.top+H);
+    grad.addColorStop(0, 'rgba(0,0,0,0.08)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    bgCtx.beginPath();
+    bgCtx.moveTo(allPts[0].x, PAD.top+H);
+    bgCtx.lineTo(allPts[0].x, allPts[0].y);
+    for(let i=1;i<allPts.length;i++) bgCtx.lineTo(allPts[i].x, allPts[i].y);
+    bgCtx.lineTo(allPts[allPts.length-1].x, PAD.top+H);
+    bgCtx.closePath();
+    bgCtx.fillStyle = grad; bgCtx.fill();
+
+    // draw line segment by segment — red during recessions, black otherwise
+    function inRecession(yearIdx) {
+      const y = YEARS[yearIdx];
+      return RECESSIONS.some(r => y >= r.start && y <= r.end);
+    }
+
+    for(let i=1; i<allPts.length; i++){
+      const p = allPts[i];
+      const prevP = allPts[i-1];
+      const rec = RECESSIONS.some(r => p.year >= r.start && p.year <= r.end);
+
+      bgCtx.beginPath();
+      bgCtx.moveTo(prevP.x, prevP.y);
+      bgCtx.lineTo(p.x, p.y);
+      bgCtx.strokeStyle = rec ? 'rgba(220,38,38,0.85)' : 'rgba(0,0,0,0.55)';
+      bgCtx.lineWidth = rec ? 2 : 1.5;
+      bgCtx.lineJoin = 'round';
+      bgCtx.stroke();
+    }
+
+    // dots — red during recessions
+    allPts.forEach(p => {
+      const rec = RECESSIONS.some(r => p.year >= r.start && p.year <= r.end);
+      bgCtx.beginPath();
+      bgCtx.arc(p.x, p.y, 2, 0, Math.PI*2);
+      bgCtx.fillStyle = rec ? 'rgba(220,38,38,0.7)' : 'rgba(0,0,0,0.3)';
+      bgCtx.fill();
+    });
+  }
+
+  // current position — no stripe, no line, just the pill
+
+  // smooth dot — fractional index lerps between year prices for fluid motion
+  const si = smoothChartIdx;
+  const siFloor = Math.floor(si), siCeil = Math.min(YEARS.length-1, siFloor+1);
+  const siFrac = si - siFloor;
+  const dotX = VW/2;
+  const priceA = yearlyData[YEARS[siFloor]]||DEMO_DATA[YEARS[siFloor]];
+  const priceB = yearlyData[YEARS[siCeil]] ||DEMO_DATA[YEARS[siCeil]];
+  const dotPrice = priceA + (priceB - priceA) * siFrac;
+  const dotY = py(dotPrice);
+
+  drawYearPill(dotX, dotY, currentYear);
+}
+
+function drawYearPill(cx, cy, year){
+  const canvas = DOM.yearPill;
+  const VW = innerWidth, VH = innerHeight;
+  if(canvas.width !== VW || canvas.height !== VH){
+    canvas.width = VW; canvas.height = VH;
+    canvas.style.width = VW+'px'; canvas.style.height = VH+'px';
+    pillCtx = null; // context state is reset on resize; force re-fetch
+  }
+  if(!pillCtx) pillCtx = canvas.getContext('2d');
+  const ctx = pillCtx;
+  ctx.clearRect(0,0,VW,VH);
+
+  const label = String(year);
+  ctx.font = 'bold 11px DM Sans,sans-serif';
+  const tw = ctx.measureText(label).width;
+  const pr = 8, ph = 10;
+  const rw = tw + pr*2, rh = 20;
+  const rx = cx - rw/2, ry = cy - rh/2;
+  const rad = rh/2;
+
+  ctx.shadowColor = 'transparent';
+  ctx.shadowBlur = 0;
+
+  // black pill
+  ctx.beginPath();
+  ctx.moveTo(rx+rad, ry);
+  ctx.arcTo(rx+rw, ry, rx+rw, ry+rh, rad);
+  ctx.arcTo(rx+rw, ry+rh, rx, ry+rh, rad);
+  ctx.arcTo(rx, ry+rh, rx, ry, rad);
+  ctx.arcTo(rx, ry, rx+rw, ry, rad);
+  ctx.closePath();
+  ctx.fillStyle = '#111111';
+  ctx.fill();
+
+  // white text
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, cx, cy+1);
+
+  // hover label pill
+  if(hoveredCell && hoverX && hoverY){
+    const c = hoveredCell;
+    const label = c.type === 'portrait'
+      ? c.artist.artist
+      : (c.work?.title || c.artist.artist);
+    const hFont = 'bold 11px DM Sans,sans-serif';
+    ctx.font = hFont;
+    const htw = ctx.measureText(label).width;
+    const hpr = 9, hrh = 20;
+    const hrw = htw + hpr*2;
+    const hrad = hrh/2;
+    // position: 14px right of cursor, vertically centered
+    const hrx = hoverX + 14;
+    const hry = hoverY - hrh/2;
+
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.beginPath();
+    ctx.moveTo(hrx+hrad, hry);
+    ctx.arcTo(hrx+hrw, hry, hrx+hrw, hry+hrh, hrad);
+    ctx.arcTo(hrx+hrw, hry+hrh, hrx, hry+hrh, hrad);
+    ctx.arcTo(hrx, hry+hrh, hrx, hry, hrad);
+    ctx.arcTo(hrx, hry, hrx+hrw, hry, hrad);
+    ctx.closePath();
+    ctx.fillStyle = '#111';
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, hrx + hpr, hry + hrh/2 + 1);
+  }
+  const pad = 6;
+  yearPillRect = { x: rx-pad, y: ry-pad, w: rw+pad*2, h: rh+pad*2 };
+}
+
+function panBgChart(){
+  // no-op — chart redraws itself centered on current year each frame
+}
+
+function initBgChart(){
+  const canvas = DOM.bgChart;
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.zIndex = '0';
+  canvas.style.pointerEvents = 'none';
+  bgCtx = canvas.getContext('2d');
+  drawBgChart();
+}
+
+let cardsByYear = {}; // year -> [card, ...]
+let shownYears = new Set(); // years currently in the DOM/composited window
+
+function indexCards(){
+  cardsByYear={};
+  shownYears.clear();
+  allCards.forEach(c=>{
+    if(!cardsByYear[c.year]) cardsByYear[c.year]=[];
+    cardsByYear[c.year].push(c);
+    // Hidden + removed from compositing until they enter the active window.
+    // will-change is applied per-window (see setYearVisible), never globally —
+    // 525 permanent compositor layers is what tanks GPU memory / framerate.
+    c.el.style.opacity='0'; c.el.style.pointerEvents='none';
+    c.el.style.display='none';
+    c.el.style.willChange='';
+  });
+}
+
+// ─── visible-window culling ───────────────────────────────────────────────────
+// Only years within CULL_WINDOW of the current year stay rendered (display) and
+// promoted (will-change). Everything else is display:none — no paint, no layer.
+const CULL_WINDOW = 2; // years each side of current kept live (current + ghost + buffer)
+
+function setYearVisible(year, on){
+  (cardsByYear[year]||[]).forEach(({el})=>{
+    if(on){ el.style.display=''; el.style.willChange='transform,opacity'; }
+    else  { el.style.display='none'; el.style.willChange=''; }
+  });
+}
+
+function cullToWindow(centerYear){
+  const ci = YEARS.indexOf(centerYear);
+  const keep = new Set();
+  for(let i=Math.max(0,ci-CULL_WINDOW); i<=Math.min(YEARS.length-1,ci+CULL_WINDOW); i++){
+    keep.add(YEARS[i]);
+  }
+  // reveal newly-in-window years
+  keep.forEach(y=>{ if(!shownYears.has(y)){ setYearVisible(y,true); shownYears.add(y); } });
+  // hide years that left the window
+  shownYears.forEach(y=>{ if(!keep.has(y)){ setYearVisible(y,false); shownYears.delete(y); } });
+}
+
+// Force a synchronous layout flush so a just-revealed (display:'') card has a
+// painted opacity:0 frame to transition FROM — otherwise the fade-in pops.
+function forceReflow(){ void DOM.world.offsetHeight; }
+// Only load images for years within LOAD_WINDOW of the current year.
+// Cards outside the window keep their placeholder.
+
+const LOAD_WINDOW = 3; // load current year ± this many years
+let lastLoadedYear = null;
+let loadingYears = new Set();
+
+function triggerProximityLoad(year) {
+  if (year === lastLoadedYear) return;
+  lastLoadedYear = year;
+
+  const idx = YEARS.indexOf(year);
+  const toLoad = new Set();
+  for (let i = Math.max(0, idx - LOAD_WINDOW); i <= Math.min(YEARS.length - 1, idx + LOAD_WINDOW); i++) {
+    toLoad.add(YEARS[i]);
+  }
+
+  toLoad.forEach(y => {
+    if (loadingYears.has(y)) return;
+    loadingYears.add(y);
+    // find all cards for this year that haven't been loaded yet
+    const cards = (cardsByYear[y]||[]).filter(c => !c.loaded);
+    cards.forEach(c => {
+      c.loaded = true; // mark immediately to avoid double-loading
+      loadImg(c.cell, c.ph, c.img);
+    });
+  });
+}
+
+async function findPortrait(a){const r=await wikiSum(a.artist);if(r?.imgUrl)return{...r,fetchSource:'p'};return null;}
+async function findArtwork(a,w){
+  if(!w)return null;
+  for(const q of[`${w.title} (painting)`,`${w.title} (${a.artist})`,w.title]){const r=await wikiSum(q);if(r?.imgUrl)return{...r,fetchSource:'w'};}
+  const c=await commons(a.artist,w.title);if(c)return{...c,fetchSource:'c'};
+  const r2=await wikiSum(a.artist);if(r2?.imgUrl)return{...r2,fetchSource:'wa'};return null;
+}
+async function wikiSum(q){
+  try{
+    const r=await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q.replace(/ /g,'_'))}`);
+    if(!r.ok)return null;
+    const d=await r.json();
+    const i=d.originalimage?.source||d.thumbnail?.source;
+    if(!i)return null;
+    return{imgUrl:i,title:d.title,description:d.description||'',pageUrl:d.content_urls?.desktop?.page};
+  }catch(e){return null;}
+}
+async function commons(artist,title){
+  const skip=/portrait|headshot|speaking|interview|press|conference|award/i;
+  for(const q of[`${title} ${artist}`,title]){
+    try{
+      const r=await fetch(`https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(q)}&gsrlimit=8&prop=imageinfo&iiprop=url|size&iiurlwidth=800&format=json&origin=*`);
+      if(!r.ok)continue;const data=await r.json();const pages=data?.query?.pages;if(!pages)continue;
+      const cands=Object.values(pages).filter(p=>p.imageinfo?.[0]?.url&&!skip.test(p.title)&&p.title.match(/\.(jpg|jpeg|png)$/i));
+      if(!cands.length)continue;
+      const tw=(title||'').toLowerCase().split(/\s+/).filter(w=>w.length>3);
+      const best=cands.map(p=>({p,s:tw.filter(w=>p.title.toLowerCase().includes(w)).length})).sort((a,b)=>b.s-a.s)[0].p;
+      const info=best.imageinfo[0];
+      return{imgUrl:info.thumburl||info.url,title:best.title.replace(/^File:/,'').replace(/\.(jpg|jpeg|png)$/i,''),pageUrl:`https://commons.wikimedia.org/wiki/${encodeURIComponent(best.title)}`};
+    }catch(e){continue;}
+  }return null;
+}
+
+// ─── scroll ───────────────────────────────────────────────────────────────────
+
+const MAX_Z=()=>(YEARS.length-1)*Z_SPACING;
+
+function zToYear(z){
+  const idx=Math.round(z/Z_SPACING);
+  return YEARS[Math.max(0,Math.min(YEARS.length-1,idx))];
+}
+
+window.addEventListener('wheel',e=>{
+  e.preventDefault();
+  targetZ=Math.max(0,Math.min(MAX_Z(),targetZ+e.deltaY*1.8));
+},{passive:false});
+
+let lastTY=null;
+window.addEventListener('touchstart',e=>{if(e.touches.length===1)lastTY=e.touches[0].clientY;},{passive:true});
+window.addEventListener('touchmove',e=>{
+  if(lastTY===null||e.touches.length!==1)return;
+  const dy=lastTY-e.touches[0].clientY;
+  targetZ=Math.max(0,Math.min(MAX_Z(),targetZ+dy*2.5));
+  lastTY=e.touches[0].clientY;
+},{passive:true});
+window.addEventListener('touchend',()=>{lastTY=null;});
+
+// ─── drag the year pill to scrub through time ─────────────────────────────────
+// yearPillRect is updated every frame in drawYearPill() with the pill's
+// current on-screen bounding box, so we know where a mousedown/touchstart
+// should "grab" it.
+let yearPillRect = null;
+let draggingPill = false;
+let dragStartX = 0;
+let dragStartTargetZ = 0;
+
+function pillDragSensitivity() { return MAX_Z() / window.innerWidth; }
+
+function pointInPillRect(x, y) {
+  if (!yearPillRect) return false;
+  const { x: rx, y: ry, w, h } = yearPillRect;
+  return x >= rx && x <= rx+w && y >= ry && y <= ry+h;
+}
+
+function startPillDrag(x, y) {
+  draggingPill = true;
+  dragStartX = x;
+  dragStartTargetZ = targetZ;
+  document.body.style.cursor = 'grabbing';
+  // freeze: hide images instantly, lock text at current year
+  DOM.world.style.transition = 'none';
+  DOM.world.style.opacity = '0';
+  worldHidden = true;
+  clearTimeout(settleTimer);
+}
+function movePillDrag(x) {
+  if (!draggingPill) return;
+  const dx = x - dragStartX;
+  targetZ = Math.max(0, Math.min(MAX_Z(), dragStartTargetZ + dx * pillDragSensitivity()));
+  // update chart pill position only — no text/card changes during drag
+}
+function endPillDrag() {
+  if (!draggingPill) return;
+  draggingPill = false;
+  document.body.style.cursor = '';
+  // snap to landed year, then reveal
+  const landedYear = zToYear(cameraZ);
+  currentYear = landedYear;
+  pendingYear = null; pendingYearFrames = 0;
+  settleTimer = setTimeout(revealAndSettle, 80);
+}
+
+window.addEventListener('mousedown', e => {
+  if (pointInPillRect(e.clientX, e.clientY)) { startPillDrag(e.clientX, e.clientY); e.preventDefault(); }
+});
+window.addEventListener('mousemove', e => {
+  if (draggingPill) { movePillDrag(e.clientX); return; }
+  document.body.style.cursor = pointInPillRect(e.clientX, e.clientY) ? 'grab' : '';
+});
+window.addEventListener('mouseup', endPillDrag);
+
+// ─── animation loop ───────────────────────────────────────────────────────────
+
+const VISIBLE_WINDOW = 2; // years before/after current to show
+
+function loop(){
+  raf=requestAnimationFrame(loop);
+  cameraZ+=(targetZ-cameraZ)*0.07;
+
+  const worldEl=DOM.world;
+  worldEl.style.transform=`translateZ(${cameraZ}px)`;
+
+  // smooth chart idx
+  const targetIdx = (cameraZ / MAX_Z()) * (YEARS.length - 1);
+  smoothChartIdx += (targetIdx - smoothChartIdx) * 0.08;
+
+  // interpolate price between adjacent years for smooth number display
+  const si = smoothChartIdx;
+  const siFloor = Math.max(0, Math.floor(si));
+  const siCeil  = Math.min(YEARS.length-1, siFloor+1);
+  const siFrac  = si - siFloor;
+  const priceA  = yearlyData[YEARS[siFloor]] || DEMO_DATA[YEARS[siFloor]];
+  const priceB  = yearlyData[YEARS[siCeil]]  || DEMO_DATA[YEARS[siCeil]];
+  const targetPrice = priceA + (priceB - priceA) * siFrac;
+  const prevA   = yearlyData[YEARS[Math.max(0,siFloor-1)]] || DEMO_DATA[YEARS[Math.max(0,siFloor-1)]];
+  const prevB   = yearlyData[YEARS[Math.max(0,siCeil-1)]]  || DEMO_DATA[YEARS[Math.max(0,siCeil-1)]];
+  const targetPrev = prevA + (prevB - prevA) * siFrac;
+  const targetYOY = targetPrev ? ((targetPrice - targetPrev) / targetPrev) * 100 : 0;
+
+  smoothPrice += (targetPrice - smoothPrice) * 0.08;
+  smoothYOY   += (targetYOY   - smoothYOY)   * 0.08;
+
+  // only write to DOM when value changed
+  const priceInt = Math.round(smoothPrice);
+  if(priceInt !== loop._lastPrice){
+    loop._lastPrice = priceInt;
+    DOM.statPrice.textContent = '$' + priceInt.toLocaleString();
+  }
+  const yoyStr = (smoothYOY >= 0 ? '+' : '') + smoothYOY.toFixed(1) + '%';
+  if(yoyStr !== loop._lastYOY){
+    loop._lastYOY = yoyStr;
+    DOM.statChange.textContent = yoyStr;
+    DOM.statChange.className = 'inline-yoy ' + (Math.abs(smoothYOY) < 0.05 ? 'neutral' : smoothYOY > 0 ? 'up' : 'down');
+  }
+
+  panBgChart();
+  const now = performance.now();
+  if(now - lastChartDraw > CHART_DRAW_INTERVAL || hoveredCell){
+    lastChartDraw = now;
+    drawBgChart();
+  }
+
+  const year=zToYear(cameraZ);
+
+  // ── During drag: do nothing except move camera + redraw chart ──
+  if(draggingPill){
+    // just keep chart updated so pill tracks position
+    panBgChart();
+    const now2 = performance.now();
+    if(now2 - lastChartDraw > CHART_DRAW_INTERVAL){ lastChartDraw=now2; drawBgChart(); }
+    return;
+  }
+
+  // ── Text stays frozen during scroll — only updates when year settles ──
+
+  // ── Cards: stability gate before swapping ──
+  if(year !== currentYear){
+    if(year === pendingYear){
+      pendingYearFrames++;
+    } else {
+      pendingYear = year;
+      pendingYearFrames = 1;
+    }
+  } else {
+    pendingYear = null;
+    pendingYearFrames = 0;
+  }
+
+  const stableYearChange = pendingYear !== null && pendingYearFrames >= YEAR_STABLE_FRAMES;
+
+  if(stableYearChange){
+    const year = pendingYear;
+    pendingYear = null; pendingYearFrames = 0;
+
+    // Always instantly hide old year cards (cancel any in-progress fade-out)
+    const clearYear = (y) => {
+      (cardsByYear[y]||[]).forEach(({el})=>{
+        el.style.transition='none';
+        el.style.opacity='0';
+        el.style.pointerEvents='none';
+      });
+    };
+    clearYear(currentYear);
+    const oldNextYr = YEARS[YEARS.indexOf(currentYear)+1];
+    if(oldNextYr) clearYear(oldNextYr);
+
+    currentYear=year;
+    cullToWindow(currentYear);
+
+    if(worldHidden){
+      // Fast scroll — snap new cards in instantly too
+      (cardsByYear[currentYear]||[]).forEach(({el})=>{ el.style.transition='none'; el.style.opacity='1'; el.style.pointerEvents='auto'; });
+      DOM.bigYear.textContent=year;
+      DOM.yearCtx.textContent=YEAR_CTX[year]||'';
+      const recF=isRecession(year);
+      const bF=DOM.recBadge;
+      if(recF){ bF.textContent=recF.label; bF.style.opacity='1'; }
+      else { bF.style.opacity='0'; }
+      wasRecession=!!recF;
+    } else {
+      // Settled — animate text in, fade cards in with stagger
+      DOM.bigYear.dataset.rawText = ANIM_SENTINEL;
+      DOM.yearCtx.dataset.rawText = ANIM_SENTINEL;
+      animateTextChange(DOM.bigYear, year);
+      animateTextChange(DOM.yearCtx, YEAR_CTX[year]||'');
+      const rec=isRecession(year);
+      const b=DOM.recBadge;
+      if(rec && !wasRecession){ b.textContent=rec.label; b.style.opacity='0'; requestAnimationFrame(()=>b.style.opacity='1'); }
+      else if(!rec && wasRecession){ b.style.opacity='0'; }
+      wasRecession=!!rec;
+      triggerProximityLoad(year);
+      loadArtContext(year);
+      forceReflow(); // ensure just-revealed cards have an opacity:0 frame to fade from
+      (cardsByYear[currentYear]||[]).forEach(({el})=>{
+        const delay = Math.random()*300;
+        el.style.transition=`opacity ${0.25+Math.random()*0.35}s ease ${delay}ms`;
+        el.style.opacity='1';
+        el.style.pointerEvents='auto';
+      });
+      const nextYr = YEARS[YEARS.indexOf(currentYear)+1];
+      if(nextYr)(cardsByYear[nextYr]||[]).forEach(({el})=>{
+        el.style.transition='opacity 0.5s ease';
+        el.style.opacity='0.08';
+        el.style.pointerEvents='none';
+      });
+    }
+
+    bloomProgress=0;
+  }
+
+  // current year — static positions
+  if(!scrubbing) applyMagneticHover();
+
+  // next year — ghost, set once
+  const nextYr = YEARS[YEARS.indexOf(currentYear)+1];
+  if(nextYr)(cardsByYear[nextYr]||[]).forEach(({el,tx,ty,tz})=>{
+    if(el.dataset.posSet!==nextYr+''){
+      el.style.transform=`translate3d(${tx}px,${ty}px,${tz}px)`;
+      el.style.opacity='0.08';
+      el.dataset.posSet=nextYr+'';
+    }
+  });
+}
+
+// Called once motion has been slow/stopped for SETTLE_DEBOUNCE_MS — reveals
+// the card layer (if it was hidden for a fast fly-through) and runs the full
+// polished HUD animation + image loading for wherever we've landed.
+function revealAndSettle(){
+  if(worldHidden){
+    DOM.world.style.transition = 'opacity 0.4s ease';
+    DOM.world.style.opacity = '1';
+    worldHidden = false;
+  }
+  // reset rawText so animateTextChange always re-animates from scratch
+  DOM.bigYear.dataset.rawText = ANIM_SENTINEL;
+  DOM.yearCtx.dataset.rawText = ANIM_SENTINEL;
+  // animate year + economy text
+  animateTextChange(DOM.bigYear, currentYear);
+  animateTextChange(DOM.yearCtx, YEAR_CTX[currentYear]||'');
+  // recession badge
+  const rec=isRecession(currentYear);
+  const b=DOM.recBadge;
+  if(rec){ b.textContent=rec.label; b.style.opacity='0'; requestAnimationFrame(()=>b.style.opacity='1'); }
+  else { b.style.opacity='0'; }
+  wasRecession=!!rec;
+  // art context
+  loadArtContext(currentYear);
+  triggerProximityLoad(currentYear);
+  cullToWindow(currentYear);
+  forceReflow(); // ensure just-revealed cards have an opacity:0 frame to fade from
+  // fade cards in with stagger
+  (cardsByYear[currentYear]||[]).forEach(({el})=>{
+    const delay=Math.random()*300;
+    el.style.transition=`opacity ${0.25+Math.random()*0.35}s ease ${delay}ms`;
+    el.style.opacity='1';
+    el.style.pointerEvents='auto';
+  });
+  const nextYr=YEARS[YEARS.indexOf(currentYear)+1];
+  if(nextYr)(cardsByYear[nextYr]||[]).forEach(({el})=>{
+    el.style.transition='opacity 0.5s ease';
+    el.style.opacity='0.08';
+    el.style.pointerEvents='none';
+  });
+}
+
+// ─── HUD ──────────────────────────────────────────────────────────────────────
+
+function isRecession(y){return RECESSIONS.find(r=>y>=r.start&&y<=r.end);}
+
+// Random per-letter fade transition: old letters fade out in random order,
+// then new letters fade back in in random order.
+const FADE_OUT_MS = 280;
+const FADE_IN_MS  = 320;
+const MAX_STAGGER_MS = 220;
+const ANIM_SENTINEL = '\x00'; // forces animation even when rawText was cleared
+
+function animateTextChange(el, newText) {
+  newText = String(newText);
+  const prevText = el.dataset.rawText;
+
+  // first render or same text — just show instantly, no animation
+  if(prevText === undefined || prevText === newText){
+    el.dataset.rawText = newText;
+    renderLetterSpans(el, newText, 1);
+    return;
+  }
+
+  el.dataset.rawText = newText;
+  const myToken = Symbol();
+  el._fadeToken = myToken;
+
+  // fade out existing spans
+  const spans = el.querySelectorAll('.letter-fade');
+  for(let i=0;i<spans.length;i++){
+    spans[i].style.transitionDuration = FADE_OUT_MS + 'ms';
+    spans[i].style.transitionDelay = Math.round(Math.random() * MAX_STAGGER_MS) + 'ms';
+    spans[i].style.opacity = '0';
+  }
+
+  setTimeout(() => {
+    if(el._fadeToken !== myToken) return;
+    renderLetterSpans(el, newText, 0);
+    requestAnimationFrame(() => {
+      if(el._fadeToken !== myToken) return;
+      const newSpans = el.querySelectorAll('.letter-fade');
+      for(let i=0;i<newSpans.length;i++){
+        newSpans[i].style.transitionDuration = FADE_IN_MS + 'ms';
+        newSpans[i].style.transitionDelay = Math.round(Math.random() * MAX_STAGGER_MS) + 'ms';
+        newSpans[i].style.opacity = '1';
+      }
+    });
+  }, FADE_OUT_MS + MAX_STAGGER_MS);
+}
+
+function renderLetterSpans(el, text, startOpacity) {
+  // Wrap each WORD in a non-breaking .word span, with its letters still in
+  // individual .letter-fade spans (so the per-letter fade is unchanged).
+  // Words are joined by a normal, breakable space — so a line can only wrap
+  // between words, never in the middle of one.
+  const words = String(text).split(' ');
+  el.innerHTML = words.map(word => {
+    const letters = word.split('').map(ch =>
+      `<span class="letter-fade" style="opacity:${startOpacity}">${escapeHtml(ch)}</span>`
+    ).join('');
+    return `<span class="word">${letters}</span>`;
+  }).join(' ');
+}
+
+// Cheap instant text update — used while scrolling fast so we don't rebuild
+// per-letter <span> elements on every single frame. Keeps dataset.rawText in
+// sync so the next real animateTextChange() call still knows the "previous" text.
+function quickSetText(el, text) {
+  text = String(text);
+  el.dataset.rawText = text;
+  el.textContent = text;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ─── intro overlay ("scroll to travel through time") ──────────────────────────
+
+function initIntroText() {
+  const el = document.getElementById('introText');
+  if (!el) return;
+  renderLetterSpans(el, 'Scroll to travel through time', 1);
+}
+
+let introFaded = false;
+function fadeOutIntro() {
+  if (introFaded) return;
+  introFaded = true;
+  const wrap = document.getElementById('introOverlay');
+  const el = document.getElementById('introText');
+  if (!wrap || !el) return;
+
+  Array.from(el.querySelectorAll('.letter-fade')).forEach(span => {
+    span.style.transitionDuration = FADE_OUT_MS + 'ms';
+    span.style.transitionDelay = Math.round(Math.random() * MAX_STAGGER_MS) + 'ms';
+    span.style.opacity = '0';
+  });
+
+  setTimeout(() => { wrap.style.display = 'none'; }, FADE_OUT_MS + MAX_STAGGER_MS);
+}
+
+
+
+function updateHUD(year){
+  animateTextChange(DOM.bigYear, year);
+  animateTextChange(DOM.yearCtx, YEAR_CTX[year]||'');
+  const rec = isRecession(year);
+  const b = DOM.recBadge;
+  if(rec && !wasRecession){
+    // entering recession — set text then fade in
+    b.textContent = rec.label;
+    b.style.opacity = '0';
+    requestAnimationFrame(()=>{ b.style.opacity = '1'; });
+  } else if(!rec && wasRecession){
+    // leaving recession — fade out
+    b.style.opacity = '0';
+  } else if(rec){
+    // staying in recession — just update label if changed
+    b.textContent = rec.label;
+  }
+  wasRecession = !!rec;
+  loadArtContext(year);
+}
+
+// ─── market data ──────────────────────────────────────────────────────────────
+
+async function loadMarketData(){
+  const key=document.getElementById('apiKey').value.trim();
+  if(!key){showStatus('error','Paste your Alpha Vantage key first.');return;}
+  clearStatus();
+  try{
+    const resp=await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=SPY&apikey=${key}`);
+    const json=await resp.json();
+    const ts=json['Monthly Time Series'];
+    if(!ts)throw new Error(json['Note']||json['Information']||'No data');
+    const ymap={};
+    Object.entries(ts).forEach(([date,vals])=>{const yr=parseInt(date.slice(0,4));if(yr>=1990&&yr<=2024)ymap[yr]=parseFloat(vals['4. close']);});
+    yearlyData={...ymap};
+    chartPriceStats=null; // prices changed → recompute min/max on next draw
+    document.getElementById('demoNote').style.display='none';
+    document.getElementById('loadedMsg').style.display='inline-block';
+    buildCards(); indexCards(); updateHUD(currentYear); drawBgChart();
+  }catch(e){showStatus('error','Alpha Vantage: '+e.message);}
+}
+
+// ─── modal ────────────────────────────────────────────────────────────────────
+
+function openModal(cell){
+  const{type,artist,work}=cell;
+  const left  = document.getElementById('tkLeft');
+  const right = document.getElementById('tkRight');
+
+  if(type === 'work'){
+    // work name left + artist name right, same line (both tk-big, align to baseline)
+    left.innerHTML = `<div class="tk-big">${work?.title||'Untitled'}</div><div class="tk-sub">${[work?.year,work?.medium].filter(Boolean).join(' · ')}</div>`;
+    right.innerHTML = `<div class="tk-big">${artist.artist}</div>`;
+  } else {
+    // portrait: artist name + nationality top-left, nothing on right
+    left.innerHTML = `<div class="tk-big">${artist.artist}</div><div class="tk-sub">${[artist.nationality,artist.born?'b. '+artist.born:''].filter(Boolean).join(', ')}</div>`;
+    right.innerHTML = '';
+  }
+
+  document.getElementById('tkReason').textContent = artist.reasoning||'';
+
+  const manual=type==='portrait'?artist.portrait_image:work?.image;
+  const key=type==='portrait'?`P|${artist.artist}`:`W|${work?.title}|${artist.artist}`;
+  const result=manual?.trim()?{imgUrl:manual.trim(),pageUrl:null}:imgCache[key];
+  const img=document.getElementById('tkImg');
+  if(result?.imgUrl){
+    img.src=result.imgUrl; img.style.display='block';
+    document.getElementById('tkLink').href=result.pageUrl||`https://en.wikipedia.org/wiki/${encodeURIComponent(artist.artist)}`;
+    document.getElementById('tkLink').textContent=result.pageUrl?.includes('commons')?'View on Commons ↗':'View on Wikipedia ↗';
+  } else {
+    img.style.display='none';
+    document.getElementById('tkLink').href=`https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent((work?.title||'')+' '+artist.artist)}`;
+    document.getElementById('tkLink').textContent='Search Wikipedia ↗';
+  }
+
+  DOM.hud.style.opacity='0';
+  DOM.hud.style.pointerEvents='none';
+  const t=DOM.takeover;
+  t.style.display='block';
+  requestAnimationFrame(()=>t.style.opacity='1');
+}
+
+function closeModal(){
+  const t=DOM.takeover;
+  t.style.opacity='0';
+  setTimeout(()=>{ t.style.display='none'; },400);
+  DOM.hud.style.opacity='1';
+  DOM.hud.style.pointerEvents='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+async function loadArtData(){
+  try{
+    const resp=await fetch('./data.json');
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    artData=await resp.json();
+  }catch(e){showStatus('error',`Could not load data.json (${e.message}). Serve via http://.`);return;}
+  // curation overlay
+  try{
+    const raw=localStorage.getItem(CURATION_KEY);
+    if(raw){
+      const saved=JSON.parse(raw);let n=0;
+      for(const y in saved){
+        if(!artData[y])continue;
+        (saved[y].artists||[]).forEach((sa,ai)=>{
+          const t=artData[y].artists?.[ai];if(!t)return;
+          if(sa.portrait_image)t.portrait_image=sa.portrait_image;
+          if(sa.artist)t.artist=sa.artist;if(sa.nationality)t.nationality=sa.nationality;
+          if(sa.born)t.born=sa.born;if(sa.reasoning)t.reasoning=sa.reasoning;
+          (sa.works||[]).forEach((sw,wi)=>{
+            const tw=t.works?.[wi];if(!tw)return;
+            if(sw.image)tw.image=sw.image;if(sw.title)tw.title=sw.title;
+            if(sw.year)tw.year=sw.year;if(sw.medium)tw.medium=sw.medium;
+          });
+        });n++;
+      }
+      if(n>0){
+        const ts=localStorage.getItem(CURATION_KEY+'-timestamp');
+        showStatus('info',`Curation edits active (${ts?new Date(parseInt(ts)).toLocaleString():''}). <button onclick="reloadCuration()">↻ Refresh</button>`);
+      }
+    }
+  }catch(e){}
+}
+async function reloadCuration(){imgCache={};await loadArtData();buildCards();}
+
+function showStatus(t,h){}
+function clearStatus(){}
+
+window.addEventListener('resize',()=>{
+  // perspective stays correct since it's viewport-relative
+});
+
+// ─── init ─────────────────────────────────────────────────────────────────────
+
+(async function init(){
+  initIntroText();
+  setTimeout(fadeOutIntro, 3000);
+  window.addEventListener('wheel', fadeOutIntro, {once:true, passive:true});
+  window.addEventListener('touchstart', fadeOutIntro, {once:true, passive:true});
+
+  cacheDOM();
+  await loadArtData();
+  initBgChart();
+  buildCards();
+  indexCards();
+  cullToWindow(1990);
+  // show only starting year + next
+  (cardsByYear[1990]||[]).forEach(({el})=>{ el.style.opacity='1'; el.style.pointerEvents='auto'; });
+  (cardsByYear[1991]||[]).forEach(({el})=>{ el.style.opacity='0.08'; el.style.pointerEvents='none'; });
+  updateHUD(1990);
+  triggerProximityLoad(1990);
+  bloomProgress=0; bloomYear=1990;
+  loop();
+})();
+</script>
+</body>
+</html>
