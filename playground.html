@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design Playground · Art &amp; Economy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link id="fontLink" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&family=Archivo:wght@300;400;500;600;700&family=Instrument+Serif&family=DM+Serif+Display&family=Fraunces:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=JetBrains+Mono:wght@300;400;500;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* driven live by the panel */
+    --font: 'DM Sans', sans-serif;
+    --hud-size: 72px;
+    --label-size: 12px;
+    --font-weight: 500;
+    --letter-spacing: -0.02em;
+    --line-height: 1.15;
+
+    --bg: hsl(0 0% 100%);
+    --text: hsl(0 0% 7%);
+    --accent: hsl(145 63% 39%);
+    --face: hsl(40 12% 95%);
+
+    --stage-pad: 28px;
+
+    --hair: rgba(0,0,0,0.08);
+    --ui: 'DM Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    overflow:hidden;
+    display:flex;
+    transition:background 0.15s linear, color 0.15s linear;
+  }
+
+  /* ── stage (the real tunnel lives here) ─────────────────────────────── */
+  #stage{ position:relative; flex:1; height:100vh; overflow:hidden; touch-action:none; }
+  #scene{
+    position:absolute; inset:0;
+    perspective:800px;
+    perspective-origin:50% 50%;
+    overflow:hidden;
+  }
+  #world{
+    position:absolute; width:100%; height:100%;
+    transform-style:preserve-3d;
+    will-change:transform;
+  }
+
+  /* ── cards (mirrors index.html .card / .ph / .artist-label) ─────────── */
+  .card{
+    position:absolute; left:50%; top:50%;
+    width:160px;
+    transform-style:preserve-3d;
+    cursor:pointer;
+    transition:opacity 0.4s ease;
+  }
+  .card .ph{
+    background:var(--face);
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; color:color-mix(in srgb, var(--text) 25%, transparent);
+    text-align:center; padding:12px;
+    font-family:var(--ui);
+    box-shadow:0 2px 20px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.05);
+    transition:background 0.15s linear;
+  }
+  .card .artist-label{
+    font-size:var(--label-size);
+    font-weight:var(--font-weight);
+    color:var(--text);
+    text-align:center; padding:6px 4px 2px;
+    font-family:var(--font);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    width:160px; line-height:var(--line-height);
+    letter-spacing:var(--letter-spacing);
+  }
+
+  /* ── HUD (echoes .corner-tl so the type sliders show on big text) ───── */
+  #hud{ position:fixed; inset:0; pointer-events:none; z-index:100; }
+  .corner-tl{
+    position:absolute; top:calc(var(--stage-pad) + 6px);
+    left:var(--stage-pad); right:calc(var(--stage-pad) + 340px);
+    display:grid; grid-template-columns:1fr auto; align-items:baseline; gap:20px;
+  }
+  .stat-name{ font-size:var(--label-size); color:var(--text); font-weight:var(--font-weight); font-family:var(--font); }
+  .yoy{ font-size:var(--label-size); font-weight:600; font-family:var(--font); }
+  .yoy.up{ color:var(--accent); }
+  .yoy.down{ color:hsl(0 72% 51%); }
+  .big{
+    font-size:var(--hud-size); font-weight:400;
+    letter-spacing:var(--letter-spacing); line-height:1;
+    color:var(--text); font-family:var(--font); user-select:none;
+  }
+  .col-right{ text-align:right; }
+  .eyebrow{
+    position:absolute; bottom:var(--stage-pad); left:var(--stage-pad);
+    font-family:var(--ui); font-size:11px; letter-spacing:0.06em;
+    color:color-mix(in srgb, var(--text) 40%, transparent);
+  }
+  .eyebrow b{ color:var(--accent); font-weight:500; }
+
+  /* ── control panel ──────────────────────────────────────────────────── */
+  #panel{
+    width:340px; flex:0 0 340px; height:100vh; overflow-y:auto;
+    background:color-mix(in srgb, var(--bg) 88%, #000 3%);
+    border-left:0.5px solid var(--hair);
+    font-family:var(--ui); color:var(--text);
+    transition:margin-right 0.3s cubic-bezier(.4,0,.2,1); z-index:20;
+  }
+  body.panel-hidden #panel{ margin-right:-340px; }
+  .panel-head{
+    position:sticky; top:0; z-index:2;
+    background:color-mix(in srgb, var(--bg) 92%, #000 3%);
+    backdrop-filter:blur(6px);
+    padding:18px 20px 12px; border-bottom:0.5px solid var(--hair);
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  }
+  .panel-head h2{ font-family:var(--font); font-size:14px; font-weight:600; letter-spacing:-0.01em; }
+  .panel-head .sub{ font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--text) 40%, transparent); margin-top:2px; }
+  .reset{ font-family:var(--ui); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; background:none; border:0.5px solid var(--hair); color:color-mix(in srgb, var(--text) 55%, transparent); padding:5px 9px; border-radius:5px; cursor:pointer; }
+  .reset:hover{ color:var(--text); }
+
+  .group{ border-bottom:0.5px solid var(--hair); }
+  .group > summary{ list-style:none; cursor:pointer; padding:13px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:color-mix(in srgb, var(--text) 55%, transparent); display:flex; align-items:center; justify-content:space-between; user-select:none; }
+  .group > summary::-webkit-details-marker{ display:none; }
+  .group > summary .chev{ transition:transform 0.2s; opacity:0.5; }
+  .group[open] > summary .chev{ transform:rotate(90deg); }
+  .group-body{ padding:2px 20px 16px; }
+
+  .row{ margin:13px 0; }
+  .row-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px; gap:8px; }
+  .row-head label{ font-size:11px; color:color-mix(in srgb, var(--text) 80%, transparent); }
+  .row-head .code{ font-size:9px; color:color-mix(in srgb, var(--text) 33%, transparent); margin-left:6px; }
+  .val{ font-size:11px; color:var(--accent); font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height:2px; border-radius:2px; background:color-mix(in srgb, var(--text) 16%, transparent); outline:none; cursor:pointer; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:14px; height:14px; border-radius:50%; background:var(--bg); border:1.5px solid var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.2); cursor:pointer; transition:transform 0.1s; }
+  input[type=range]::-webkit-slider-thumb:active{ transform:scale(1.25); }
+  input[type=range]::-moz-range-thumb{ width:14px; height:14px; border-radius:50%; background:var(--bg); border:1.5px solid var(--text); cursor:pointer; }
+  input[type=range]:focus-visible{ box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+
+  select{ width:100%; font-family:var(--ui); font-size:12px; background:var(--bg); color:var(--text); border:0.5px solid var(--hair); border-radius:6px; padding:8px 10px; outline:none; cursor:pointer; }
+  select:focus-visible{ box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+
+  .color-row{ margin:14px 0; }
+  .color-head{ display:flex; align-items:center; gap:9px; margin-bottom:8px; }
+  .swatch{ width:22px; height:22px; border-radius:6px; border:0.5px solid var(--hair); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.05); flex:0 0 auto; }
+  .color-head .name{ font-size:11px; color:color-mix(in srgb, var(--text) 80%, transparent); }
+  .color-head .hex{ margin-left:auto; font-size:10px; color:color-mix(in srgb, var(--text) 40%, transparent); text-transform:uppercase; }
+  .hsl{ display:grid; grid-template-columns:14px 1fr; gap:6px 8px; align-items:center; }
+  .hsl .ch{ font-size:9px; color:color-mix(in srgb, var(--text) 40%, transparent); }
+
+  .hint{ font-size:10px; line-height:1.5; color:color-mix(in srgb, var(--text) 38%, transparent); margin-top:3px; }
+  .hint b{ color:var(--accent); font-weight:400; }
+
+  #panelToggle{ position:fixed; top:16px; right:16px; z-index:40; font-family:var(--ui); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; background:color-mix(in srgb, var(--bg) 85%, #000 5%); border:0.5px solid var(--hair); color:color-mix(in srgb, var(--text) 60%, transparent); padding:7px 11px; border-radius:6px; cursor:pointer; backdrop-filter:blur(6px); transition:right 0.3s cubic-bezier(.4,0,.2,1); }
+  body:not(.panel-hidden) #panelToggle{ right:356px; }
+  #panelToggle:hover{ color:var(--text); }
+
+  @media (max-width:760px){
+    body{ flex-direction:column; }
+    .corner-tl{ right:var(--stage-pad); }
+    #panel{ position:fixed; bottom:0; left:0; right:0; width:auto; flex:none; height:60vh; border-left:none; border-top:0.5px solid var(--hair); transition:transform 0.3s cubic-bezier(.4,0,.2,1); }
+    body.panel-hidden #panel{ transform:translateY(100%); margin-right:0; }
+    #panelToggle, body:not(.panel-hidden) #panelToggle{ right:16px; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body>
+
+  <button id="panelToggle">controls</button>
+
+  <main id="stage">
+    <div id="scene"><div id="world"></div></div>
+    <div id="hud">
+      <div class="corner-tl">
+        <div>
+          <div class="stat-name">S&amp;P 500 <span class="yoy up" id="yoy">+0.0%</span></div>
+          <div class="big" id="price">$330</div>
+        </div>
+        <div class="col-right">
+          <div class="stat-name">Year</div>
+          <div class="big" id="year">1990</div>
+        </div>
+      </div>
+      <div class="eyebrow">Design playground · <b>scroll / drag to fly through the tunnel</b></div>
+    </div>
+  </main>
+
+  <aside id="panel">
+    <div class="panel-head">
+      <div><h2>Design controls</h2><div class="sub">live knobs · real geometry</div></div>
+      <button class="reset" id="resetBtn">reset</button>
+    </div>
+    <div id="panelBody"></div>
+  </aside>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   Placeholder market data (subset of the real DEMO_DATA) so the HUD moves
+   ════════════════════════════════════════════════════════════════════════ */
+const SP = {1990:330,1991:376,1992:416,1993:466,1994:459,1995:615,1996:740,
+            1997:970,1998:1229,1999:1469,2000:1320,2001:1148,2002:879,2003:1111};
+const YEARS = Object.keys(SP).map(Number).sort((a,b)=>a-b);
+const NAMES = ['Mara Vance','Ilo Sato','Sol Reyes','Wren Bishop','Juno Adel',
+               'Leda Cross','Rho Nakai','Effi Lang','Oda Vieri','Cass Moreau'];
+
+/* ════════════════════════════════════════════════════════════════════════
+   STATE — every value is bound to a control. Names match index.html.
+   ════════════════════════════════════════════════════════════════════════ */
+const DEFAULTS = {
+  // typography
+  font: 'DM Sans',
+  hudSize: 72,           // .big-year / .big-spy
+  labelSize: 12,         // .artist-label
+  fontWeight: 500,
+  letterSpacing: -0.02,
+  lineHeight: 1.15,
+  // colour
+  bg:   {h:0,   s:0,  l:100},
+  text: {h:0,   s:0,  l:7},
+  accent:{h:145,s:63, l:39},
+  face: {h:40,  s:12, l:95},
+  // margins / ring offset  (X_OFFSET / Y_OFFSET in buildCards)
+  stagePad: 28,
+  xOffsetPct: -8,        // vw %
+  yOffsetPct: -2,        // vh %
+  // cluster sizing (LAYOUT.* in index.html)
+  bs: 125,               // base width
+  ps: 0.75,              // portrait scale
+  ws: 1.10,              // work scale
+  wg: 146,               // WORK_OFFSET_X
+  workOffY: 15,          // WORK_OFFSET_Y
+  sr: 0,                 // size randomness
+  // tunnel / ring structure
+  numArtists: 5,         // NUM_ARTISTS
+  ringX: 0,              // RING_RADIUS_X  (resolved from viewport at init)
+  ringY: 0,              // RING_RADIUS_Y
+  angleStart: 25,        // ANGLE_START (deg)
+  zSpread: 248,          // Z_SPREAD
+  zSpacing: 800,         // Z_SPACING
+  perspective: 800,      // scene perspective (pv)
+};
+let S = structuredClone(DEFAULTS);
+
+/* resolve viewport-relative ring defaults exactly like index.html */
+function resolveRingDefaults(o){
+  o.ringX = Math.round(Math.min(579, window.innerWidth  * 0.48));
+  o.ringY = Math.round(Math.min(234, window.innerHeight * 0.45));
+}
+resolveRingDefaults(DEFAULTS);
+resolveRingDefaults(S);
+
+const FONTS = {
+  'Sans': ['DM Sans','Inter','Space Grotesk','Sora','Archivo'],
+  'Serif / Display': ['Instrument Serif','DM Serif Display','Fraunces','Playfair Display','Libre Baskerville'],
+  'Mono': ['DM Mono','JetBrains Mono','IBM Plex Mono','Space Mono'],
+};
+const FALLBACK = {'Instrument Serif':'serif','DM Serif Display':'serif','Fraunces':'serif','Playfair Display':'serif','Libre Baskerville':'serif','DM Mono':'monospace','JetBrains Mono':'monospace','IBM Plex Mono':'monospace','Space Mono':'monospace'};
+
+/* ════════════════════════════════════════════════════════════════════════
+   CONTROL CONFIG
+   ════════════════════════════════════════════════════════════════════════ */
+const CONFIG = [
+  { title:'Typography', open:true, controls:[
+    { type:'font',  key:'font',          label:'Font family' },
+    { type:'range', key:'hudSize',       label:'Headline size',  code:'.big-year', min:28, max:120, step:1, unit:'px' },
+    { type:'range', key:'labelSize',     label:'Card label size',code:'.artist-label', min:7, max:28, step:1, unit:'px' },
+    { type:'range', key:'fontWeight',    label:'Weight',         min:300, max:700, step:100 },
+    { type:'range', key:'letterSpacing', label:'Letter spacing', min:-0.06, max:0.1, step:0.005, unit:'em', dp:3 },
+    { type:'range', key:'lineHeight',    label:'Line height',    min:1, max:1.8, step:0.05, dp:2 },
+  ]},
+  { title:'Colour', open:true, controls:[
+    { type:'color', key:'bg',     label:'Background' },
+    { type:'color', key:'text',   label:'Text' },
+    { type:'color', key:'accent', label:'Accent (gains)' },
+    { type:'color', key:'face',   label:'Card face' },
+  ]},
+  { title:'Margins & offset', open:false, controls:[
+    { type:'range', key:'stagePad',   label:'Screen margin', min:8, max:80, step:2, unit:'px' },
+    { type:'range', key:'xOffsetPct', label:'Ring X offset', code:'X_OFFSET', min:-30, max:30, step:1, unit:'vw%' },
+    { type:'range', key:'yOffsetPct', label:'Ring Y offset', code:'Y_OFFSET', min:-30, max:30, step:1, unit:'vh%' },
+  ]},
+  { title:'Cluster (per artist)', open:true, controls:[
+    { type:'range', key:'bs', label:'Base size',     code:'LAYOUT.bs', min:60, max:220, step:1, unit:'px' },
+    { type:'range', key:'ps', label:'Portrait scale',code:'LAYOUT.ps', min:0.3, max:1.6, step:0.05, dp:2, unit:'×' },
+    { type:'range', key:'ws', label:'Work scale',    code:'LAYOUT.ws', min:0.3, max:1.8, step:0.05, dp:2, unit:'×' },
+    { type:'range', key:'wg', label:'Work gap',      code:'WORK_OFFSET_X', min:40, max:260, step:2, unit:'px' },
+    { type:'range', key:'workOffY', label:'Work Y stagger', code:'WORK_OFFSET_Y', min:-60, max:60, step:1, unit:'px' },
+    { type:'range', key:'sr', label:'Size jitter',   code:'LAYOUT.sr', min:0, max:60, step:1, unit:'px',
+      hint:'Random size variation per portrait (0 = uniform).' },
+  ]},
+  { title:'Tunnel & ring', open:true, controls:[
+    { type:'range', key:'numArtists', label:'Artists per ring', code:'NUM_ARTISTS', min:2, max:10, step:1, rebuild:true },
+    { type:'range', key:'ringX',      label:'Ring radius X',    code:'RING_RADIUS_X', min:0, max:700, step:5, unit:'px' },
+    { type:'range', key:'ringY',      label:'Ring radius Y',    code:'RING_RADIUS_Y', min:0, max:500, step:5, unit:'px' },
+    { type:'range', key:'angleStart', label:'Ring rotation',    code:'ANGLE_START', min:0, max:360, step:1, unit:'°' },
+    { type:'range', key:'zSpread',    label:'Depth spread',     code:'Z_SPREAD', min:0, max:700, step:5, unit:'px',
+      hint:'How much clusters within one ring vary in depth.' },
+    { type:'range', key:'zSpacing',   label:'Year spacing',     code:'Z_SPACING', min:200, max:1600, step:20, unit:'px',
+      hint:'Distance between year-rings down the tunnel.' },
+    { type:'range', key:'perspective',label:'Camera depth',     code:'perspective', min:300, max:2000, step:20, unit:'px' },
+  ]},
+];
+
+/* ════════════════════════════════════════════════════════════════════════
+   BUILD PANEL
+   ════════════════════════════════════════════════════════════════════════ */
+const panelBody = document.getElementById('panelBody');
+function fmt(c, v){
+  const dp = c.dp ?? 0;
+  const n = c.dp ? Number(v).toFixed(dp) : String(v);
+  return n + (c.unit || '');
+}
+function buildPanel(){
+  panelBody.innerHTML = '';
+  CONFIG.forEach(group => {
+    const d = document.createElement('details');
+    d.className = 'group'; if (group.open) d.open = true;
+    d.innerHTML = `<summary>${group.title}<span class="chev">›</span></summary>`;
+    const wrap = document.createElement('div'); wrap.className = 'group-body';
+    group.controls.forEach(c => wrap.appendChild(buildControl(c)));
+    d.appendChild(wrap); panelBody.appendChild(d);
+  });
+}
+function buildControl(c){
+  if (c.type==='range') return buildRange(c);
+  if (c.type==='font')  return buildFont(c);
+  if (c.type==='color') return buildColor(c);
+}
+function buildRange(c){
+  const row = document.createElement('div'); row.className='row';
+  row.innerHTML = `
+    <div class="row-head">
+      <label>${c.label}${c.code?`<span class="code">${c.code}</span>`:''}</label>
+      <span class="val" id="val-${c.key}">${fmt(c,S[c.key])}</span>
+    </div>
+    <input type="range" id="in-${c.key}" min="${c.min}" max="${c.max}" step="${c.step}" value="${S[c.key]}" />
+    ${c.hint?`<div class="hint">${c.hint}</div>`:''}`;
+  const input = row.querySelector('input');
+  const val = row.querySelector('.val');
+  input.addEventListener('input', () => {
+    S[c.key] = parseFloat(input.value);
+    val.textContent = fmt(c, S[c.key]);
+    if (c.rebuild) buildCards();
+    apply();
+  });
+  return row;
+}
+function buildFont(c){
+  const row = document.createElement('div'); row.className='row';
+  const opts = Object.entries(FONTS).map(([g,list]) =>
+    `<optgroup label="${g}">`+list.map(f=>`<option value="${f}" ${f===S.font?'selected':''}>${f}</option>`).join('')+`</optgroup>`).join('');
+  row.innerHTML = `<div class="row-head"><label>${c.label}</label></div><select id="in-${c.key}">${opts}</select>`;
+  row.querySelector('select').addEventListener('change', e => { S.font = e.target.value; apply(); });
+  return row;
+}
+const CH = [['h','H',0,360],['s','S',0,100],['l','L',0,100]];
+function buildColor(c){
+  const row = document.createElement('div'); row.className='color-row';
+  row.innerHTML = `
+    <div class="color-head">
+      <span class="swatch" id="sw-${c.key}"></span>
+      <span class="name">${c.label}</span>
+      <span class="hex" id="hex-${c.key}"></span>
+    </div>
+    <div class="hsl">
+      ${CH.map(([k,lbl,min,max])=>`<span class="ch">${lbl}</span><input type="range" id="in-${c.key}-${k}" min="${min}" max="${max}" step="1" value="${S[c.key][k]}" />`).join('')}
+    </div>`;
+  CH.forEach(([k])=>{
+    row.querySelector(`#in-${c.key}-${k}`).addEventListener('input', e => { S[c.key][k]=parseFloat(e.target.value); apply(); });
+  });
+  return row;
+}
+function hsl(o){ return `hsl(${o.h} ${o.s}% ${o.l}%)`; }
+function hslHex(o){
+  const a=o.s/100,l=o.l/100,c=(1-Math.abs(2*l-1))*a,x=c*(1-Math.abs(((o.h/60)%2)-1)),m=l-c/2;
+  let r=0,g=0,b=0,h=o.h;
+  if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}
+  else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}
+  const to=v=>Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+to(r)+to(g)+to(b);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   APPLY typography + colour + margins → CSS vars
+   ════════════════════════════════════════════════════════════════════════ */
+const root = document.documentElement.style;
+function applyStyleVars(){
+  root.setProperty('--font', `'${S.font}', ${FALLBACK[S.font]||'sans-serif'}`);
+  root.setProperty('--hud-size', S.hudSize+'px');
+  root.setProperty('--label-size', S.labelSize+'px');
+  root.setProperty('--font-weight', S.fontWeight);
+  root.setProperty('--letter-spacing', S.letterSpacing+'em');
+  root.setProperty('--line-height', S.lineHeight);
+  root.setProperty('--bg', hsl(S.bg));
+  root.setProperty('--text', hsl(S.text));
+  root.setProperty('--accent', hsl(S.accent));
+  root.setProperty('--face', hsl(S.face));
+  root.setProperty('--stage-pad', S.stagePad+'px');
+  document.getElementById('scene').style.perspective = S.perspective+'px';
+  ['bg','text','accent','face'].forEach(k=>{
+    const sw=document.getElementById('sw-'+k), hx=document.getElementById('hex-'+k);
+    if(sw) sw.style.background=hsl(S[k]);
+    if(hx) hx.textContent=hslHex(S[k]);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   CARDS — ported directly from index.html buildCards() / addCard()
+   Jitters are frozen per card so sliding doesn't reshuffle the layout.
+   ════════════════════════════════════════════════════════════════════════ */
+const world = document.getElementById('world');
+let cards = [];
+
+function seededRand(seed){
+  let s=seed%2147483647; if(s<=0)s+=2147483646;
+  return ()=>{ s=s*16807%2147483647; return (s-1)/2147483646; };
+}
+
+function buildCards(){
+  world.innerHTML=''; cards=[];
+  const N = Math.round(S.numArtists);
+  YEARS.forEach((year, yi)=>{
+    const r = seededRand(year*1337+7);
+    YEARS._n = N;
+    for(let ai=0; ai<N; ai++){
+      // freeze the random draws exactly in index.html's call order
+      const jAngle = (r()-0.5)*0.15;
+      const jZ     = (r()-0.5)*80;
+      const jSize  = (Math.random()-0.5); // portrait size jitter unit
+      // portrait
+      cards.push(mkCard('portrait', {year, yi, ai, N, jAngle, jZ, jSize, name:NAMES[ai%NAMES.length]}));
+      // work0 (left) + work1 (right)
+      cards.push(mkCard('work', {year, yi, ai, N, jAngle, jZ, side:-1}));
+      cards.push(mkCard('work', {year, yi, ai, N, jAngle, jZ, side:+1}));
+    }
+  });
+  layout();
+}
+
+function mkCard(kind, d){
+  const el = document.createElement('div'); el.className='card';
+  const ph = document.createElement('div'); ph.className='ph';
+  ph.textContent = kind==='portrait' ? d.name.split(' ')[0] : '';
+  el.appendChild(ph);
+  if(kind==='portrait'){
+    const label=document.createElement('div'); label.className='artist-label';
+    label.textContent=d.name; el.appendChild(label);
+  }
+  world.appendChild(el);
+  return { el, ph, kind, d };
+}
+
+/* the exact positioning math from buildCards(), driven by live S.* */
+function layout(){
+  const vw=window.innerWidth, vh=window.innerHeight;
+  const X_OFFSET = vw*(S.xOffsetPct/100);
+  const Y_OFFSET = vh*(S.yOffsetPct/100);
+  const ANGLE_START = S.angleStart*Math.PI/180;
+  const BASE_W=S.bs;
+
+  cards.forEach(c=>{
+    const {year,yi,ai,N,jAngle,jZ} = c.d;
+    const zBase = -(yi*S.zSpacing);
+    const clusterAngle = (ai/N)*Math.PI*2 + ANGLE_START + jAngle;
+    const cx = Math.cos(clusterAngle)*S.ringX + X_OFFSET;
+    const cy = Math.sin(clusterAngle)*S.ringY + Y_OFFSET;
+    const cz = zBase + Math.cos(clusterAngle)*S.zSpread + jZ;
+
+    let tx, ty, tz, w;
+    if(c.kind==='portrait'){
+      w = Math.round(BASE_W*S.ps + c.d.jSize*S.sr);
+      tx = cx - w/2; ty = cy - 60; tz = cz;
+    } else {
+      w = Math.round(BASE_W*S.ws);
+      tx = cx + c.d.side*S.wg - w/2;
+      ty = cy - 60 + (c.d.side<0 ? S.workOffY : -S.workOffY);
+      tz = cz + 20;
+    }
+    c.ph.style.width = w+'px';
+    c.ph.style.height = Math.round(w*1.1)+'px';
+    c.el.style.transform = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,${tz.toFixed(1)}px)`;
+    c._tz = tz;
+  });
+}
+
+/* ── fly-through: camera translateZ, lerped toward targetZ (from index.html) ── */
+let cameraZ=0, targetZ=0;
+const MAX_Z = ()=> (YEARS.length-1)*S.zSpacing;
+function zToYear(z){ const i=Math.round(z/S.zSpacing); return YEARS[Math.max(0,Math.min(YEARS.length-1,i))]; }
+
+function apply(){ applyStyleVars(); layout(); }
+
+/* ── HUD update as we fly ── */
+let lastYear=null;
+function updateHUD(){
+  const idx = cameraZ/S.zSpacing;
+  const f=Math.max(0,Math.floor(idx)), c2=Math.min(YEARS.length-1,f+1), fr=idx-f;
+  const pa=SP[YEARS[f]], pb=SP[YEARS[c2]];
+  const price=Math.round(pa+(pb-pa)*fr);
+  document.getElementById('price').textContent='$'+price.toLocaleString();
+  const pp=SP[YEARS[Math.max(0,f-1)]]||pa;
+  const yoy=pp?((price-pp)/pp)*100:0;
+  const y=document.getElementById('yoy');
+  y.textContent=(yoy>=0?'+':'')+yoy.toFixed(1)+'%';
+  y.className='yoy '+(yoy>=0?'up':'down');
+  const yr=zToYear(cameraZ);
+  if(yr!==lastYear){ document.getElementById('year').textContent=yr; lastYear=yr; }
+}
+
+function loop(){
+  cameraZ += (targetZ-cameraZ)*0.07;
+  world.style.transform = `translateZ(${cameraZ.toFixed(1)}px)`;
+  // depth fade so the tunnel reads
+  cards.forEach(c=>{
+    const d = -(c._tz||0) - cameraZ;           // how far ahead down the tunnel
+    c.el.style.opacity = String(Math.max(0.12, Math.min(1, 1 - d/(S.zSpacing*3))));
+  });
+  updateHUD();
+  requestAnimationFrame(loop);
+}
+
+/* ── input: wheel + drag to fly (mirrors index.html wheel handler) ── */
+const stage=document.getElementById('stage');
+stage.addEventListener('wheel', e=>{
+  e.preventDefault();
+  targetZ=Math.max(0,Math.min(MAX_Z(), targetZ + e.deltaY*1.8));
+},{passive:false});
+let dragging=false, startY=0, startZ=0;
+stage.addEventListener('pointerdown', e=>{ dragging=true; startY=e.clientY; startZ=targetZ; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener('pointermove', e=>{ if(!dragging)return; targetZ=Math.max(0,Math.min(MAX_Z(), startZ + (startY-e.clientY)*3)); });
+stage.addEventListener('pointerup', ()=> dragging=false);
+stage.addEventListener('pointercancel', ()=> dragging=false);
+
+/* ── panel show/hide + reset ── */
+document.getElementById('panelToggle').addEventListener('click', ()=> document.body.classList.toggle('panel-hidden'));
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  S=structuredClone(DEFAULTS); resolveRingDefaults(S);
+  targetZ=0; cameraZ=0;
+  buildPanel(); buildCards(); apply();
+});
+
+window.addEventListener('resize', ()=> layout());
+
+/* ── init ── */
+buildPanel();
+buildCards();
+apply();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
