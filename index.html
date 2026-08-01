@@ -790,48 +790,42 @@ function addCard(world, cell, tx, ty, z, year, imgW){
     if(!isTap) return;
     isTap = false;
 
-    // Only intercept if modal isn't already open
     if(DOM.takeover && DOM.takeover.style.display === 'block') return;
 
     const tx = touchStartX, ty = touchStartY;
 
-    // Gather all interactive cards for the current year
     const candidates = (cardsByYear[currentYear] || [])
       .filter(c => c.el.style.pointerEvents !== 'none');
 
     if(!candidates.length) return;
 
-    // First: did the tap land inside any card's actual bounding rect?
-    // getBoundingClientRect reflects the real rendered size after CSS scale(),
-    // so this is accurate at any spiral scale.
-    let hit = null;
+    // Score every card: prefer tap-inside-rect, then closest centre.
+    // Among cards whose rect contains the tap, pick the one whose centre
+    // is nearest (handles overlapping rects — takes the most "aimed-at" card).
+    let best = null, bestDist = Infinity, bestInside = false;
+
     candidates.forEach(c => {
       const rect = c.el.getBoundingClientRect();
-      if(rect.width === 0) return;
-      if(tx >= rect.left && tx <= rect.right && ty >= rect.top && ty <= rect.bottom){
-        hit = c;
-      }
-    });
+      if(rect.width === 0 || rect.height === 0) return;
 
-    if(hit){
-      e.preventDefault();
-      openModal(hit.cell);
-      return;
-    }
-
-    // Fallback: nearest card centre within 150px — catches taps just outside
-    // a card's rect (e.g. very small cards at tight spiral scales).
-    let best = null, bestDist = Infinity;
-    candidates.forEach(c => {
-      const rect = c.el.getBoundingClientRect();
-      if(rect.width === 0) return;
       const cx = rect.left + rect.width  / 2;
       const cy = rect.top  + rect.height / 2;
       const dist = Math.hypot(cx - tx, cy - ty);
-      if(dist < bestDist){ bestDist = dist; best = c; }
+      const inside = tx >= rect.left && tx <= rect.right &&
+                     ty >= rect.top  && ty <= rect.bottom;
+
+      // inside always beats outside; among ties pick closest centre
+      if(inside && !bestInside){
+        best = c; bestDist = dist; bestInside = true;
+      } else if(inside && bestInside && dist < bestDist){
+        best = c; bestDist = dist;
+      } else if(!inside && !bestInside && dist < bestDist){
+        best = c; bestDist = dist;
+      }
     });
 
-    if(best && bestDist < 150){
+    // For outside hits, require the tap to be within 100px of a card centre
+    if(best && (bestInside || bestDist < 100)){
       e.preventDefault();
       openModal(best.cell);
     }
