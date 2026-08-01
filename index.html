@@ -765,6 +765,70 @@ function addCard(world, cell, tx, ty, z, year, imgW){
   allCards.push({ el, z, year, cell, ph, img, loaded:false, tx, ty, tz:z });
 }
 
+// ── smart tap: on touch devices find the card whose screen centre is closest
+//    to the tap point, rather than relying on browser hit-test through
+//    overlapping 3D-transformed elements. ──────────────────────────────────────
+(function(){
+  let touchStartX = 0, touchStartY = 0;
+  let isTap = false;
+
+  window.addEventListener('touchstart', e => {
+    if(e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    isTap = true;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', e => {
+    if(!isTap) return;
+    const dx = e.touches[0].clientX - touchStartX;
+    const dy = e.touches[0].clientY - touchStartY;
+    if(Math.abs(dx) > 8 || Math.abs(dy) > 8) isTap = false;
+  }, { passive: true });
+
+  window.addEventListener('touchend', e => {
+    if(!isTap) return;
+    isTap = false;
+
+    // Only intercept if modal isn't already open
+    if(DOM.takeover && DOM.takeover.style.display === 'block') return;
+
+    const tx = touchStartX, ty = touchStartY;
+
+    // Gather all interactive cards for the current year
+    const candidates = (cardsByYear[currentYear] || [])
+      .filter(c => c.el.style.pointerEvents !== 'none');
+
+    if(!candidates.length) return;
+
+    // Project each card's 3D position to screen coords via getBoundingClientRect
+    // (this is accurate regardless of spiral rotation / scale)
+    let best = null, bestDist = Infinity;
+    candidates.forEach(c => {
+      const rect = c.el.getBoundingClientRect();
+      if(rect.width === 0) return; // not rendered
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dist = Math.hypot(cx - tx, cy - ty);
+      if(dist < bestDist){
+        bestDist = dist;
+        best = c;
+      }
+    });
+
+    // Only open if tap was within a generous radius of a card centre
+    const threshold = Math.max(80, (best ? Math.max(
+      best.el.getBoundingClientRect().width,
+      best.el.getBoundingClientRect().height
+    ) : 0));
+
+    if(best && bestDist < threshold){
+      e.preventDefault();
+      openModal(best.cell);
+    }
+  });
+})();
+
 async function loadImg(cell, ph, img){
   const{type,artist,work}=cell;
   const manual=type==='portrait'?artist.portrait_image:work?.image;
