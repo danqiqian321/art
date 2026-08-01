@@ -624,7 +624,7 @@ function onTweak(key, val){
   const el = document.getElementById(`v-${key}`);
   if(el) el.textContent = (fmt[key]?.(val)) ?? val;
   if(key === 'sc'){
-    DOM.world.style.transform = `scale(${val})`;
+    // loop applies scale + translateZ together every frame — nothing to do here
   } else if(key === 'pv'){
     DOM.scene.style.perspective = val + 'px';
   } else if(key === 'pox' || key === 'poy'){
@@ -792,40 +792,64 @@ function addCard(world, cell, tx, ty, z, year, imgW){
 
     if(DOM.takeover && DOM.takeover.style.display === 'block') return;
 
-    const tx = touchStartX, ty = touchStartY;
+    const tapX = touchStartX, tapY = touchStartY;
 
     const candidates = (cardsByYear[currentYear] || [])
       .filter(c => c.el.style.pointerEvents === 'auto');
 
     if(!candidates.length) return;
 
-    // Score every card: prefer tap-inside-rect, then closest centre.
-    // Among cards whose rect contains the tap, pick the one whose centre
-    // is nearest (handles overlapping rects — takes the most "aimed-at" card).
-    let best = null, bestDist = Infinity, bestInside = false;
+    // Project each card's 3D world position to screen space manually.
+    // This is immune to getBoundingClientRect unreliability under combined
+    // CSS scale() + translateZ() + perspective transforms.
+    //
+    // Pipeline:
+    //   world coords (tx, ty, tz)
+    //   → camera: tz_cam = tz + cameraZ   (world translateZ)
+    //   → perspective divide: scale = pv / (pv - tz_cam)
+    //   → screen centre (before world scale):
+    //       sx = vw/2 + (vw * pox/100 - vw/2) ... simplifies to vpX + tx*scale
+    //   → apply world CSS scale (TWEAK.sc) around viewport centre
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const pv  = TWEAK.pv;           // perspective distance
+    const sc  = TWEAK.sc;           // world CSS scale
+    const vpX = vw * (TWEAK.pox / 100); // vanishing point X
+    const vpY = vh * (TWEAK.poy / 100); // vanishing point Y
+
+    let best = null, bestDist = Infinity;
 
     candidates.forEach(c => {
-      const rect = c.el.getBoundingClientRect();
-      if(rect.width === 0 || rect.height === 0) return;
+      // card world-space centre (cards are positioned at tx,ty; width≈cardW)
+      const cardW = c.ph ? c.ph.offsetWidth || TWEAK.bs : TWEAK.bs;
+      const cardH = c.ph ? c.ph.offsetHeight || TWEAK.bs : TWEAK.bs;
+      const wx = c.tx + cardW / 2;
+      const wy = c.ty + cardH / 2;
+      const wz = c.tz + cameraZ;   // camera moves by adding cameraZ to card tz
 
-      const cx = rect.left + rect.width  / 2;
-      const cy = rect.top  + rect.height / 2;
-      const dist = Math.hypot(cx - tx, cy - ty);
-      const inside = tx >= rect.left && tx <= rect.right &&
-                     ty >= rect.top  && ty <= rect.bottom;
+      // perspective projection
+      const pScale = pv / Math.max(1, pv - wz);
+      // projected position relative to vanishing point, before CSS scale
+      const projX = vpX + wx * pScale;
+      const projY = vpY + wy * pScale;
 
-      // inside always beats outside; among ties pick closest centre
-      if(inside && !bestInside){
-        best = c; bestDist = dist; bestInside = true;
-      } else if(inside && bestInside && dist < bestDist){
-        best = c; bestDist = dist;
-      } else if(!inside && !bestInside && dist < bestDist){
-        best = c; bestDist = dist;
-      }
+      // apply world CSS scale (origin = viewport centre: vw/2, vh/2)
+      const screenX = vw/2 + (projX - vw/2) * sc;
+      const screenY = vh/2 + (projY - vh/2) * sc;
+
+      const dist = Math.hypot(screenX - tapX, screenY - tapY);
+      if(dist < bestDist){ bestDist = dist; best = c; }
     });
 
-    // For outside hits, require the tap to be within 100px of a card centre
-    if(best && (bestInside || bestDist < 100)){
+    // Hit radius: half the projected card size, minimum 44px (iOS tap target)
+    let hitRadius = 44;
+    if(best){
+      const wz = best.tz + cameraZ;
+      const pScale = pv / Math.max(1, pv - wz);
+      const cardW = best.ph ? best.ph.offsetWidth || TWEAK.bs : TWEAK.bs;
+      hitRadius = Math.max(44, (cardW * pScale * sc) / 2 + 16);
+    }
+
+    if(best && bestDist < hitRadius){
       e.preventDefault();
       openModal(best.cell);
     }
@@ -1272,7 +1296,7 @@ function loop(){
   cameraZ+=(targetZ-cameraZ)*0.07;
 
   const worldEl=DOM.world;
-  worldEl.style.transform=`translateZ(${cameraZ}px)`;
+  worldEl.style.transform=`scale(${TWEAK.sc}) translateZ(${cameraZ}px)`;
 
   // smooth chart idx
   const targetIdx = (cameraZ / MAX_Z()) * (YEARS.length - 1);
