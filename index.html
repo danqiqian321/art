@@ -28,6 +28,7 @@
     position:absolute;
     width:100%; height:100%;
     transform-style:preserve-3d;
+    transform-origin:50% 50%;
   }
 
   /* ── art cards ── */
@@ -218,6 +219,116 @@
   }
   #topBanner a { color:#111; text-decoration:none; font-weight:500; }
   #topBanner a:hover { text-decoration:underline; }
+
+  /* ── mobile ── */
+  @media (max-width: 640px) {
+    /* top HUD: two columns — left stacks SP500+Economy, right pins Year */
+    .corner-tl {
+      top:38px; left:18px; right:18px;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      align-items:start;
+      row-gap:10px;
+      column-gap:12px;
+    }
+    /* SP500 → row 1, col 1 */
+    .corner-tl .corner-stat:nth-child(1) { grid-column:1; grid-row:1; }
+    /* Economy → row 2, col 1 */
+    .corner-tl .corner-stat:nth-child(2) { grid-column:1; grid-row:2; }
+    /* Year → spans both rows, col 2, top-right */
+    .corner-tl .corner-stat:nth-child(3) {
+      grid-column:2; grid-row:1 / span 2;
+      justify-self:end !important;
+      text-align:right !important;
+      align-self:start;
+    }
+
+    .stat-name  { font-size:12px; }
+    .inline-yoy { font-size:12px; }
+
+    .big-year, .big-spy { font-size:clamp(30px, 11vw, 44px); }
+    .year-ctx { font-size:clamp(24px, 8vw, 34px);  line-height:1.05; }
+    .big-rec  { font-size:clamp(17px, 5.5vw, 24px); line-height:1.1; margin-top:3px; }
+
+    /* bottom art statement */
+    .corner-bl { bottom:32px; left:18px; right:18px; }
+    .art-ctx   { font-size:clamp(17px, 5vw, 24px); line-height:1.2; }
+
+    .intro-text { font-size:15px; padding:0 24px; }
+
+    #topBanner { font-size:11px; }
+
+    /* fullscreen takeover modal */
+    .tk-top       { left:18px; right:18px; padding-top:38px; }
+    .tk-top-row   { flex-direction:column; gap:14px; }
+    .tk-top-right { align-items:flex-start; }
+    .tk-big       { font-size:clamp(28px, 9vw, 40px); }
+    .tk-sub       { font-size:13px; }
+    .takeover-img { top:150px; bottom:200px; left:18px; right:18px; }
+    .tk-bottom    { left:18px; right:18px; padding-bottom:32px;
+                    flex-direction:column; align-items:flex-start; gap:12px; }
+    .tk-reason    { font-size:clamp(17px, 5vw, 24px); max-width:100%; }
+    .tk-link      { padding-bottom:0; }
+    .takeover-close { top:32px; right:18px; }
+  }
+
+  /* ── tweak panel ── */
+  #tweakPanel {
+    position:fixed; bottom:20px; right:16px; z-index:300;
+    font-family:'DM Sans',sans-serif;
+    pointer-events:auto;
+  }
+  #tweakToggle {
+    display:block; margin-left:auto;
+    background:rgba(255,255,255,0.92); border:0.5px solid #d6d6d3;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border-radius:8px; padding:6px 12px;
+    font-size:12px; color:#555; cursor:pointer;
+    font-family:'DM Sans',sans-serif; letter-spacing:0.01em;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  }
+  #tweakToggle:hover { color:#111; }
+  #tweakBody {
+    display:none;
+    background:rgba(255,255,255,0.96); border:0.5px solid #d6d6d3;
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border-radius:12px; padding:16px 16px 12px;
+    margin-top:8px; min-width:220px;
+    box-shadow:0 4px 24px rgba(0,0,0,0.10);
+  }
+  #tweakBody.open { display:block; }
+  .tw-section {
+    font-size:9px; color:#bbb; letter-spacing:0.08em; text-transform:uppercase;
+    margin:12px 0 6px; font-family:'DM Mono',monospace;
+  }
+  .tw-section:first-child { margin-top:0; }
+  .tw-row {
+    display:grid; grid-template-columns:1fr auto;
+    align-items:center; gap:8px; margin-bottom:8px;
+  }
+  .tw-row label { font-size:12px; color:#444; }
+  .tw-val { font-size:11px; color:#888; font-family:'DM Mono',monospace;
+             min-width:36px; text-align:right; }
+  .tw-row input[type=range] {
+    -webkit-appearance:none; appearance:none;
+    width:100%; height:3px; background:#e5e5e3; border-radius:2px; outline:none;
+    grid-column:1 / -1; margin-top:-4px; margin-bottom:2px;
+  }
+  .tw-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:14px; height:14px;
+    background:#111; border-radius:50%; cursor:pointer;
+  }
+  .tw-row input[type=range]::-moz-range-thumb {
+    width:14px; height:14px; background:#111; border-radius:50%;
+    border:none; cursor:pointer;
+  }
+  #tweakReset {
+    display:block; width:100%; margin-top:10px;
+    background:none; border:0.5px solid #d6d6d3; border-radius:6px;
+    font-size:11px; color:#999; padding:5px; cursor:pointer;
+    font-family:'DM Sans',sans-serif;
+  }
+  #tweakReset:hover { color:#111; border-color:#aaa; }
 </style>
 </head>
 <body>
@@ -273,6 +384,74 @@
   <div class="tk-bottom">
     <div class="tk-reason" id="tkReason"></div>
     <a class="tk-link" id="tkLink" href="#" target="_blank" rel="noopener">View on Wikipedia ↗</a>
+  </div>
+</div>
+
+<!-- ── tweak panel ── -->
+<div id="tweakPanel">
+  <button id="tweakToggle" onclick="toggleTweak()">⚙ Tweak</button>
+  <div id="tweakBody">
+
+    <div class="tw-section">Overall scale</div>
+
+    <div class="tw-row">
+      <label>Spiral scale</label><span class="tw-val" id="v-sc"></span>
+      <input type="range" id="s-sc" min="0.1" max="2" step="0.01"
+             oninput="onTweak('sc',+this.value)">
+    </div>
+
+    <div class="tw-section">Ring shape</div>
+
+    <div class="tw-row">
+      <label>Ring width</label><span class="tw-val" id="v-rx"></span>
+      <input type="range" id="s-rx" min="80" max="800" step="4"
+             oninput="onTweak('rx',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Ring height</label><span class="tw-val" id="v-ry"></span>
+      <input type="range" id="s-ry" min="40" max="600" step="4"
+             oninput="onTweak('ry',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Z depth spread</label><span class="tw-val" id="v-zs"></span>
+      <input type="range" id="s-zs" min="0" max="600" step="8"
+             oninput="onTweak('zs',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Perspective</label><span class="tw-val" id="v-pv"></span>
+      <input type="range" id="s-pv" min="300" max="2000" step="20"
+             oninput="onTweak('pv',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Rotation offset °</label><span class="tw-val" id="v-ao"></span>
+      <input type="range" id="s-ao" min="0" max="360" step="1"
+             oninput="onTweak('ao',+this.value)">
+    </div>
+
+    <div class="tw-section">Card sizes</div>
+
+    <div class="tw-row">
+      <label>Base card size</label><span class="tw-val" id="v-bs"></span>
+      <input type="range" id="s-bs" min="40" max="300" step="4"
+             oninput="onTweak('bs',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Portrait scale</label><span class="tw-val" id="v-ps"></span>
+      <input type="range" id="s-ps" min="0.3" max="2" step="0.05"
+             oninput="onTweak('ps',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Work scale</label><span class="tw-val" id="v-ws"></span>
+      <input type="range" id="s-ws" min="0.3" max="2" step="0.05"
+             oninput="onTweak('ws',+this.value)">
+    </div>
+    <div class="tw-row">
+      <label>Work gap</label><span class="tw-val" id="v-wg"></span>
+      <input type="range" id="s-wg" min="40" max="400" step="4"
+             oninput="onTweak('wg',+this.value)">
+    </div>
+
+    <button id="tweakReset" onclick="resetTweak()">Reset to defaults</button>
   </div>
 </div>
 
@@ -386,27 +565,105 @@ function applyMagneticHover(){
   });
 }
 
-const LAYOUT_DEFAULTS = { bs:125, sr:0, ps:0.75, ws:1.10, wg:146, pv:928 };
-let LAYOUT = {...LAYOUT_DEFAULTS};
+// ─── tweak panel ──────────────────────────────────────────────────────────────
 
-function onCtrl(key, val){
-  LAYOUT[key] = val;
-  const labels = {
-    bs: v=>`${v}`, sr: v=>`${v}`, ps: v=>`${v.toFixed(2)}`,
-    ws: v=>`${v.toFixed(2)}`, wg: v=>`${v}`, pv: v=>`${v}`
-  };
-  document.getElementById(`v-${key}`).textContent = labels[key]?.(val) ?? val;
-  if(key==='pv'){
-    DOM.scene.style.perspective = val+'px';
+const TWEAK_DEFAULTS = {
+  sc:   1.0,   // uniform world scale
+  bs:   125,   // base card size (px)
+  sr:   0,     // size randomness
+  ps:   0.75,  // portrait scale
+  ws:   1.10,  // work scale
+  wg:   146,   // cluster gap
+  pv:   928,   // CSS perspective
+  rx:   579,   // ring radius X
+  ry:   234,   // ring radius Y
+  zsp:  800,   // tunnel depth (Z between years) — NOTE: index.html uses Z_SPACING const; this overrides it
+  zs:   248,   // ring depth (Z spread within year)
+  ao:   25,    // ring rotation angle (degrees)
+  jang: 15,    // angle jitter
+  jz:   80,    // Z jitter
+  xoff: -8,    // ring center X (% of vw)
+  yoff: -2,    // ring center Y (% of vh)
+  pox:  50,    // vanishing point X (%)
+  poy:  50,    // vanishing point Y (%)
+};
+
+// Mobile overrides — values tuned from slider.html playground
+const TWEAK_MOBILE = {
+  bs:   60,
+  sr:   0,
+  ps:   0.73,
+  ws:   0.73,
+  wg:   40,
+  pv:   1040,
+  rx:   120,
+  ry:   105,
+  zsp:  900,
+  zs:   248,
+  ao:   248,
+  jang: 21,
+  jz:   45,
+  xoff: -12,
+  yoff: -2,
+  pox:  50,
+  poy:  50,
+};
+let TWEAK = {...TWEAK_DEFAULTS};
+
+// Keep legacy LAYOUT alias so buildCards() references still work
+const LAYOUT = TWEAK;
+const LAYOUT_DEFAULTS = TWEAK_DEFAULTS;
+
+function onTweak(key, val){
+  TWEAK[key] = val;
+  const fmt = { sc:v=>`${v.toFixed(2)}×`, rx:v=>`${v}`, ry:v=>`${v}`, zs:v=>`${v}`,
+                zsp:v=>`${v}`, pv:v=>`${v}`, ao:v=>`${v}°`, bs:v=>`${v}`,
+                ps:v=>`${v.toFixed(2)}`, ws:v=>`${v.toFixed(2)}`, wg:v=>`${v}`,
+                sr:v=>`${v}`, jang:v=>`${v}`, jz:v=>`${v}`,
+                xoff:v=>`${v}%`, yoff:v=>`${v}%`, pox:v=>`${v}%`, poy:v=>`${v}%` };
+  const el = document.getElementById(`v-${key}`);
+  if(el) el.textContent = (fmt[key]?.(val)) ?? val;
+  if(key === 'sc'){
+    DOM.world.style.transform = `scale(${val})`;
+  } else if(key === 'pv'){
+    DOM.scene.style.perspective = val + 'px';
+  } else if(key === 'pox' || key === 'poy'){
+    DOM.scene.style.perspectiveOrigin = TWEAK.pox + '% ' + TWEAK.poy + '%';
   } else {
     rebuildPositions();
   }
 }
 
+function initTweak(){
+  const isMobile = window.innerWidth <= 640;
+  if(isMobile) Object.assign(TWEAK, TWEAK_MOBILE);
+  Object.entries(TWEAK).forEach(([k, v]) => {
+    const s = document.getElementById(`s-${k}`);
+    if(s) s.value = v;
+    onTweak(k, v);
+  });
+}
+
+function toggleTweak(){
+  document.getElementById('tweakBody').classList.toggle('open');
+}
+
+function resetTweak(){
+  Object.assign(TWEAK, TWEAK_DEFAULTS);
+  Object.keys(TWEAK_DEFAULTS).forEach(k => {
+    const s = document.getElementById(`s-${k}`);
+    if(s) s.value = TWEAK_DEFAULTS[k];
+    onTweak(k, TWEAK_DEFAULTS[k]);
+  });
+  DOM.scene.style.perspective = TWEAK_DEFAULTS.pv + 'px';
+}
+
+// legacy shim (ctrlPanel doesn't exist but guard just in case)
+function toggleCtrl(){}
+function resetCtrl(){ resetTweak(); }
+function onCtrl(key, val){ onTweak(key, val); }
+
 function rebuildPositions(){
-  // rebuild + re-index without re-fetching images
-  const world = DOM.world;
-  // just rebuild everything — images are cached so they reload instantly
   buildCards();
   indexCards();
   cullToWindow(currentYear);
@@ -414,23 +671,6 @@ function rebuildPositions(){
   (cardsByYear[currentYear]||[]).forEach(({el})=>{el.style.opacity='1';el.style.pointerEvents='auto';});
   const nyr = YEARS[ci+1];
   if(nyr)(cardsByYear[nyr]||[]).forEach(({el})=>{el.style.opacity='0.08';el.style.pointerEvents='none';});
-}
-
-function toggleCtrl(){
-  const p=document.getElementById('ctrlPanel');
-  const t=document.getElementById('ctrlToggle');
-  p.classList.toggle('collapsed');
-  t.textContent = p.classList.contains('collapsed') ? '▸' : '▾';
-}
-
-function resetCtrl(){
-  LAYOUT={...LAYOUT_DEFAULTS};
-  Object.keys(LAYOUT_DEFAULTS).forEach(k=>{
-    const el=document.getElementById(`s-${k}`);
-    if(el) el.value=LAYOUT_DEFAULTS[k];
-    onCtrl(k, LAYOUT_DEFAULTS[k]);
-  });
-  DOM.scene.style.perspective = LAYOUT_DEFAULTS.pv+'px';
 }
 // 5 artist clusters placed around a ring.
 // Each cluster: portrait center + work0 left + work1 right, tightly grouped.
@@ -445,32 +685,32 @@ function buildCards(){
   const NUM_ARTISTS   = 5;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  const RING_RADIUS_X = Math.min(579, vw * 0.48);
-  const RING_RADIUS_Y = Math.min(234, vh * 0.45);
-  const Z_SPREAD      = 248;
-  const WORK_OFFSET_X = LAYOUT.wg;
+  const RING_RADIUS_X = TWEAK.rx;
+  const RING_RADIUS_Y = TWEAK.ry;
+  const Z_SPREAD      = TWEAK.zs;
+  const WORK_OFFSET_X = TWEAK.wg;
   const WORK_OFFSET_Y = 15;
-  const X_OFFSET      = vw * (-8 / 100);
-  const Y_OFFSET      = vh * (-2 / 100);
-  const ANGLE_START   = 25 * Math.PI / 180;
+  const X_OFFSET      = vw * (TWEAK.xoff / 100);
+  const Y_OFFSET      = vh * (TWEAK.yoff / 100);
+  const ANGLE_START   = TWEAK.ao * Math.PI / 180;
 
-  // image sizes from LAYOUT
-  const BASE_W   = LAYOUT.bs;
-  const PORT_W   = Math.round(BASE_W * LAYOUT.ps + (Math.random()-0.5)*LAYOUT.sr);
-  const WORK_W   = Math.round(BASE_W * LAYOUT.ws);
+  // image sizes from TWEAK
+  const BASE_W   = TWEAK.bs;
+  const PORT_W   = Math.round(BASE_W * TWEAK.ps + (Math.random()-0.5)*TWEAK.sr);
+  const WORK_W   = Math.round(BASE_W * TWEAK.ws);
 
   YEARS.forEach((year, yi) => {
     const info = artData[year]; if(!info) return;
     const r = seededRand(year * 1337 + 7);
-    const zBase = -(yi * Z_SPACING);
+    const zBase = -(yi * (TWEAK.zsp || Z_SPACING));
 
     info.artists.forEach((artist, ai) => {
-      const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*0.15;
+      const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*(TWEAK.jang * 0.01);
       const cx = Math.cos(clusterAngle) * RING_RADIUS_X + X_OFFSET;
       const cy = Math.sin(clusterAngle) * RING_RADIUS_Y + Y_OFFSET;
 
       // Z: front of ring closer, back farther → perspective makes size difference
-      const cz = zBase + Math.cos(clusterAngle) * Z_SPREAD + (r()-0.5)*80;
+      const cz = zBase + Math.cos(clusterAngle) * Z_SPREAD + (r()-0.5)*TWEAK.jz;
 
       // portrait — cluster center
       addCard(world, {type:'portrait', artist, ai, year}, cx - PORT_W/2, cy - 60, cz, year, PORT_W);
@@ -1387,6 +1627,7 @@ window.addEventListener('resize',()=>{
   window.addEventListener('touchstart', fadeOutIntro, {once:true, passive:true});
 
   cacheDOM();
+  initTweak();
   await loadArtData();
   initBgChart();
   buildCards();

@@ -300,6 +300,14 @@
   }
   .pg-actions button:hover { background:#ececea; }
   .pg-note { font-size:10px; color:#c4c4c4; margin-top:12px; line-height:1.4; font-family:'DM Mono',monospace; }
+
+  /* ── big playground cursor ── */
+  html, body, #ctrlPanel, #ctrlPanel * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpolygon points='4,4 4,52 16,40 24,58 30,55 22,37 38,37' fill='white' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3Cpolygon points='4,4 4,52 16,40 24,58 30,55 22,37 38,37' fill='black'/%3E%3C/svg%3E") 4 4, auto !important;
+  }
+  input[type=range] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpolygon points='4,4 4,52 16,40 24,58 30,55 22,37 38,37' fill='white' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3Cpolygon points='4,4 4,52 16,40 24,58 30,55 22,37 38,37' fill='black'/%3E%3C/svg%3E") 4 4, ew-resize !important;
+  }
 </style>
 </head>
 <body>
@@ -454,7 +462,54 @@
       <input class="pg-range" id="s-pv" type="range" min="300" max="2000" step="10" value="800" oninput="onLayoutCtrl('pv', +this.value)">
     </div>
 
-    <div class="pg-actions">
+    <div class="pg-group-h">Spiral structure</div>
+
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Ring width (X radius)</label><span class="pg-val" id="v-rx">579</span></div>
+      <input class="pg-range" id="s-rx" type="range" min="100" max="900" step="5" value="579" oninput="onLayoutCtrl('rx', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Ring height (Y radius)</label><span class="pg-val" id="v-ry">234</span></div>
+      <input class="pg-range" id="s-ry" type="range" min="50" max="600" step="5" value="234" oninput="onLayoutCtrl('ry', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Tunnel depth (year gap)</label><span class="pg-val" id="v-zsp">800</span></div>
+      <input class="pg-range" id="s-zsp" type="range" min="200" max="2000" step="20" value="800" oninput="onLayoutCtrl('zsp', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Ring depth (Z spread)</label><span class="pg-val" id="v-zsd">248</span></div>
+      <input class="pg-range" id="s-zsd" type="range" min="0" max="600" step="5" value="248" oninput="onLayoutCtrl('zsd', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Ring rotation angle</label><span class="pg-val" id="v-ang">25°</span></div>
+      <input class="pg-range" id="s-ang" type="range" min="0" max="360" step="1" value="25" oninput="onLayoutCtrl('ang', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Angle jitter</label><span class="pg-val" id="v-jang">15</span></div>
+      <input class="pg-range" id="s-jang" type="range" min="0" max="100" step="1" value="15" oninput="onLayoutCtrl('jang', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Z jitter</label><span class="pg-val" id="v-jz">80</span></div>
+      <input class="pg-range" id="s-jz" type="range" min="0" max="300" step="5" value="80" oninput="onLayoutCtrl('jz', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Ring center X</label><span class="pg-val" id="v-xoff">-8%</span></div>
+      <input class="pg-range" id="s-xoff" type="range" min="-50" max="50" step="1" value="-8" oninput="onLayoutCtrl('xoff', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Ring center Y</label><span class="pg-val" id="v-yoff">-2%</span></div>
+      <input class="pg-range" id="s-yoff" type="range" min="-50" max="50" step="1" value="-2" oninput="onLayoutCtrl('yoff', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Vanishing point X</label><span class="pg-val" id="v-pox">50%</span></div>
+      <input class="pg-range" id="s-pox" type="range" min="0" max="100" step="1" value="50" oninput="onLayoutCtrl('pox', +this.value)">
+    </div>
+    <div class="pg-row">
+      <div class="pg-row-top"><label>Vanishing point Y</label><span class="pg-val" id="v-poy">50%</span></div>
+      <input class="pg-range" id="s-poy" type="range" min="0" max="100" step="1" value="50" oninput="onLayoutCtrl('poy', +this.value)">
+    </div>
+
+        <div class="pg-actions">
       <button onclick="resetPlayground()">Reset all</button>
       <button id="pgCopyBtn" onclick="copyPlaygroundCSS()">Copy CSS</button>
     </div>
@@ -572,7 +627,14 @@ function applyMagneticHover(){
   });
 }
 
-const LAYOUT_DEFAULTS = { bs:125, sr:0, ps:0.75, ws:1.10, wg:146, pv:928 };
+const LAYOUT_DEFAULTS = {
+  bs:125, sr:0, ps:0.75, ws:1.10, wg:146, pv:928,
+  rx:579, ry:234,
+  zsp:800, zsd:248,
+  ang:25, jang:15, jz:80,
+  xoff:-8, yoff:-2,
+  pox:50, poy:50,
+};
 let LAYOUT = {...LAYOUT_DEFAULTS};
 
 function onCtrl(key, val){
@@ -584,15 +646,76 @@ function onCtrl(key, val){
   document.getElementById(`v-${key}`).textContent = labels[key]?.(val) ?? val;
   if(key==='pv'){
     DOM.scene.style.perspective = val+'px';
+  } else if(key==='pox'||key==='poy'){
+    DOM.scene.style.perspectiveOrigin = LAYOUT.pox+'% '+LAYOUT.poy+'%';
   } else {
-    rebuildPositions();
+    if(key==='zsp') targetZ = Math.max(0, Math.min(MAX_Z(), targetZ));
+    repositionCards();
   }
 }
 
+// Blink-free reposition: updates transform + sizes on existing elements.
+// Images are never touched so they stay visible throughout slider drags.
+function repositionCards(){
+  if(!artData || !allCards.length){ rebuildPositions(); return; }
+
+  const NUM_ARTISTS   = 5;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const RING_RADIUS_X = LAYOUT.rx;
+  const RING_RADIUS_Y = LAYOUT.ry;
+  const Z_SPREAD      = LAYOUT.zsd;
+  const WORK_OFFSET_X = LAYOUT.wg;
+  const WORK_OFFSET_Y = 15;
+  const X_OFFSET      = vw * (LAYOUT.xoff / 100);
+  const Y_OFFSET      = vh * (LAYOUT.yoff / 100);
+  const ANGLE_START   = LAYOUT.ang * Math.PI / 180;
+  const BASE_W        = LAYOUT.bs;
+  const PORT_W        = Math.round(BASE_W * LAYOUT.ps);
+  const WORK_W        = Math.round(BASE_W * LAYOUT.ws);
+
+  // Build a parallel position list in the same order buildCards() produces cards.
+  const positions = [];
+  YEARS.forEach((year, yi) => {
+    const info = artData[year]; if(!info) return;
+    const r = seededRand(year * 1337 + 7);
+    const zBase = -(yi * LAYOUT.zsp);
+    info.artists.forEach((artist, ai) => {
+      const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*(LAYOUT.jang*0.01);
+      const cx = Math.cos(clusterAngle) * RING_RADIUS_X + X_OFFSET;
+      const cy = Math.sin(clusterAngle) * RING_RADIUS_Y + Y_OFFSET;
+      const cz = zBase + Math.cos(clusterAngle) * Z_SPREAD + (r()-0.5)*LAYOUT.jz;
+      positions.push({ tx: cx - PORT_W/2,                      ty: cy - 60,                  tz: cz,      w: PORT_W });
+      if(artist.works?.[0]) positions.push({ tx: cx - WORK_OFFSET_X - WORK_W/2, ty: cy - 60 + WORK_OFFSET_Y, tz: cz+20, w: WORK_W });
+      if(artist.works?.[1]) positions.push({ tx: cx + WORK_OFFSET_X - WORK_W/2, ty: cy - 60 - WORK_OFFSET_Y, tz: cz+20, w: WORK_W });
+    });
+  });
+
+  // Safety: if card count changed fall back to full rebuild.
+  if(positions.length !== allCards.length){ rebuildPositions(); return; }
+
+  allCards.forEach((c, i) => {
+    const { tx, ty, tz, w } = positions[i];
+    c.tx = tx; c.ty = ty; c.tz = tz;
+    c.el._tx = tx; c.el._ty = ty; c.el._tz = tz;
+    c.el.style.transform = `translate3d(${tx}px,${ty}px,${tz}px)`;
+    // resize placeholder and img without touching visibility or src
+    if(c.ph){ c.ph.style.width = w+'px'; c.ph.style.height = Math.round(w*1.1)+'px'; }
+    if(c.img){ c.img.style.width = w+'px'; }
+  });
+
+  indexCards();
+  cullToWindow(currentYear);
+  const ci = YEARS.indexOf(currentYear);
+  (cardsByYear[currentYear]||[]).forEach(({el})=>{ el.style.opacity='1'; el.style.pointerEvents='auto'; });
+  const nyr = YEARS[ci+1];
+  if(nyr)(cardsByYear[nyr]||[]).forEach(({el})=>{ el.style.opacity='0.08'; el.style.pointerEvents='none'; });
+}
+
 function rebuildPositions(){
-  // rebuild + re-index without re-fetching images
-  const world = DOM.world;
-  // just rebuild everything — images are cached so they reload instantly
+  // Full DOM rebuild — first load, data reload, or card-count change only.
+  loadingYears.clear();
+  lastLoadedYear = null;
   buildCards();
   indexCards();
   cullToWindow(currentYear);
@@ -600,6 +723,7 @@ function rebuildPositions(){
   (cardsByYear[currentYear]||[]).forEach(({el})=>{el.style.opacity='1';el.style.pointerEvents='auto';});
   const nyr = YEARS[ci+1];
   if(nyr)(cardsByYear[nyr]||[]).forEach(({el})=>{el.style.opacity='0.08';el.style.pointerEvents='none';});
+  triggerProximityLoad(currentYear);
 }
 
 function toggleCtrl(){
@@ -631,14 +755,14 @@ function buildCards(){
   const NUM_ARTISTS   = 5;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  const RING_RADIUS_X = Math.min(579, vw * 0.48);
-  const RING_RADIUS_Y = Math.min(234, vh * 0.45);
-  const Z_SPREAD      = 248;
+  const RING_RADIUS_X = LAYOUT.rx;
+  const RING_RADIUS_Y = LAYOUT.ry;
+  const Z_SPREAD      = LAYOUT.zsd;
   const WORK_OFFSET_X = LAYOUT.wg;
   const WORK_OFFSET_Y = 15;
-  const X_OFFSET      = vw * (-8 / 100);
-  const Y_OFFSET      = vh * (-2 / 100);
-  const ANGLE_START   = 25 * Math.PI / 180;
+  const X_OFFSET      = vw * (LAYOUT.xoff / 100);
+  const Y_OFFSET      = vh * (LAYOUT.yoff / 100);
+  const ANGLE_START   = LAYOUT.ang * Math.PI / 180;
 
   // image sizes from LAYOUT
   const BASE_W   = LAYOUT.bs;
@@ -648,15 +772,15 @@ function buildCards(){
   YEARS.forEach((year, yi) => {
     const info = artData[year]; if(!info) return;
     const r = seededRand(year * 1337 + 7);
-    const zBase = -(yi * Z_SPACING);
+    const zBase = -(yi * LAYOUT.zsp);
 
     info.artists.forEach((artist, ai) => {
-      const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*0.15;
+      const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*(LAYOUT.jang*0.01);
       const cx = Math.cos(clusterAngle) * RING_RADIUS_X + X_OFFSET;
       const cy = Math.sin(clusterAngle) * RING_RADIUS_Y + Y_OFFSET;
 
       // Z: front of ring closer, back farther → perspective makes size difference
-      const cz = zBase + Math.cos(clusterAngle) * Z_SPREAD + (r()-0.5)*80;
+      const cz = zBase + Math.cos(clusterAngle) * Z_SPREAD + (r()-0.5)*LAYOUT.jz;
 
       // portrait — cluster center
       addCard(world, {type:'portrait', artist, ai, year}, cx - PORT_W/2, cy - 60, cz, year, PORT_W);
@@ -1057,10 +1181,10 @@ async function commons(artist,title){
 
 // ─── scroll ───────────────────────────────────────────────────────────────────
 
-const MAX_Z=()=>(YEARS.length-1)*Z_SPACING;
+const MAX_Z=()=>(YEARS.length-1)*LAYOUT.zsp;
 
 function zToYear(z){
-  const idx=Math.round(z/Z_SPACING);
+  const idx=Math.round(z/LAYOUT.zsp);
   return YEARS[Math.max(0,Math.min(YEARS.length-1,idx))];
 }
 
@@ -1570,12 +1694,11 @@ window.addEventListener('resize',()=>{
 let _layoutDebounce = null;
 function onLayoutCtrl(key, val){
   LAYOUT[key] = val;
-  const fmt = { bs:v=>`${v}`, sr:v=>`${v}`, ps:v=>v.toFixed(2), ws:v=>v.toFixed(2), wg:v=>`${v}`, pv:v=>`${v}` };
+  const fmt = { bs:v=>`${v}`, sr:v=>`${v}`, ps:v=>v.toFixed(2), ws:v=>v.toFixed(2), wg:v=>`${v}`, pv:v=>`${v}`, rx:v=>`${v}`, ry:v=>`${v}`, zsp:v=>`${v}`, zsd:v=>`${v}`, ang:v=>`${v}°`, jang:v=>`${v}`, jz:v=>`${v}`, xoff:v=>`${v}%`, yoff:v=>`${v}%`, pox:v=>`${v}%`, poy:v=>`${v}%` };
   const d = document.getElementById('v-'+key);
   if(d) d.textContent = fmt[key] ? fmt[key](val) : val;
   if(key === 'pv'){ DOM.scene.style.perspective = val + 'px'; return; }
-  clearTimeout(_layoutDebounce);
-  _layoutDebounce = setTimeout(rebuildPositions, 55);
+  repositionCards();
 }
 
 // Wire every range / colour input to its CSS variable.
@@ -1637,6 +1760,7 @@ function initPlayground(){
   // Keep the perspective readout truthful with the scene's actual CSS default.
   const pv = document.getElementById('s-pv');
   if(pv) DOM.scene.style.perspective = pv.value + 'px';
+  DOM.scene.style.perspectiveOrigin = LAYOUT.pox+'% '+LAYOUT.poy+'%';
   // Stop panel gestures from driving the 3D camera / time-scrub underneath.
   const panel = document.getElementById('ctrlPanel');
   ['wheel','touchstart','touchmove'].forEach(ev =>
