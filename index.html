@@ -271,64 +271,6 @@
     .tk-link      { padding-bottom:0; }
     .takeover-close { top:32px; right:18px; }
   }
-
-  /* ── tweak panel ── */
-  #tweakPanel {
-    position:fixed; bottom:20px; right:16px; z-index:300;
-    font-family:'DM Sans',sans-serif;
-    pointer-events:auto;
-  }
-  #tweakToggle {
-    display:block; margin-left:auto;
-    background:rgba(255,255,255,0.92); border:0.5px solid #d6d6d3;
-    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-    border-radius:8px; padding:6px 12px;
-    font-size:12px; color:#555; cursor:pointer;
-    font-family:'DM Sans',sans-serif; letter-spacing:0.01em;
-    box-shadow:0 2px 12px rgba(0,0,0,0.08);
-  }
-  #tweakToggle:hover { color:#111; }
-  #tweakBody {
-    display:none;
-    background:rgba(255,255,255,0.96); border:0.5px solid #d6d6d3;
-    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-    border-radius:12px; padding:16px 16px 12px;
-    margin-top:8px; min-width:220px;
-    box-shadow:0 4px 24px rgba(0,0,0,0.10);
-  }
-  #tweakBody.open { display:block; }
-  .tw-section {
-    font-size:9px; color:#bbb; letter-spacing:0.08em; text-transform:uppercase;
-    margin:12px 0 6px; font-family:'DM Mono',monospace;
-  }
-  .tw-section:first-child { margin-top:0; }
-  .tw-row {
-    display:grid; grid-template-columns:1fr auto;
-    align-items:center; gap:8px; margin-bottom:8px;
-  }
-  .tw-row label { font-size:12px; color:#444; }
-  .tw-val { font-size:11px; color:#888; font-family:'DM Mono',monospace;
-             min-width:36px; text-align:right; }
-  .tw-row input[type=range] {
-    -webkit-appearance:none; appearance:none;
-    width:100%; height:3px; background:#e5e5e3; border-radius:2px; outline:none;
-    grid-column:1 / -1; margin-top:-4px; margin-bottom:2px;
-  }
-  .tw-row input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance:none; width:14px; height:14px;
-    background:#111; border-radius:50%; cursor:pointer;
-  }
-  .tw-row input[type=range]::-moz-range-thumb {
-    width:14px; height:14px; background:#111; border-radius:50%;
-    border:none; cursor:pointer;
-  }
-  #tweakReset {
-    display:block; width:100%; margin-top:10px;
-    background:none; border:0.5px solid #d6d6d3; border-radius:6px;
-    font-size:11px; color:#999; padding:5px; cursor:pointer;
-    font-family:'DM Sans',sans-serif;
-  }
-  #tweakReset:hover { color:#111; border-color:#aaa; }
 </style>
 </head>
 <body>
@@ -387,73 +329,6 @@
   </div>
 </div>
 
-<!-- ── tweak panel ── -->
-<div id="tweakPanel">
-  <button id="tweakToggle" onclick="toggleTweak()">⚙ Tweak</button>
-  <div id="tweakBody">
-
-    <div class="tw-section">Overall scale</div>
-
-    <div class="tw-row">
-      <label>Spiral scale</label><span class="tw-val" id="v-sc"></span>
-      <input type="range" id="s-sc" min="0.1" max="2" step="0.01"
-             oninput="onTweak('sc',+this.value)">
-    </div>
-
-    <div class="tw-section">Ring shape</div>
-
-    <div class="tw-row">
-      <label>Ring width</label><span class="tw-val" id="v-rx"></span>
-      <input type="range" id="s-rx" min="80" max="800" step="4"
-             oninput="onTweak('rx',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Ring height</label><span class="tw-val" id="v-ry"></span>
-      <input type="range" id="s-ry" min="40" max="600" step="4"
-             oninput="onTweak('ry',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Z depth spread</label><span class="tw-val" id="v-zs"></span>
-      <input type="range" id="s-zs" min="0" max="600" step="8"
-             oninput="onTweak('zs',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Perspective</label><span class="tw-val" id="v-pv"></span>
-      <input type="range" id="s-pv" min="300" max="2000" step="20"
-             oninput="onTweak('pv',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Rotation offset °</label><span class="tw-val" id="v-ao"></span>
-      <input type="range" id="s-ao" min="0" max="360" step="1"
-             oninput="onTweak('ao',+this.value)">
-    </div>
-
-    <div class="tw-section">Card sizes</div>
-
-    <div class="tw-row">
-      <label>Base card size</label><span class="tw-val" id="v-bs"></span>
-      <input type="range" id="s-bs" min="40" max="300" step="4"
-             oninput="onTweak('bs',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Portrait scale</label><span class="tw-val" id="v-ps"></span>
-      <input type="range" id="s-ps" min="0.3" max="2" step="0.05"
-             oninput="onTweak('ps',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Work scale</label><span class="tw-val" id="v-ws"></span>
-      <input type="range" id="s-ws" min="0.3" max="2" step="0.05"
-             oninput="onTweak('ws',+this.value)">
-    </div>
-    <div class="tw-row">
-      <label>Work gap</label><span class="tw-val" id="v-wg"></span>
-      <input type="range" id="s-wg" min="40" max="400" step="4"
-             oninput="onTweak('wg',+this.value)">
-    </div>
-
-    <button id="tweakReset" onclick="resetTweak()">Reset to defaults</button>
-  </div>
-</div>
 
 <script>
 // ─── constants ────────────────────────────────────────────────────────────────
@@ -605,6 +480,9 @@ const TWEAK_MOBILE = {
   jz:   45,
   xoff: -12,
   yoff: 8,
+  pox:  50,
+  poy:  50,
+};
 let TWEAK = {...TWEAK_DEFAULTS};
 
 // Keep legacy LAYOUT alias so buildCards() references still work
@@ -641,10 +519,7 @@ function initTweak(){
   });
 }
 
-function toggleTweak(){
-  document.getElementById('tweakBody').classList.toggle('open');
-}
-
+function toggleTweak(){ /* panel removed */ }
 function resetTweak(){
   Object.assign(TWEAK, TWEAK_DEFAULTS);
   Object.keys(TWEAK_DEFAULTS).forEach(k => {
