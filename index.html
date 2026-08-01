@@ -667,7 +667,7 @@ function addCard(world, cell, tx, ty, z, year, imgW){
     const tapX = touchStartX, tapY = touchStartY;
 
     const candidates = allCards
-      .filter(c => c.year === currentYear && c.el.style.pointerEvents === 'auto');
+      .filter(c => c.year === currentYear && c.el.style.display !== 'none');
 
     if(!candidates.length) return;
 
@@ -994,8 +994,9 @@ function setYearVisible(year, on){
     if(on){
       el.style.display='';
       el.style.willChange='transform,opacity';
-      // ensure pointer-events stay off — only the loop sets them auto for currentYear
-      if(el.style.pointerEvents !== 'auto') el.style.pointerEvents='none';
+      // pointer-events are managed by the year-change logic, not here
+      // but default to none — only currentYear cards get auto explicitly
+      el.style.pointerEvents='none';
     } else {
       el.style.display='none';
       el.style.willChange='';
@@ -1307,6 +1308,7 @@ function loop(){
     if(el.dataset.posSet!==nextYr+''){
       el.style.transform=`translate3d(${tx}px,${ty}px,${tz}px)`;
       el.style.opacity='0.08';
+      el.style.pointerEvents='none';
       el.dataset.posSet=nextYr+'';
     }
   });
