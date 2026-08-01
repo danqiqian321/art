@@ -794,8 +794,8 @@ function addCard(world, cell, tx, ty, z, year, imgW){
 
     const tapX = touchStartX, tapY = touchStartY;
 
-    const candidates = (cardsByYear[currentYear] || [])
-      .filter(c => c.el.style.pointerEvents === 'auto');
+    const candidates = allCards
+      .filter(c => c.year === currentYear && c.el.style.pointerEvents === 'auto');
 
     if(!candidates.length) return;
 
