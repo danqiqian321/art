@@ -801,28 +801,37 @@ function addCard(world, cell, tx, ty, z, year, imgW){
 
     if(!candidates.length) return;
 
-    // Project each card's 3D position to screen coords via getBoundingClientRect
-    // (this is accurate regardless of spiral rotation / scale)
-    let best = null, bestDist = Infinity;
+    // First: did the tap land inside any card's actual bounding rect?
+    // getBoundingClientRect reflects the real rendered size after CSS scale(),
+    // so this is accurate at any spiral scale.
+    let hit = null;
     candidates.forEach(c => {
       const rect = c.el.getBoundingClientRect();
-      if(rect.width === 0) return; // not rendered
-      const cx = rect.left + rect.width  / 2;
-      const cy = rect.top  + rect.height / 2;
-      const dist = Math.hypot(cx - tx, cy - ty);
-      if(dist < bestDist){
-        bestDist = dist;
-        best = c;
+      if(rect.width === 0) return;
+      if(tx >= rect.left && tx <= rect.right && ty >= rect.top && ty <= rect.bottom){
+        hit = c;
       }
     });
 
-    // Only open if tap was within a generous radius of a card centre
-    const threshold = Math.max(80, (best ? Math.max(
-      best.el.getBoundingClientRect().width,
-      best.el.getBoundingClientRect().height
-    ) : 0));
+    if(hit){
+      e.preventDefault();
+      openModal(hit.cell);
+      return;
+    }
 
-    if(best && bestDist < threshold){
+    // Fallback: nearest card centre within 150px — catches taps just outside
+    // a card's rect (e.g. very small cards at tight spiral scales).
+    let best = null, bestDist = Infinity;
+    candidates.forEach(c => {
+      const rect = c.el.getBoundingClientRect();
+      if(rect.width === 0) return;
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dist = Math.hypot(cx - tx, cy - ty);
+      if(dist < bestDist){ bestDist = dist; best = c; }
+    });
+
+    if(best && bestDist < 150){
       e.preventDefault();
       openModal(best.cell);
     }
