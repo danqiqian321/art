@@ -825,6 +825,22 @@ function addCard(world, cell, tx, ty, z, year, imgW){
     });
 
     // For outside hits, require the tap to be within 100px of a card centre
+    // Debug: log all candidates and which was picked
+    console.log('[tap]', tx.toFixed(0), ty.toFixed(0));
+    candidates.forEach(c => {
+      const r = c.el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const dist = Math.hypot(cx-tx, cy-ty);
+      const inside = tx>=r.left && tx<=r.right && ty>=r.top && ty<=r.bottom;
+      console.log(
+        c.cell.type, c.cell.artist?.artist?.slice(0,12),
+        'pe='+c.el.style.pointerEvents,
+        'rect=['+r.left.toFixed(0)+','+r.top.toFixed(0)+','+r.right.toFixed(0)+','+r.bottom.toFixed(0)+']',
+        'inside='+inside, 'dist='+dist.toFixed(0)
+      );
+    });
+    console.log('[tap] best:', best?.cell?.type, best?.cell?.artist?.artist?.slice(0,12), 'inside='+bestInside, 'dist='+bestDist.toFixed(0));
+
     if(best && (bestInside || bestDist < 100)){
       e.preventDefault();
       openModal(best.cell);
