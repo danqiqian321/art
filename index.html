@@ -728,6 +728,12 @@ function cardAtPoint(tapX, tapY){
     isTap = false;
     if(DOM.takeover && DOM.takeover.style.display === 'block') return;
     const hit = cardAtPoint(touchStartX, touchStartY);
+    // TEMP DEBUG
+    let dbg = document.getElementById('_tapdbg');
+    if(!dbg){ dbg=document.createElement('div'); dbg.id='_tapdbg';
+      dbg.style.cssText='position:fixed;bottom:8px;left:8px;z-index:9999;background:#000;color:#0DFFF8;font:11px monospace;padding:4px 8px;border-radius:4px;pointer-events:none;'; document.body.appendChild(dbg); }
+    const n = allCards.filter(c=>c.year===currentYear && c.el.style.display!=='none').length;
+    dbg.textContent = `tap ${touchStartX|0},${touchStartY|0} | yr=${currentYear} cand=${n} hit=${hit?hit.cell.type:'null'}`;
     if(hit){
       e.preventDefault();
       openModal(hit.cell);
