@@ -35,7 +35,7 @@
   .card {
     position:absolute;
     left:50%; top:50%;
-    width:max-content;
+    width:160px;
     transform-style:preserve-3d;
     cursor:pointer;
     transition:opacity 0.5s ease;
@@ -62,7 +62,7 @@
     padding:7px 4px 2px;
     font-family:'DM Sans',sans-serif;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    width:100%;
+    width:160px;
     line-height:1.2;
     letter-spacing:-0.01em;
   }
@@ -1142,13 +1142,10 @@ let dragStartTargetZ = 0;
 
 function pillDragSensitivity() {
   // Map the full Z range across the pill's on-screen track width so the pill
-  // tracks the finger/cursor. On mobile we deliberately dampen it (require more
-  // finger travel per year) so fast flicks don't scrub faster than the
-  // reveal/settle logic can keep up.
+  // tracks the finger/cursor 1:1. On mobile the track is ~90% of viewport width.
   const isMobile = window.innerWidth <= 640;
   const trackW = isMobile ? window.innerWidth * 0.9 : window.innerWidth;
-  const damp   = isMobile ? 0.5 : 1;   // lower = harder to drag far
-  return (MAX_Z() / trackW) * damp;
+  return MAX_Z() / trackW;
 }
 
 function pointInPillRect(x, y) {
