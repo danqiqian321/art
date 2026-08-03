@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Art & Economy</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230DFFF8'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
@@ -36,7 +35,7 @@
   .card {
     position:absolute;
     left:50%; top:50%;
-    width:max-content;
+    width:160px;
     transform-style:preserve-3d;
     cursor:pointer;
     transition:opacity 0.5s ease;
@@ -63,7 +62,7 @@
     padding:7px 4px 2px;
     font-family:'DM Sans',sans-serif;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    width:100%;
+    width:160px;
     line-height:1.2;
     letter-spacing:-0.01em;
   }
@@ -646,6 +645,7 @@ function addCard(world, cell, tx, ty, z, year, imgW){
     el.appendChild(label);
   }
 
+  el.addEventListener('click', e => { e.stopPropagation(); openModal(cell); });
   el._cell = cell;
   world.appendChild(el);
   allCards.push({ el, z, year, cell, ph, img, loaded:false, tx, ty, tz:z });
@@ -654,53 +654,6 @@ function addCard(world, cell, tx, ty, z, year, imgW){
 // ── smart tap: on touch devices find the card whose screen centre is closest
 //    to the tap point, rather than relying on browser hit-test through
 //    overlapping 3D-transformed elements. ──────────────────────────────────────
-
-// Shared hit-test: given a viewport point, return the current-year card whose
-// projected screen centre is nearest, or null. Used by BOTH desktop click and
-// mobile tap so neither relies on the browser's flaky 3D hit-testing (which was
-// intermittently failing on the first couple of years).
-function cardAtPoint(tapX, tapY){
-  const candidates = allCards
-    .filter(c => c.year === currentYear && c.el.style.display !== 'none');
-  if(!candidates.length) return null;
-
-  const vw = window.innerWidth, vh = window.innerHeight;
-  const pv  = TWEAK.pv;
-  const sc  = TWEAK.sc;
-  const poX = vw * (TWEAK.pox / 100);
-  const poY = vh * (TWEAK.poy / 100);
-
-  let best = null, bestDist = Infinity;
-
-  candidates.forEach(c => {
-    // use whichever of img/ph is currently visible for the true rendered size
-    const visW = (c.img && c.img.offsetWidth) || (c.ph && c.ph.offsetWidth) || TWEAK.bs;
-    const visH = (c.img && c.img.offsetHeight) || (c.ph && c.ph.offsetHeight) || TWEAK.bs;
-    const wx = c.tx + visW / 2;
-    const wy = c.ty + visH / 2;
-    const wz = c.tz + cameraZ;
-
-    const pScale = pv / Math.max(1, pv - wz);
-    const projX = poX + (wx - poX) * pScale;
-    const projY = poY + (wy - poY) * pScale;
-    const screenX = vw/2 + (projX - vw/2) * sc;
-    const screenY = vh/2 + (projY - vh/2) * sc;
-
-    const dist = Math.hypot(screenX - tapX, screenY - tapY);
-    if(dist < bestDist){ bestDist = dist; best = c; }
-  });
-
-  if(!best) return null;
-
-  // hit radius scales with the winning card's projected size
-  const wz = best.tz + cameraZ;
-  const pScale = pv / Math.max(1, pv - wz);
-  const cardW = (best.img && best.img.offsetWidth) || (best.ph && best.ph.offsetWidth) || TWEAK.bs;
-  const hitRadius = Math.max(44, (cardW * pScale * sc) / 2 + 20);
-
-  return bestDist < hitRadius ? best : null;
-}
-
 (function(){
   let touchStartX = 0, touchStartY = 0;
   let isTap = false;
@@ -726,32 +679,73 @@ function cardAtPoint(tapX, tapY){
   window.addEventListener('touchend', e => {
     if(!isTap) return;
     isTap = false;
+
     if(DOM.takeover && DOM.takeover.style.display === 'block') return;
-    const hit = cardAtPoint(touchStartX, touchStartY);
-    // TEMP DEBUG
-    let dbg = document.getElementById('_tapdbg');
-    if(!dbg){ dbg=document.createElement('div'); dbg.id='_tapdbg';
-      dbg.style.cssText='position:fixed;bottom:8px;left:8px;z-index:9999;background:#000;color:#0DFFF8;font:11px monospace;padding:4px 8px;border-radius:4px;pointer-events:none;'; document.body.appendChild(dbg); }
-    const n = allCards.filter(c=>c.year===currentYear && c.el.style.display!=='none').length;
-    dbg.textContent = `tap ${touchStartX|0},${touchStartY|0} | yr=${currentYear} cand=${n} hit=${hit?hit.cell.type:'null'}`;
-    if(hit){
+
+    const tapX = touchStartX, tapY = touchStartY;
+
+    const candidates = allCards
+      .filter(c => c.year === currentYear && c.el.style.display !== 'none');
+
+    if(!candidates.length) return;
+
+    // Project each card's 3D world position to screen space manually.
+    // This is immune to getBoundingClientRect unreliability under combined
+    // CSS scale() + translateZ() + perspective transforms.
+    //
+    // Pipeline:
+    //   world coords (tx, ty, tz)
+    //   → camera: tz_cam = tz + cameraZ   (world translateZ)
+    //   → perspective divide: scale = pv / (pv - tz_cam)
+    //   → screen centre (before world scale):
+    //       sx = vw/2 + (vw * pox/100 - vw/2) ... simplifies to vpX + tx*scale
+    //   → apply world CSS scale (TWEAK.sc) around viewport centre
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const pv  = TWEAK.pv;           // perspective distance (from #scene)
+    const sc  = TWEAK.sc;           // world CSS scale
+    // perspective-origin (vanishing point) in viewport px
+    const poX = vw * (TWEAK.pox / 100);
+    const poY = vh * (TWEAK.poy / 100);
+
+    let best = null, bestDist = Infinity;
+
+    candidates.forEach(c => {
+      const cardW = c.ph ? c.ph.offsetWidth  || TWEAK.bs : TWEAK.bs;
+      const cardH = c.ph ? c.ph.offsetHeight || TWEAK.bs : TWEAK.bs;
+      // card centre in #world space (world is 100%x100%, origin = viewport top-left)
+      const wx = c.tx + cardW / 2;
+      const wy = c.ty + cardH / 2;
+      const wz = c.tz + cameraZ;   // world translateZ(cameraZ) shifts every card
+
+      // CSS perspective projection about the perspective-origin:
+      //   screen = origin + (point - origin) * (pv / (pv - z))
+      const pScale = pv / Math.max(1, pv - wz);
+      const projX = poX + (wx - poX) * pScale;
+      const projY = poY + (wy - poY) * pScale;
+
+      // world CSS scale() is applied around the world's transform-origin (50% 50%)
+      const screenX = vw/2 + (projX - vw/2) * sc;
+      const screenY = vh/2 + (projY - vh/2) * sc;
+
+      const dist = Math.hypot(screenX - tapX, screenY - tapY);
+      if(dist < bestDist){ bestDist = dist; best = c; }
+    });
+
+    // Hit radius scales with the winning card's projected size
+    let hitRadius = 44;
+    if(best){
+      const wz = best.tz + cameraZ;
+      const pScale = pv / Math.max(1, pv - wz);
+      const cardW = best.ph ? best.ph.offsetWidth || TWEAK.bs : TWEAK.bs;
+      hitRadius = Math.max(44, (cardW * pScale * sc) / 2 + 20);
+    }
+
+    if(best && bestDist < hitRadius){
       e.preventDefault();
-      openModal(hit.cell);
+      openModal(best.cell);
     }
   });
 })();
-
-// Desktop: use the same projection hit-test on click instead of per-card
-// listeners (which the browser's 3D hit-testing handled unreliably for cards
-// near the back of the ring on early years).
-window.addEventListener('click', e => {
-  if(DOM.takeover && DOM.takeover.style.display === 'block') return; // modal handles its own clicks
-  if(e.target.closest && e.target.closest('#takeover, #topBanner, .status-bar')) return;
-  if(typeof pointInPillRect === 'function' && pointInPillRect(e.clientX, e.clientY)) return;
-  const hit = cardAtPoint(e.clientX, e.clientY);
-  if(hit){ openModal(hit.cell); }
-});
-
 
 async function loadImg(cell, ph, img){
   const{type,artist,work}=cell;
@@ -1148,13 +1142,10 @@ let dragStartTargetZ = 0;
 
 function pillDragSensitivity() {
   // Map the full Z range across the pill's on-screen track width so the pill
-  // tracks the finger/cursor. On mobile we deliberately dampen it (require more
-  // finger travel per year) so fast flicks don't scrub faster than the
-  // reveal/settle logic can keep up.
+  // tracks the finger/cursor 1:1. On mobile the track is ~90% of viewport width.
   const isMobile = window.innerWidth <= 640;
   const trackW = isMobile ? window.innerWidth * 0.9 : window.innerWidth;
-  const damp   = isMobile ? 0.5 : 1;   // lower = harder to drag far
-  return (MAX_Z() / trackW) * damp;
+  return MAX_Z() / trackW;
 }
 
 function pointInPillRect(x, y) {
