@@ -839,16 +839,29 @@ function drawBgChart(){
   // fill under line
   const allPts = pts.filter(p => p.x > -400 && p.x < VW+400);
   if(allPts.length > 1){
+    const lastPt = allPts[allPts.length-1];
+    const firstPt = allPts[0];
+
+    // vertical gradient (top = opaque, bottom = transparent)
     const grad = bgCtx.createLinearGradient(0, PAD.top, 0, PAD.top+H);
     grad.addColorStop(0, 'rgba(0,0,0,0.08)');
     grad.addColorStop(1, 'rgba(0,0,0,0)');
     bgCtx.beginPath();
-    bgCtx.moveTo(allPts[0].x, PAD.top+H);
-    bgCtx.lineTo(allPts[0].x, allPts[0].y);
+    bgCtx.moveTo(firstPt.x, PAD.top+H);
+    bgCtx.lineTo(firstPt.x, firstPt.y);
     for(let i=1;i<allPts.length;i++) bgCtx.lineTo(allPts[i].x, allPts[i].y);
-    bgCtx.lineTo(allPts[allPts.length-1].x, PAD.top+H);
+    bgCtx.lineTo(lastPt.x, PAD.top+H);
     bgCtx.closePath();
     bgCtx.fillStyle = grad; bgCtx.fill();
+
+    // fade the tail of the fill: horizontal gradient from transparent→white
+    // over the last ~3 year-widths, erasing the sharp right edge of the grey area
+    const fadeStartX = lastPt.x - YEAR_PX * 3;
+    const tailFade = bgCtx.createLinearGradient(fadeStartX, 0, lastPt.x, 0);
+    tailFade.addColorStop(0, 'rgba(255,255,255,0)');
+    tailFade.addColorStop(1, 'rgba(255,255,255,1)');
+    bgCtx.fillStyle = tailFade;
+    bgCtx.fillRect(fadeStartX, PAD.top, lastPt.x - fadeStartX, H);
 
     // draw line segment by segment — red during recessions, black otherwise
     function inRecession(yearIdx) {
@@ -879,14 +892,6 @@ function drawBgChart(){
       bgCtx.fill();
     });
   }
-
-  // right-edge fade — softens the sharp cutoff at the last year
-  const fadeW = VW * 0.18;
-  const fadeGrad = bgCtx.createLinearGradient(VW - fadeW, 0, VW, 0);
-  fadeGrad.addColorStop(0, 'rgba(255,255,255,0)');
-  fadeGrad.addColorStop(1, 'rgba(255,255,255,1)');
-  bgCtx.fillStyle = fadeGrad;
-  bgCtx.fillRect(VW - fadeW, 0, fadeW, VH);
 
   // smooth dot — fractional index lerps between year prices for fluid motion
   const si = smoothChartIdx;
