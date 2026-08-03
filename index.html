@@ -314,16 +314,16 @@
   </div>
 </div>
 
-<div class="takeover" id="takeover">
+<div class="takeover" id="takeover" onclick="closeModal()">
   <button class="takeover-close" onclick="closeModal()">✕</button>
-  <div class="tk-top">
+  <div class="tk-top" onclick="event.stopPropagation()">
     <div class="tk-top-row">
       <div class="tk-top-left" id="tkLeft"></div>
       <div class="tk-top-right" id="tkRight"></div>
     </div>
   </div>
-  <div class="takeover-img"><img id="tkImg" alt="" /></div>
-  <div class="tk-bottom">
+  <div class="takeover-img" onclick="event.stopPropagation()"><img id="tkImg" alt="" /></div>
+  <div class="tk-bottom" onclick="event.stopPropagation()">
     <div class="tk-reason" id="tkReason"></div>
     <a class="tk-link" id="tkLink" href="#" target="_blank" rel="noopener">View on Wikipedia ↗</a>
   </div>
@@ -574,7 +574,7 @@ function buildCards(){
   YEARS.forEach((year, yi) => {
     const info = artData[year]; if(!info) return;
     const r = seededRand(year * 1337 + 7);
-    const zBase = -(yi * (TWEAK.zsp || Z_SPACING));
+    const zBase = -(yi * Z_SPACING);
 
     info.artists.forEach((artist, ai) => {
       const clusterAngle = (ai / NUM_ARTISTS) * Math.PI * 2 + ANGLE_START + (r()-0.5)*(TWEAK.jang * 0.01);
@@ -683,28 +683,29 @@ function addCard(world, cell, tx, ty, z, year, imgW){
     //       sx = vw/2 + (vw * pox/100 - vw/2) ... simplifies to vpX + tx*scale
     //   → apply world CSS scale (TWEAK.sc) around viewport centre
     const vw = window.innerWidth, vh = window.innerHeight;
-    const pv  = TWEAK.pv;           // perspective distance
+    const pv  = TWEAK.pv;           // perspective distance (from #scene)
     const sc  = TWEAK.sc;           // world CSS scale
-    const vpX = vw * (TWEAK.pox / 100); // vanishing point X
-    const vpY = vh * (TWEAK.poy / 100); // vanishing point Y
+    // perspective-origin (vanishing point) in viewport px
+    const poX = vw * (TWEAK.pox / 100);
+    const poY = vh * (TWEAK.poy / 100);
 
     let best = null, bestDist = Infinity;
 
     candidates.forEach(c => {
-      // card world-space centre (cards are positioned at tx,ty; width≈cardW)
-      const cardW = c.ph ? c.ph.offsetWidth || TWEAK.bs : TWEAK.bs;
+      const cardW = c.ph ? c.ph.offsetWidth  || TWEAK.bs : TWEAK.bs;
       const cardH = c.ph ? c.ph.offsetHeight || TWEAK.bs : TWEAK.bs;
+      // card centre in #world space (world is 100%x100%, origin = viewport top-left)
       const wx = c.tx + cardW / 2;
       const wy = c.ty + cardH / 2;
-      const wz = c.tz + cameraZ;   // camera moves by adding cameraZ to card tz
+      const wz = c.tz + cameraZ;   // world translateZ(cameraZ) shifts every card
 
-      // perspective projection
+      // CSS perspective projection about the perspective-origin:
+      //   screen = origin + (point - origin) * (pv / (pv - z))
       const pScale = pv / Math.max(1, pv - wz);
-      // projected position relative to vanishing point, before CSS scale
-      const projX = vpX + wx * pScale;
-      const projY = vpY + wy * pScale;
+      const projX = poX + (wx - poX) * pScale;
+      const projY = poY + (wy - poY) * pScale;
 
-      // apply world CSS scale (origin = viewport centre: vw/2, vh/2)
+      // world CSS scale() is applied around the world's transform-origin (50% 50%)
       const screenX = vw/2 + (projX - vw/2) * sc;
       const screenY = vh/2 + (projY - vh/2) * sc;
 
@@ -712,13 +713,13 @@ function addCard(world, cell, tx, ty, z, year, imgW){
       if(dist < bestDist){ bestDist = dist; best = c; }
     });
 
-    // Hit radius: half the projected card size, minimum 44px (iOS tap target)
+    // Hit radius scales with the winning card's projected size
     let hitRadius = 44;
     if(best){
       const wz = best.tz + cameraZ;
       const pScale = pv / Math.max(1, pv - wz);
       const cardW = best.ph ? best.ph.offsetWidth || TWEAK.bs : TWEAK.bs;
-      hitRadius = Math.max(44, (cardW * pScale * sc) / 2 + 16);
+      hitRadius = Math.max(44, (cardW * pScale * sc) / 2 + 20);
     }
 
     if(best && bestDist < hitRadius){
