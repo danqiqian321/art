@@ -188,6 +188,19 @@
   }
   .takeover-img img { max-width:100%; max-height:100%; object-fit:contain; display:block; }
 
+  /* magnifier lens (desktop hover only) */
+  #magLens {
+    position:fixed; width:220px; height:220px; border-radius:50%;
+    border:2px solid rgba(255,255,255,0.85);
+    box-shadow:0 8px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.3);
+    background-repeat:no-repeat; pointer-events:none;
+    display:none; z-index:60; transform:translate(-50%,-50%);
+    cursor:none;
+  }
+  @media (hover:none), (max-width:640px) {
+    #magLens { display:none !important; }
+  }
+
   /* bottom — same as .corner-bl at bottom:60px */
   .tk-bottom {
     position:absolute; bottom:0; left:28px; right:28px;
@@ -262,7 +275,7 @@
     .tk-top       { left:18px; right:18px; padding-top:38px; }
     .tk-top-row   { flex-direction:column; gap:14px; }
     .tk-top-right { align-items:flex-start; }
-    .tk-big       { font-size:clamp(28px, 9vw, 40px); }
+    .tk-big       { font-size:clamp(22px, 7.2vw, 32px); }
     .tk-sub       { font-size:13px; }
     .takeover-img { top:150px; bottom:200px; left:18px; right:18px; }
     .tk-bottom    { left:18px; right:18px; padding-bottom:32px;
@@ -314,16 +327,17 @@
   </div>
 </div>
 
-<div class="takeover" id="takeover" onclick="closeModal()">
+<div class="takeover" id="takeover" onclick="if(event.target===this)closeModal()">
   <button class="takeover-close" onclick="closeModal()">✕</button>
-  <div class="tk-top" onclick="event.stopPropagation()">
+  <div class="tk-top">
     <div class="tk-top-row">
       <div class="tk-top-left" id="tkLeft"></div>
       <div class="tk-top-right" id="tkRight"></div>
     </div>
   </div>
-  <div class="takeover-img" onclick="event.stopPropagation()"><img id="tkImg" alt="" /></div>
-  <div class="tk-bottom" onclick="event.stopPropagation()">
+  <div class="takeover-img" onclick="if(event.target===this)closeModal()"><img id="tkImg" alt="" /></div>
+  <div id="magLens"></div>
+  <div class="tk-bottom">
     <div class="tk-reason" id="tkReason"></div>
     <a class="tk-link" id="tkLink" href="#" target="_blank" rel="noopener">View on Wikipedia ↗</a>
   </div>
@@ -648,6 +662,10 @@ function addCard(world, cell, tx, ty, z, year, imgW){
     if(e.touches.length !== 1) return;
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+    // ignore taps that begin on the year pill — that's a drag, not a card tap
+    if(typeof pointInPillRect === 'function' && pointInPillRect(touchStartX, touchStartY)){
+      isTap = false; return;
+    }
     isTap = true;
   }, { passive: true });
 
@@ -1098,8 +1116,14 @@ window.addEventListener('wheel',e=>{
 },{passive:false});
 
 let lastTY=null;
-window.addEventListener('touchstart',e=>{if(e.touches.length===1)lastTY=e.touches[0].clientY;},{passive:true});
+window.addEventListener('touchstart',e=>{
+  if(e.touches.length!==1) return;
+  // if the touch starts on the pill, let the pill-drag handler own it
+  if(pointInPillRect(e.touches[0].clientX, e.touches[0].clientY)) return;
+  lastTY=e.touches[0].clientY;
+},{passive:true});
 window.addEventListener('touchmove',e=>{
+  if(draggingPill){ return; }              // pill drag owns the gesture
   if(lastTY===null||e.touches.length!==1)return;
   const dy=lastTY-e.touches[0].clientY;
   targetZ=Math.max(0,Math.min(MAX_Z(),targetZ+dy*2.5));
@@ -1116,7 +1140,13 @@ let draggingPill = false;
 let dragStartX = 0;
 let dragStartTargetZ = 0;
 
-function pillDragSensitivity() { return MAX_Z() / window.innerWidth; }
+function pillDragSensitivity() {
+  // Map the full Z range across the pill's on-screen track width so the pill
+  // tracks the finger/cursor 1:1. On mobile the track is ~90% of viewport width.
+  const isMobile = window.innerWidth <= 640;
+  const trackW = isMobile ? window.innerWidth * 0.9 : window.innerWidth;
+  return MAX_Z() / trackW;
+}
 
 function pointInPillRect(x, y) {
   if (!yearPillRect) return false;
@@ -1160,6 +1190,29 @@ window.addEventListener('mousemove', e => {
   document.body.style.cursor = pointInPillRect(e.clientX, e.clientY) ? 'grab' : '';
 });
 window.addEventListener('mouseup', endPillDrag);
+
+// touch equivalents for the pill drag (mobile) — use a padded hit area so the
+// small pill is easy to grab with a finger
+function pointNearPill(x, y, pad){
+  if(!yearPillRect) return false;
+  const { x:rx, y:ry, w, h } = yearPillRect;
+  return x >= rx-pad && x <= rx+w+pad && y >= ry-pad && y <= ry+h+pad;
+}
+window.addEventListener('touchstart', e => {
+  if(e.touches.length!==1) return;
+  const t = e.touches[0];
+  if(pointNearPill(t.clientX, t.clientY, 28)){
+    startPillDrag(t.clientX, t.clientY);
+    // don't preventDefault on passive listener; handled in touchmove
+  }
+}, { passive:true });
+window.addEventListener('touchmove', e => {
+  if(!draggingPill) return;
+  e.preventDefault();               // stop the page/scroll handler
+  movePillDrag(e.touches[0].clientX);
+}, { passive:false });
+window.addEventListener('touchend', () => { if(draggingPill) endPillDrag(); });
+window.addEventListener('touchcancel', () => { if(draggingPill) endPillDrag(); });
 
 // ─── animation loop ───────────────────────────────────────────────────────────
 
@@ -1547,9 +1600,67 @@ function closeModal(){
   setTimeout(()=>{ t.style.display='none'; },400);
   DOM.hud.style.opacity='1';
   DOM.hud.style.pointerEvents='';
+  const lens=document.getElementById('magLens');
+  if(lens) lens.style.display='none';
 }
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// ─── magnifier lens on the art detail image (desktop hover only) ───────────────
+(function(){
+  const LENS = 220;      // lens diameter (matches CSS)
+  const ZOOM = 2.4;      // magnification factor
+  const canHover = window.matchMedia('(hover:hover)').matches && window.innerWidth > 640;
+  let lensEl, imgEl;
+
+  function ensureEls(){
+    lensEl = lensEl || document.getElementById('magLens');
+    imgEl  = document.getElementById('tkImg');
+    return lensEl && imgEl;
+  }
+
+  function onMove(e){
+    if(!canHover || !ensureEls()) return;
+    const img = imgEl;
+    if(img.style.display === 'none' || !img.src){ lensEl.style.display='none'; return; }
+
+    const r = img.getBoundingClientRect();
+    const x = e.clientX, y = e.clientY;
+
+    // only show lens when cursor is over the actual rendered image box
+    if(x < r.left || x > r.right || y < r.top || y > r.bottom){
+      lensEl.style.display = 'none';
+      return;
+    }
+
+    // position within the image (0..1)
+    const px = (x - r.left) / r.width;
+    const py = (y - r.top)  / r.height;
+
+    // background sized to the zoomed image, offset so the point under the
+    // cursor appears at the lens centre
+    const bgW = r.width  * ZOOM;
+    const bgH = r.height * ZOOM;
+    const bgX = -(px * bgW - LENS/2);
+    const bgY = -(py * bgH - LENS/2);
+
+    lensEl.style.display = 'block';
+    lensEl.style.left = x + 'px';
+    lensEl.style.top  = y + 'px';
+    lensEl.style.backgroundImage = `url("${img.src}")`;
+    lensEl.style.backgroundSize  = `${bgW}px ${bgH}px`;
+    lensEl.style.backgroundPosition = `${bgX}px ${bgY}px`;
+  }
+
+  function hide(){ if(lensEl) lensEl.style.display='none'; }
+
+  window.addEventListener('mousemove', onMove);
+  // hide lens when modal closes or mouse leaves the image
+  window.addEventListener('mouseout', e => {
+    if(!ensureEls()) return;
+    if(e.target === imgEl) hide();
+  });
+})();
 
 async function loadArtData(){
   try{
